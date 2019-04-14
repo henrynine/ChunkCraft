@@ -3,6 +3,7 @@ open Blocks
 open Display
 open ANSITerminal
 open Control
+open Unix
 
 let player : State.player = {
   color = ANSITerminal.black;
@@ -126,6 +127,7 @@ let map : State.map = {
 }
 
 let _ =
+  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with c_icanon = false};
   ANSITerminal.erase ANSITerminal.Screen;
   Display.print_current_chunk map;
   let rec main_loop map =

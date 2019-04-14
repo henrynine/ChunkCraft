@@ -3,6 +3,7 @@ open Blocks
 open Display
 open ANSITerminal
 open Control
+open Unix
 
 let player : State.player = {
   color = ANSITerminal.black;
@@ -126,7 +127,11 @@ let map : State.map = {
 }
 
 let _ =
+  (* Set stdin to not wait for a newline to read input *)
+  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with c_icanon = false};
+  (* Clear the screen *)
   ANSITerminal.erase ANSITerminal.Screen;
+  (* Print out the starting chunk *)
   Display.print_current_chunk map;
   let rec main_loop map =
     let c = input_char Pervasives.stdin in

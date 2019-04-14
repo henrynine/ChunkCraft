@@ -59,7 +59,6 @@ let move_player m c : map =
     in
   (* Grab the current chunk object *)
   let current_chunk = List.nth (List.nth m.chunks player_chunk_y) player_chunk_x in
-  Printf.eprintf "Line 62";
   (* Calculate the coordinates of the new chunk on the chunk grid.
      Also, if the player moves chunks, then change their coords correspondingly.
      *)
@@ -79,9 +78,7 @@ let move_player m c : map =
   else
   (* Set the new chunk *)
   let new_chunk = List.nth (List.nth m.chunks new_chunk_y) new_chunk_x in
-  Printf.eprintf "Line 82";
   let next_block = List.nth (List.nth new_chunk.blocks final_coords_y) final_coords_x in
-  Printf.eprintf "Line 84";
   if Blocks.get_block_ground next_block then
   {m with player = {m.player with coords = (final_coords_x, final_coords_y); chunk_coords = (new_chunk_x, new_chunk_y)}}
   else m
