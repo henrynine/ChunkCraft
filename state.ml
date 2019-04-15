@@ -1,21 +1,45 @@
 open ANSITerminal
 open Blocks
+open Item
+
+(* Types *)
 
 type chunk = {
   blocks : Blocks.block list list;
   coords : int * int
 }
 
+type inventory = {
+  sets : (Item.item * int) list;
+  max_size : int
+}
+
 type player = {
   color : ANSITerminal.style;
   coords : int * int;
   chunk_coords : int * int;
-  character : char
+  character : char;
+  inv : inventory
 }
 
 type map = {
   chunks : chunk list list;
   player : player
+}
+
+(* End Types *)
+
+
+(* Constants *)
+let inventory_max_size () = 10
+(* End Constants *)
+
+
+(* Helpers *)
+
+let empty_inventory () = {
+  sets = [];
+  max_size = inventory_max_size ()
 }
 
 let get_player_chunk_coords m = m.player.chunk_coords
@@ -30,11 +54,65 @@ let get_player_color m = m.player.color
 
 let get_player_character m = m.player.character
 
+let get_player_inventory m = m.player.inv
+
 let get_chunk_size c = (List.length (List.hd c.blocks)), (List.length c.blocks)
 
 let get_chunk_size_x c = get_chunk_size c |> fst
 
 let get_chunk_size_y c = get_chunk_size c |> snd
+
+let get_inventory_max_size i = i.max_size
+
+let get_inventory_size i = List.length (i.sets)
+
+let item_in_inventory i p = List.fold_left (fun acc s -> (Item.get_item_name i) = (Item.get_item_name (fst s)) || acc) false p.inv.sets
+
+let get_inventory_sets i = i.sets
+
+(* Assumes all chunks are the same height *)
+let get_chunk_height m = (List.length (List.hd m.chunks))
+
+(* End Helpers *)
+
+(* player with item added to inventory or incremented, depending on which
+   is appropriate *)
+let add_to_inventory (i : Item.item) (p : player) : player =
+  (* check if there is room in the player's inventory *)
+  if (get_inventory_size p.inv) >= (get_inventory_max_size p.inv)
+  then failwith "Inventory is full"
+  else
+  (* Add item to inventory if it is not already present, otherwise increment
+     that item's count *)
+  if item_in_inventory i p then
+  (* Item isn't present yet, add it with a count of 1 *)
+  {p with
+    inv = {p.inv with
+             sets = ((i, 1)::(p.inv.sets))}
+  } else
+  (* Item is already present, increment the count in the player's inventory *)
+  {p with
+    inv = {p.inv with sets = (List.map (fun (n, c) -> if ((Item.get_item_name n) = (Item.get_item_name i)) then (n, c+1) else (n, c)) (p.inv.sets))}
+  }
+
+(* Player with: decrement count of item in player's inventory, if the count is then zero,
+   remove it from the item *)
+let remove_from_inventory (i: Item.item) (p:player) =
+  if item_in_inventory i p then
+  (* increment count*)
+  {p with
+     inv = {p.inv with sets =
+       ((List.map (fun (n, c) -> if (Item.get_item_name n = Item.get_item_name i) then
+        (n, c - 1) else (n, c))
+        p.inv.sets) |> List.filter (fun (n, c) -> c > 0))
+     }
+   }
+   else
+   (* if count of an item is zero, throw an error – there is nothing to
+       remove *)
+    failwith ("That item isn't in that character's inventory")
+
+
 
 let move_player m c : map =
   let (player_x, player_y) = m.player.coords in
@@ -73,8 +151,8 @@ let move_player m c : map =
     end
     in
   (* Check if the new chunk coordinates are valid *)
-  if new_chunk_x < 0 || new_chunk_x > (List.length (List.hd m.chunks)) then m
-  else if new_chunk_y < 0 || new_chunk_y > (List.length m.chunks) then m
+  if new_chunk_x < 0 || new_chunk_x >= (List.length (List.hd m.chunks)) then m
+  else if new_chunk_y < 0 || new_chunk_y >= (List.length m.chunks) then m
   else
   (* Set the new chunk *)
   let new_chunk = List.nth (List.nth m.chunks new_chunk_y) new_chunk_x in

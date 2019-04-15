@@ -4,12 +4,16 @@ open Display
 open ANSITerminal
 open Control
 open Unix
+open Item
 
 let player : State.player = {
   color = ANSITerminal.black;
   coords = 0, 0;
   chunk_coords = 0, 0;
   character = 'i';
+  inv = {
+    sets = [(Item.wood_plank, 10)];
+    max_size = State.inventory_max_size()}
 }
 
 let map : State.map = {

@@ -18,7 +18,7 @@ test:
 	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST)
 
 play:
-	$(OCAMLBUILD) $(MAIN) && ./$(MAIN)
+	$(OCAMLBUILD) $(MAIN) && ./$(MAIN) 2> /tmp/a.txt
 
 clean:
 	ocamlbuild -clean
