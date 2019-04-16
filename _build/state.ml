@@ -1,6 +1,6 @@
 open ANSITerminal
 open Blocks
-open Items
+open Item
 
 (* Types *)
 
