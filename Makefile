@@ -1,6 +1,6 @@
 # Acknowledgement: this Makefile is heavily based on the provided Makefile for
 #                  A2
-MODULES=state blocks display main control
+MODULES=state blocks display main control items
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES:=.ml)
 MLIS=$(MODULES:=.mli)

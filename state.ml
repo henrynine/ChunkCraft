@@ -10,7 +10,7 @@ type chunk = {
 }
 
 type inventory = {
-  sets : (Item.item * int) list;
+  sets : (Items.item * int) list;
   max_size : int
 }
 
@@ -24,7 +24,8 @@ type player = {
 
 type map = {
   chunks : chunk list list;
-  player : player
+  player : player;
+  mining : bool
 }
 
 (* End Types *)
@@ -44,11 +45,18 @@ let empty_inventory () = {
 
 let get_player_chunk_coords m = m.player.chunk_coords
 
+let get_current_chunk m =
+  let x, y = get_player_chunk_coords m in
+  List.nth (List.nth m.chunks y) x
+
 let get_player_coords m = m.player.coords
 
 let get_chunks m = m.chunks
 
 let get_blocks c = c.blocks
+
+let get_block_in_chunk m chunk block_x block_y =
+  List.nth (List.nth (get_blocks chunk) block_y) block_x
 
 let get_player_color m = m.player.color
 
@@ -66,9 +74,28 @@ let get_inventory_max_size i = i.max_size
 
 let get_inventory_size i = List.length (i.sets)
 
-let item_in_inventory i p = List.fold_left (fun acc s -> (Item.get_item_name i) = (Item.get_item_name (fst s)) || acc) false p.inv.sets
+let item_in_inventory i p = List.fold_left (fun acc s -> (Items.get_item_name i) = (Items.get_item_name (fst s)) || acc) false p.inv.sets
+
+let count_of_item_in_inv i p =
+  let i' = List.find_opt (fun (i', c) -> Items.get_item_name i = Items.get_item_name i') p.inv.sets in
+  match i' with
+  | None -> 0
+  | Some s -> snd s
 
 let get_inventory_sets i = i.sets
+
+let in_mining_mode m = m.mining
+
+let inventory_is_full p = (get_inventory_size p.inv) = (get_inventory_max_size p.inv)
+
+(* return the chunk in m at c_x c_y with nb at x y in that chunk*)
+let replace_block_in_chunk m nb c_x c_y x y =
+  let chunk = List.nth (List.nth m.chunks c_y) c_x in
+  {chunk with blocks = List.mapi (fun i row -> if i = y then (List.mapi (fun i' b -> if i' = x then nb else b) row) else row) chunk.blocks}
+
+(* return m.chunks with the chunk at x, y replaced with new_chunk *)
+let replace_chunk_in_chunks m new_chunk x y =
+  List.mapi (fun i row -> if i = y then (List.mapi (fun i' c -> if i' = x then new_chunk else c) row) else row) m.chunks
 
 (* Assumes all chunks are the same height *)
 let get_chunk_height m = (List.length (List.hd m.chunks))
@@ -77,44 +104,48 @@ let get_chunk_height m = (List.length (List.hd m.chunks))
 
 (* player with item added to inventory or incremented, depending on which
    is appropriate *)
-let add_to_inventory (i : Item.item) (p : player) : player =
+let add_to_inventory (i : Items.item) (p : player) : player =
   (* check if there is room in the player's inventory *)
   if (get_inventory_size p.inv) >= (get_inventory_max_size p.inv)
   then failwith "Inventory is full"
   else
-  (* Add item to inventory if it is not already present, otherwise increment
-     that item's count *)
-  if item_in_inventory i p then
-  (* Item isn't present yet, add it with a count of 1 *)
   {p with
     inv = {p.inv with
-             sets = ((i, 1)::(p.inv.sets))}
-  } else
-  (* Item is already present, increment the count in the player's inventory *)
+             sets = Items.add_to_set_list i p.inv.sets}
+  }
+
+let add_to_inventory_multiple (i : Items.item) (c : int) (p : player) : player =
+  if (get_inventory_size p.inv) >= (get_inventory_max_size p.inv)
+  then failwith "Inventory is full"
+  else
   {p with
-    inv = {p.inv with sets = (List.map (fun (n, c) -> if ((Item.get_item_name n) = (Item.get_item_name i)) then (n, c+1) else (n, c)) (p.inv.sets))}
+    inv = {p.inv with
+             sets = Items.add_to_set_list_multiple i c p.inv.sets}
   }
 
 (* Player with: decrement count of item in player's inventory, if the count is then zero,
    remove it from the item *)
-let remove_from_inventory (i: Item.item) (p:player) =
+let remove_from_inventory (i: Items.item) (p:player) =
   if item_in_inventory i p then
-  (* increment count*)
   {p with
-     inv = {p.inv with sets =
-       ((List.map (fun (n, c) -> if (Item.get_item_name n = Item.get_item_name i) then
-        (n, c - 1) else (n, c))
-        p.inv.sets) |> List.filter (fun (n, c) -> c > 0))
-     }
-   }
-   else
-   (* if count of an item is zero, throw an error – there is nothing to
-       remove *)
-    failwith ("That item isn't in that character's inventory")
+    inv = {p.inv with
+      sets = Items.remove_from_set_list i p.inv.sets
+    }
+  }
+  else
+  failwith ("That item isn't in that character's inventory")
 
+let remove_from_inventory (i: Items.item) (c : int) (p:player) =
+  if item_in_inventory i p then
+  {p with
+    inv = {p.inv with
+      sets = Items.remove_from_set_list_multiple i c p.inv.sets
+    }
+  }
+  else
+  failwith ("That item isn't in that character's inventory")
 
-
-let move_player m c : map =
+let get_new_coords m c =
   let (player_x, player_y) = m.player.coords in
   let (player_chunk_x, player_chunk_y) = m.player.chunk_coords in
   let move_tuple =
@@ -127,7 +158,7 @@ let move_player m c : map =
         | _ -> (0 , 0)
     end
     in
-  (* Calculate the coorinates of the move if it is in the same chunk as before *)
+  (* Calculate the coordinates of the move if it is in the same chunk as before *)
   let (new_coords_x, new_coords_y) =
     begin
       match move_tuple with
@@ -140,23 +171,46 @@ let move_player m c : map =
   (* Calculate the coordinates of the new chunk on the chunk grid.
      Also, if the player moves chunks, then change their coords correspondingly.
      *)
-  let ((new_chunk_x, new_chunk_y), (final_coords_x, final_coords_y)) =
-    begin
-      match (new_coords_x, new_coords_y) with
-        | x, y when x >= get_chunk_size_x current_chunk -> (player_chunk_x + 1, player_chunk_y), (0, y)
-        | x, y when y >= get_chunk_size_y current_chunk -> (player_chunk_x, player_chunk_y + 1), (x, 0)
-        | x, y when x < 0 -> (player_chunk_x - 1, player_chunk_y), ((get_chunk_size_x current_chunk) - 1 , y)
-        | x, y when y < 0 -> (player_chunk_x, player_chunk_y - 1), (x, (get_chunk_size_y current_chunk) - 1)
-        | x, y -> (player_chunk_x , player_chunk_y), (x, y)
-    end
-    in
+  match (new_coords_x, new_coords_y) with
+    | x, y when x >= get_chunk_size_x current_chunk -> (player_chunk_x + 1, player_chunk_y), (0, y)
+    | x, y when y >= get_chunk_size_y current_chunk -> (player_chunk_x, player_chunk_y + 1), (x, 0)
+    | x, y when x < 0 -> (player_chunk_x - 1, player_chunk_y), ((get_chunk_size_x current_chunk) - 1 , y)
+    | x, y when y < 0 -> (player_chunk_x, player_chunk_y - 1), (x, (get_chunk_size_y current_chunk) - 1)
+    | x, y -> (player_chunk_x , player_chunk_y), (x, y)
+
+let move_player m c : map =
   (* Check if the new chunk coordinates are valid *)
+  let ((new_chunk_x, new_chunk_y), (final_coords_x, final_coords_y)) = get_new_coords m c in
   if new_chunk_x < 0 || new_chunk_x >= (List.length (List.hd m.chunks)) then m
   else if new_chunk_y < 0 || new_chunk_y >= (List.length m.chunks) then m
   else
   (* Set the new chunk *)
   let new_chunk = List.nth (List.nth m.chunks new_chunk_y) new_chunk_x in
-  let next_block = List.nth (List.nth new_chunk.blocks final_coords_y) final_coords_x in
+  let next_block = get_block_in_chunk m new_chunk final_coords_x final_coords_y in
   if Blocks.get_block_ground next_block then
-  {m with player = {m.player with coords = (final_coords_x, final_coords_y); chunk_coords = (new_chunk_x, new_chunk_y)}}
+    if Blocks.count_sets_in_block next_block > 0 then
+      (* Item is ground and contains an item/items to be picked up *)
+      (* TODO abstract out m coord changes *)
+      (* Pick up all the items *)
+      let rec loop nb p =
+        if (Blocks.count_sets_in_block nb) = 0 || (inventory_is_full p) then
+          {m with
+              player = {p with
+                coords = (final_coords_x, final_coords_y);
+                chunk_coords = (new_chunk_x, new_chunk_y)};
+              chunks = replace_chunk_in_chunks m (replace_block_in_chunk m nb new_chunk_x new_chunk_y final_coords_x final_coords_y) new_chunk_x new_chunk_y}
+        else let new_block, picked_up_item = Blocks.take_first_item nb in
+        let new_player = add_to_inventory picked_up_item p in
+        loop new_block new_player in
+      loop next_block m.player
+    else {m with player = {m.player with coords = (final_coords_x, final_coords_y); chunk_coords = (new_chunk_x, new_chunk_y)}}
   else m
+
+let mine m command : map = failwith "unimplemented"
+  (* let ((new_chunk_x, new_chunk_y), (final_coords_x, final_coords_y)) = get_new_coords m command in
+  if new_chunk_x <> (fst get_player_chunk_coords m) || new_chunk_y <> (snd get_player_chunk_coords m)
+    then m (* And also print you can't mine left/right/up/down *)
+    else
+    let block_to_mine = get_block_in_chunk m (get_current_chunk m) block_x block_y in
+    if (not block_to_mine.ground)
+      then  *)

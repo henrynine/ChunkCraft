@@ -1,6 +1,6 @@
 open ANSITerminal
 open Blocks
-open Item
+open Items
 
 type chunk = {
   blocks : Blocks.block list list;
@@ -8,7 +8,7 @@ type chunk = {
 }
 
 type inventory = {
-  sets : (Item.item * int) list;
+  sets : (Items.item * int) list;
   max_size : int
 }
 
@@ -22,7 +22,8 @@ type player = {
 
 type map = {
   chunks : chunk list list;
-  player : player
+  player : player;
+  mining : bool
 }
 
 val inventory_max_size : unit -> int
@@ -55,6 +56,30 @@ val get_inventory_max_size : inventory -> int
 
 val get_inventory_size : inventory -> int
 
-val item_in_inventory : Item.item -> player -> bool
+val item_in_inventory : Items.item -> player -> bool
 
-val get_inventory_sets : inventory -> (Item.item * int) list
+val count_of_item_in_inv : Items.item -> player -> int
+
+val get_inventory_sets : inventory -> (Items.item * int) list
+
+val in_mining_mode : map -> bool
+
+val inventory_is_full : player -> bool
+
+val get_chunk_height : map -> int
+
+val add_to_inventory : Items.item -> player -> player
+
+val add_to_inventory_multiple : Items.item -> int -> player -> player
+
+val remove_from_inventory : Items.item -> player -> player
+
+val remove_from_inventory : Items.item -> int -> player -> player
+
+val get_block_in_chunk : map -> chunk -> int -> int -> block
+
+val get_current_chunk : map -> chunk
+
+val replace_chunk_in_chunks : map -> chunk -> int -> int -> chunk list list
+
+val replace_block_in_chunk : map -> block -> int -> int -> int -> int -> chunk

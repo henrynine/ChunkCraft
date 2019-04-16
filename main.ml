@@ -4,7 +4,7 @@ open Display
 open ANSITerminal
 open Control
 open Unix
-open Item
+open Items
 
 let player : State.player = {
   color = ANSITerminal.black;
@@ -12,7 +12,7 @@ let player : State.player = {
   chunk_coords = 0, 0;
   character = 'i';
   inv = {
-    sets = [(Item.wood_plank, 10)];
+    sets = [];
     max_size = State.inventory_max_size()}
 }
 
@@ -26,7 +26,7 @@ let map : State.map = {
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
-    [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+    [Blocks.grass; Blocks.grass; Blocks.grass; {Blocks.grass with sets = Items.add_to_set_list Items.log (Items.add_to_set_list Items.log Blocks.grass.sets)}; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
@@ -101,7 +101,7 @@ let map : State.map = {
   };
   {
     blocks = [
-    [Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree;];
+    [Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
@@ -128,6 +128,7 @@ let map : State.map = {
   }
   ]];
   player = player;
+  mining = false;
 }
 
 let _ =

@@ -4,7 +4,7 @@ type item = {
 }
 
 let wood_plank : item = {
-  name = "wood_plank";
+  name = "wood plank";
   stackable = true
 }
 
