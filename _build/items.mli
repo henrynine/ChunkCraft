@@ -8,6 +8,10 @@ type item = {
 val log : item
 val wood_plank : item
 val stick : item
+val wood_pick : item
+val wood_shovel : item
+val wood_sword : item
+val wood_axe : item
 
 val all_items : item list
 

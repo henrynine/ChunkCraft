@@ -29,10 +29,30 @@ let wood_pick : item = {
   recipe = Some ([(wood_plank, 3); (stick, 2)], 1)
 }
 
+let wood_shovel : item = {
+  name = "wood shovel";
+  stackable = false;
+  recipe = Some ([(wood_plank, 1); (stick, 2)], 1)
+}
+let wood_sword : item = {
+  name = "wood sword";
+  stackable = false;
+  recipe = Some ([(wood_plank, 2); (stick, 1)], 1)
+}
+let wood_axe : item = {
+  name = "wood axe";
+  stackable = false;
+  recipe = Some ([(wood_plank, 3); (stick, 2)], 1)
+}
+
 let all_items = [
   log;
   wood_plank;
   stick;
+  wood_pick;
+  wood_shovel;
+  wood_sword;
+  wood_axe;
 ]
 
 let get_item_name i = i.name

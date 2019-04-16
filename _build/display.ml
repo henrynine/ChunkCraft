@@ -43,7 +43,7 @@ let print_current_chunk map =
 let rec print_inv is_dropping inventory_list=
   List.iteri (fun i (item, count) -> print_endline ((if is_dropping then (Char.escaped (Char.chr (97 + i))) ^ " - " else "") ^ (Items.get_item_name item) ^ ": " ^ (string_of_int count))) inventory_list
 
-let show_inventory map =
+let rec show_inventory map =
   (* clear the screen *)
   ANSITerminal.erase ANSITerminal.Screen;
   (* Set the cursor in the bottom left *)
@@ -54,7 +54,7 @@ let show_inventory map =
   (* wait for escape key ('b') -> Unix should already be grabbing keys originally *)
   let c = ref (input_char Pervasives.stdin) in
   (* TODO bug is here – for some reason only the first char in the or works *)
-  while ((!c) <> 'b' || (!c) = 'd') do (* NOTE: !c means the dereference of c; needed for reading mutable variables *)
+  while ((!c) <> 'b' && (!c) <> 'd') do (* NOTE: !c means the dereference of c; needed for reading mutable variables *)
     print_endline ((!c) |> Char.escaped);
     ANSITerminal.move_bol();
     ANSITerminal.erase ANSITerminal.Eol;
@@ -67,6 +67,7 @@ let show_inventory map =
       ANSITerminal.set_cursor 1 1;
       let inventory_list = (State.get_player_inventory map) |> State.get_inventory_sets in
       print_inv true inventory_list;
+      print_endline "Enter the letter next to the items you want to drop.";
       c := (input_char Pervasives.stdin);
       let index_pressed = (Char.code (!c)) - 97 in
       if (index_pressed < List.length inventory_list)
@@ -83,11 +84,14 @@ let show_inventory map =
             {map with player = {map.player with inv = {map.player.inv with sets = new_inventory}}; chunks = (State.replace_chunk_in_chunks map new_chunk player_chunk_x player_chunk_y)}
           end
         else
-          (* print_endline "Please enter a valid letter."; *)
-          (* This helps get rid of the weird extraneous 'y' bug *)
           begin
-            ANSITerminal.erase ANSITerminal.Screen;
-            map
+          ANSITerminal.erase ANSITerminal.Screen;
+          ANSITerminal.set_cursor 1 1;
+          print_endline "Please enter a valid letter.\nPress n to continue.";
+          while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+          (* This helps get rid of the weird extraneous 'y' bug *)
+          ANSITerminal.erase ANSITerminal.Screen;
+          show_inventory map
           end
     end
     else
