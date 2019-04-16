@@ -99,8 +99,8 @@ let show_inventory map =
 
 
 
-let rec show_crafting_interface map = failwith "unimplemented"
-  (* ANSITerminal.erase ANSITerminal.Screen;
+let rec show_crafting_interface map =
+  ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.set_cursor 1 1;
   print_inv false ((State.get_player_inventory map) |> State.get_inventory_sets);
   print_endline "Enter what you want to craft or b to exit: ";
@@ -116,34 +116,48 @@ let rec show_crafting_interface map = failwith "unimplemented"
   match desired_item with
   | None ->
       begin
-      print_endline "That is not an item you can craft. Press n to continue";
+      print_endline "That is not an item you can craft.\nPress n to continue.";
       while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
       show_crafting_interface map
       end
   | Some i ->
     begin
-    match Items.get_recipe i with
+    match Items.get_full_recipe i with
     | None ->
         begin
-        print_endline "That is not an item you can craft. Press n to continue";
+        print_endline "That is not an item you can craft.\nPress n to continue.";
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
         show_crafting_interface map
         end
     | Some (recipe, output_count) -> (* check if player has r in inventory, if they don't, say that, otherwise craft it *)
       begin
+        (* print_endline "Found a recipe. Press n to continue"; *)
+        (* List.iter (fun (i', c) -> print_endline ((Items.get_item_name i') ^ ": " ^ (string_of_int c))) recipe; *)
+        (* while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done; *)
         let player_has_enough_items = List.fold_left (fun acc (i', c) ->
-        (if c >= Item.get_count_in_set_list i' recipe then true else false) && acc
-        (* if c >= count of same item as i in recipe, then true, if i' is not in recipe then true, otherwise false *)) true (State.get_player_inventory m) in
+        (c <= Items.get_count_in_set_list i' ((State.get_player_inventory map) |> State.get_inventory_sets)) && acc
+        (* if c <= count of same item as i' in player's inventory, then true, if i' is not in recipe then true, otherwise false *)) true recipe in
+        (* print_endline ("player_has_enough_items: " ^ (string_of_bool player_has_enough_items) ^ ". Press n to continue");
+        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done; *)
         if not player_has_enough_items then
         begin
-        print_endline "You don't have enough of the required materials to craft that."; (* TODO tell the player how many more of each item they need *)
+        print_endline "You don't have enough of the required materials to craft that.\nPress n to continue."; (* TODO tell the player how many more of each item they need *)
+        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
         show_crafting_interface map
         end
         else
+        begin
+        if output_count = 1 then
+        print_endline ("You crafted a " ^ desired_item_name ^ ".\nPress n to continue.")
+        else
+        print_endline ("You crafted " ^ (string_of_int output_count) ^ " " ^ desired_item_name ^ "s.\nPress n to continue.");
+        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
         (* remove the recipe items from player inventory, add the crafted item to their inventory *)
-        failwith "you crafted that successfully"
-        (* {map with
-          player = } *)
+        (* failwith "you crafted that successfully" *)
+        ANSITerminal.erase ANSITerminal.Screen;
+        {map with player = {map.player with inv = {map.player.inv with sets =
+          (List.fold_left (fun acc (i', c) -> Items.remove_from_set_list_multiple i' c acc) map.player.inv.sets recipe)
+          |> Items.add_to_set_list_multiple i output_count}}}
+        end
       end
-    end;
-  map *)
+    end

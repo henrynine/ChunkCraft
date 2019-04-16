@@ -47,6 +47,15 @@ ocamlfind ocamldep -package ANSITerminal -modules state.ml > state.ml.depends # 
 ocamlfind ocamlc -c -package ANSITerminal -o state.cmo state.ml # cached
 # Target: display.cmo, tags: { package(ANSITerminal), byte, compile, extension:cmo, extension:ml, file:display.cmo, file:display.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package ANSITerminal -o display.cmo display.ml
++ ocamlfind ocamlc -c -package ANSITerminal -o display.cmo display.ml
+File "display.ml", line 120, characters 65-68:
+Warning 10: this expression should have type unit.
+File "display.ml", line 129, characters 67-70:
+Warning 10: this expression should have type unit.
+File "display.ml", line 145, characters 67-70:
+Warning 10: this expression should have type unit.
+File "display.ml", line 154, characters 67-70:
+Warning 10: this expression should have type unit.
 # Target: main.byte, tags: { package(ANSITerminal), byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet, traverse }
 ocamlfind ocamlc -linkpkg -package ANSITerminal items.cmo blocks.cmo state.cmo display.cmo control.cmo main.cmo -o main.byte
 # Compilation successful.

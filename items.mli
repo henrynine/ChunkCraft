@@ -15,7 +15,7 @@ val get_item_name : item -> string
 
 val get_item_stackable : item -> bool
 
-val get_recipe : item -> (item * int) list option
+val get_full_recipe : item -> ((item * int) list * int) option
 
 val get_craft_count : item -> int option
 

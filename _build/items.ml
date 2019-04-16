@@ -20,7 +20,7 @@ let wood_plank : item = {
 let stick : item = {
   name = "stick";
   stackable = true;
-  recipe = Some ([(wood_plank, 1)], 4)
+  recipe = Some ([(wood_plank, 2)], 4)
 }
 
 let all_items = [
@@ -33,10 +33,10 @@ let get_item_name i = i.name
 
 let get_item_stackable i = i.stackable
 
-let get_recipe i =
+let get_full_recipe i =
   match i.recipe with
   | None -> None
-  | Some (r, _) -> Some r
+  | Some r -> Some r
 
 let get_craft_count i =
   match i.recipe with
