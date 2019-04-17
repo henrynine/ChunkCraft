@@ -29,7 +29,7 @@ type map = {
 
 val inventory_max_size : unit -> int
 
-val empty_inventory : unit -> inventory
+val empty_inventory : inventory
 
 val get_player_chunk_coords : map -> int * int
 

@@ -447,6 +447,7 @@ let first_block = (List.nth (List.nth first_chunk.blocks 0) 0)
 let first_block_with_log = Blocks.add_item_to_block Items.log first_block
 let first_block_with_2_items = Blocks.add_item_to_block Items.wood_sword first_block_with_log
 let first_block_with_sword = Blocks.add_item_to_block Items.wood_sword first_block
+let tree_block = (List.nth (List.nth first_chunk.blocks 8) 3)
 
 let all_tests = "State tests" >::: [
 
@@ -466,6 +467,12 @@ let all_tests = "State tests" >::: [
 "test get_inventory_max_size" >:: (fun _ -> assert_equal (State.get_inventory_max_size inventory1) (10));
 "test get_inventory_size" >:: (fun _ -> assert_equal (State.get_inventory_size inventory_with_3_wood_planks) (1));
 "test item_in_inventory" >:: (fun _ -> assert_equal (State.item_in_inventory Items.wood_plank player_with_wood_plank) (true));
+"test item_in_inventory on non-present item" >:: (fun _ -> assert_equal (State.item_in_inventory Items.wood_pick player_with_wood_plank) false);
+"test count_of_item_in_inv" >:: (fun _ -> assert_equal (State.count_of_item_in_inv Items.wood_plank player_with_wood_plank) 3);
+"test count_of_item_in_inv on non-present item" >:: (fun _ -> assert_equal (State.count_of_item_in_inv Items.wood_pick player_with_wood_plank) 0);
+"test in_mining_mode" >:: (fun _ -> assert_equal (State.in_mining_mode map) false);
+"test inventory_is_full" >:: (fun _ -> assert_equal (State.inventory_is_full player_with_wood_plank) false);
+"test inventory_is_full_map" >:: (fun _ -> assert_equal (State.inventory_is_full_map map) false);
 
 (* Blocks testing*)
 
@@ -478,7 +485,16 @@ let all_tests = "State tests" >::: [
 "test remove_item_from_block" >:: (fun _ -> assert_equal (first_block) (Blocks.remove_item_from_block Items.log first_block_with_log));
 "test count_sets_in_block" >:: (fun _ -> assert_equal (1) (Blocks.count_sets_in_block first_block_with_log));
 "test sets_in_block" >:: (fun _ -> assert_equal (Blocks.sets_in_block first_block_with_log) ([(Items.log, 1)]));
-"test take_first_item" >:: (fun _ -> assert_equal (Blocks.take_first_item first_block_with_2_items) ((first_block_with_log, Items.wood_sword)))
+"test take_first_item" >:: (fun _ -> assert_equal (Blocks.take_first_item first_block_with_2_items) ((first_block_with_log, Items.wood_sword)));
+"test add_item_to_block_fail" >::
+    (fun _ -> assert_raises (Failure "Block is full")
+        (fun () -> Blocks.add_item_to_block Items.wood_sword tree_block));
+"test remove_item_from_block_fail" >::
+    (fun _ -> assert_raises (Failure "Block has no items")
+        (fun () -> Blocks.remove_item_from_block Items.wood_sword first_block));
+"test take_first_item_fail" >::
+    (fun _ -> assert_raises (Failure "No items in block")
+        (fun () -> Blocks.take_first_item first_block));
 ]
 
 let _ = run_test_tt_main all_tests

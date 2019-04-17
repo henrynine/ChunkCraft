@@ -22,13 +22,13 @@
         <td valign="top">
           <table class="simple">
             <tr><th>kind</th><th width="16px">&nbsp;</th><th>coverage</th></tr>
-            <tr><td>binding</td><td width="16px">&nbsp;</td><td>15 / 15 (100%)</td></tr>
+            <tr><td>binding</td><td width="16px">&nbsp;</td><td>16 / 16 (100%)</td></tr>
             <tr><td>sequence</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
             <tr><td>for</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
             <tr><td>if/then</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
             <tr><td>try</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
             <tr><td>while</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
-            <tr><td>match/function</td><td width="16px">&nbsp;</td><td>24 / 24 (100%)</td></tr>
+            <tr><td>match/function</td><td width="16px">&nbsp;</td><td>36 / 36 (100%)</td></tr>
           </table>
         </td>
         <td valign="top">
@@ -501,46 +501,78 @@
       <div id="line000447" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000447| let&nbsp;first_block_with_log&nbsp;=&nbsp;(*[1]*)Blocks.add_item_to_block&nbsp;Items.log&nbsp;first_block</div>
       <div id="line000448" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000448| let&nbsp;first_block_with_2_items&nbsp;=&nbsp;(*[1]*)Blocks.add_item_to_block&nbsp;Items.wood_sword&nbsp;first_block_with_log</div>
       <div id="line000449" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000449| let&nbsp;first_block_with_sword&nbsp;=&nbsp;(*[1]*)Blocks.add_item_to_block&nbsp;Items.wood_sword&nbsp;first_block</div>
-      <div id="line000450" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000450| &nbsp;</div>
-      <div id="line000451" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000451| let&nbsp;all_tests&nbsp;=&nbsp;(*[1]*)&quot;State&nbsp;tests&quot;&nbsp;&gt;:::&nbsp;[</div>
-      <div id="line000452" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000452| &nbsp;</div>
-      <div id="line000453" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000453| (*&nbsp;State&nbsp;testing&nbsp;*)</div>
-      <div id="line000454" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000454| &nbsp;</div>
-      <div id="line000455" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000455| &quot;test&nbsp;get_player_chunk_coords&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_chunk_coords&nbsp;map)&nbsp;(0,0));</div>
-      <div id="line000456" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000456| &quot;test&nbsp;get_player_coords&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_coords&nbsp;map)&nbsp;(0,0));</div>
-      <div id="line000457" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000457| &quot;test&nbsp;get_chunks&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunks&nbsp;map)&nbsp;(chunks1));</div>
-      <div id="line000458" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000458| &quot;test&nbsp;get_blocks&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_blocks&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(blocks1));</div>
-      <div id="line000459" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000459| &quot;test&nbsp;get_player_color&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_color&nbsp;map)&nbsp;(ANSITerminal.black));</div>
-      <div id="line000460" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000460| &quot;test&nbsp;get_player_character&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_character&nbsp;map)&nbsp;('i'));</div>
-      <div id="line000461" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000461| &quot;test&nbsp;move_player&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.move_player&nbsp;map&nbsp;'d')&nbsp;(map_post_right_move));</div>
-      <div id="line000462" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000462| &quot;test&nbsp;get_player_inventory&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_inventory&nbsp;map)&nbsp;(inventory1));</div>
-      <div id="line000463" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000463| &quot;test&nbsp;get_chunk_size&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunk_size&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(24,24));</div>
-      <div id="line000464" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000464| &quot;test&nbsp;get_chunk_size_x&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunk_size_x&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(24));</div>
-      <div id="line000465" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000465| &quot;test&nbsp;get_chunk_size_y&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunk_size_y&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(24));</div>
-      <div id="line000466" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000466| &quot;test&nbsp;get_inventory_max_size&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_inventory_max_size&nbsp;inventory1)&nbsp;(10));</div>
-      <div id="line000467" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000467| &quot;test&nbsp;get_inventory_size&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_inventory_size&nbsp;inventory_with_3_wood_planks)&nbsp;(1));</div>
-      <div id="line000468" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000468| &quot;test&nbsp;item_in_inventory&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.item_in_inventory&nbsp;Items.wood_plank&nbsp;player_with_wood_plank)&nbsp;(true));</div>
-      <div id="line000469" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000469| &nbsp;</div>
-      <div id="line000470" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000470| (*&nbsp;Blocks&nbsp;testing*)</div>
-      <div id="line000471" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000471| &nbsp;</div>
-      <div id="line000472" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000472| &quot;test&nbsp;get_block_color&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_color&nbsp;first_block)&nbsp;(ANSITerminal.black));</div>
-      <div id="line000473" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000473| &quot;test&nbsp;get_block_background_color&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_background_color&nbsp;first_block)&nbsp;(ANSITerminal.on_green));</div>
-      <div id="line000474" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000474| &quot;test&nbsp;get_block_character&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_character&nbsp;first_block)&nbsp;('&nbsp;'));</div>
-      <div id="line000475" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000475| &quot;test&nbsp;get_block_ground&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_ground&nbsp;first_block)&nbsp;(true));</div>
-      <div id="line000476" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000476| &quot;test&nbsp;get_block_styles&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_styles&nbsp;first_block)&nbsp;([ANSITerminal.Blink]));</div>
-      <div id="line000477" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000477| &quot;test&nbsp;add_item_to_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(first_block_with_log)&nbsp;(Blocks.add_item_to_block&nbsp;Items.log&nbsp;first_block));</div>
-      <div id="line000478" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000478| &quot;test&nbsp;remove_item_from_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(first_block)&nbsp;(Blocks.remove_item_from_block&nbsp;Items.log&nbsp;first_block_with_log));</div>
-      <div id="line000479" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000479| &quot;test&nbsp;count_sets_in_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(1)&nbsp;(Blocks.count_sets_in_block&nbsp;first_block_with_log));</div>
-      <div id="line000480" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000480| &quot;test&nbsp;sets_in_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.sets_in_block&nbsp;first_block_with_log)&nbsp;([(Items.log,&nbsp;1)]));</div>
-      <div id="line000481" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000481| &quot;test&nbsp;take_first_item&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.take_first_item&nbsp;first_block_with_2_items)&nbsp;((first_block_with_log,&nbsp;Items.wood_sword)))</div>
-      <div id="line000482" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000482| ]</div>
-      <div id="line000483" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000483| &nbsp;</div>
-      <div id="line000484" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000484| let&nbsp;_&nbsp;=&nbsp;(*[1]*)run_test_tt_main&nbsp;all_tests</div>
+      <div id="line000450" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000450| let&nbsp;tree_block&nbsp;=&nbsp;((*[1]*)List.nth&nbsp;(List.nth&nbsp;first_chunk.blocks&nbsp;8)&nbsp;3)</div>
+      <div id="line000451" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000451| &nbsp;</div>
+      <div id="line000452" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000452| let&nbsp;all_tests&nbsp;=&nbsp;(*[1]*)&quot;State&nbsp;tests&quot;&nbsp;&gt;:::&nbsp;[</div>
+      <div id="line000453" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000453| &nbsp;</div>
+      <div id="line000454" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000454| (*&nbsp;State&nbsp;testing&nbsp;*)</div>
+      <div id="line000455" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000455| &nbsp;</div>
+      <div id="line000456" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000456| &quot;test&nbsp;get_player_chunk_coords&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_chunk_coords&nbsp;map)&nbsp;(0,0));</div>
+      <div id="line000457" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000457| &quot;test&nbsp;get_player_coords&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_coords&nbsp;map)&nbsp;(0,0));</div>
+      <div id="line000458" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000458| &quot;test&nbsp;get_chunks&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunks&nbsp;map)&nbsp;(chunks1));</div>
+      <div id="line000459" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000459| &quot;test&nbsp;get_blocks&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_blocks&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(blocks1));</div>
+      <div id="line000460" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000460| &quot;test&nbsp;get_player_color&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_color&nbsp;map)&nbsp;(ANSITerminal.black));</div>
+      <div id="line000461" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000461| &quot;test&nbsp;get_player_character&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_character&nbsp;map)&nbsp;('i'));</div>
+      <div id="line000462" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000462| &quot;test&nbsp;move_player&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.move_player&nbsp;map&nbsp;'d')&nbsp;(map_post_right_move));</div>
+      <div id="line000463" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000463| &quot;test&nbsp;get_player_inventory&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_player_inventory&nbsp;map)&nbsp;(inventory1));</div>
+      <div id="line000464" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000464| &quot;test&nbsp;get_chunk_size&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunk_size&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(24,24));</div>
+      <div id="line000465" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000465| &quot;test&nbsp;get_chunk_size_x&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunk_size_x&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(24));</div>
+      <div id="line000466" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000466| &quot;test&nbsp;get_chunk_size_y&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_chunk_size_y&nbsp;(List.nth&nbsp;(List.nth&nbsp;(State.get_chunks&nbsp;map)&nbsp;0)&nbsp;0))&nbsp;(24));</div>
+      <div id="line000467" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000467| &quot;test&nbsp;get_inventory_max_size&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_inventory_max_size&nbsp;inventory1)&nbsp;(10));</div>
+      <div id="line000468" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000468| &quot;test&nbsp;get_inventory_size&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.get_inventory_size&nbsp;inventory_with_3_wood_planks)&nbsp;(1));</div>
+      <div id="line000469" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000469| &quot;test&nbsp;item_in_inventory&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.item_in_inventory&nbsp;Items.wood_plank&nbsp;player_with_wood_plank)&nbsp;(true));</div>
+      <div id="line000470" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000470| &quot;test&nbsp;item_in_inventory&nbsp;on&nbsp;non-present&nbsp;item&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.item_in_inventory&nbsp;Items.wood_pick&nbsp;player_with_wood_plank)&nbsp;false);</div>
+      <div id="line000471" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000471| &quot;test&nbsp;count_of_item_in_inv&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.count_of_item_in_inv&nbsp;Items.wood_plank&nbsp;player_with_wood_plank)&nbsp;3);</div>
+      <div id="line000472" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000472| &quot;test&nbsp;count_of_item_in_inv&nbsp;on&nbsp;non-present&nbsp;item&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.count_of_item_in_inv&nbsp;Items.wood_pick&nbsp;player_with_wood_plank)&nbsp;0);</div>
+      <div id="line000473" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000473| &quot;test&nbsp;in_mining_mode&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.in_mining_mode&nbsp;map)&nbsp;false);</div>
+      <div id="line000474" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000474| &quot;test&nbsp;inventory_is_full&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.inventory_is_full&nbsp;player_with_wood_plank)&nbsp;false);</div>
+      <div id="line000475" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000475| &quot;test&nbsp;inventory_is_full_map&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(State.inventory_is_full_map&nbsp;map)&nbsp;false);</div>
+      <div id="line000476" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000476| &nbsp;</div>
+      <div id="line000477" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000477| (*&nbsp;Blocks&nbsp;testing*)</div>
+      <div id="line000478" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000478| &nbsp;</div>
+      <div id="line000479" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000479| &quot;test&nbsp;get_block_color&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_color&nbsp;first_block)&nbsp;(ANSITerminal.black));</div>
+      <div id="line000480" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000480| &quot;test&nbsp;get_block_background_color&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_background_color&nbsp;first_block)&nbsp;(ANSITerminal.on_green));</div>
+      <div id="line000481" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000481| &quot;test&nbsp;get_block_character&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_character&nbsp;first_block)&nbsp;('&nbsp;'));</div>
+      <div id="line000482" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000482| &quot;test&nbsp;get_block_ground&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_ground&nbsp;first_block)&nbsp;(true));</div>
+      <div id="line000483" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000483| &quot;test&nbsp;get_block_styles&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.get_block_styles&nbsp;first_block)&nbsp;([ANSITerminal.Blink]));</div>
+      <div id="line000484" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000484| &quot;test&nbsp;add_item_to_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(first_block_with_log)&nbsp;(Blocks.add_item_to_block&nbsp;Items.log&nbsp;first_block));</div>
+      <div id="line000485" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000485| &quot;test&nbsp;remove_item_from_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(first_block)&nbsp;(Blocks.remove_item_from_block&nbsp;Items.log&nbsp;first_block_with_log));</div>
+      <div id="line000486" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000486| &quot;test&nbsp;count_sets_in_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(1)&nbsp;(Blocks.count_sets_in_block&nbsp;first_block_with_log));</div>
+      <div id="line000487" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000487| &quot;test&nbsp;sets_in_block&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.sets_in_block&nbsp;first_block_with_log)&nbsp;([(Items.log,&nbsp;1)]));</div>
+      <div id="line000488" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000488| &quot;test&nbsp;take_first_item&quot;&nbsp;&gt;::&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_equal&nbsp;(Blocks.take_first_item&nbsp;first_block_with_2_items)&nbsp;((first_block_with_log,&nbsp;Items.wood_sword)));</div>
+      <div id="line000489" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000489| &quot;test&nbsp;add_item_to_block_fail&quot;&nbsp;&gt;::</div>
+      <div id="line000490" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000490| &nbsp;&nbsp;&nbsp;&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_raises&nbsp;(Failure&nbsp;&quot;Block&nbsp;is&nbsp;full&quot;)</div>
+      <div id="line000491" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000491| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fun&nbsp;()&nbsp;-&gt;&nbsp;(*[1]*)Blocks.add_item_to_block&nbsp;Items.wood_sword&nbsp;tree_block));</div>
+      <div id="line000492" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000492| &quot;test&nbsp;remove_item_from_block_fail&quot;&nbsp;&gt;::</div>
+      <div id="line000493" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000493| &nbsp;&nbsp;&nbsp;&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_raises&nbsp;(Failure&nbsp;&quot;Block&nbsp;has&nbsp;no&nbsp;items&quot;)</div>
+      <div id="line000494" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000494| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fun&nbsp;()&nbsp;-&gt;&nbsp;(*[1]*)Blocks.remove_item_from_block&nbsp;Items.wood_sword&nbsp;first_block));</div>
+      <div id="line000495" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000495| &quot;test&nbsp;take_first_item_fail&quot;&nbsp;&gt;::</div>
+      <div id="line000496" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000496| &nbsp;&nbsp;&nbsp;&nbsp;(fun&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)assert_raises&nbsp;(Failure&nbsp;&quot;No&nbsp;items&nbsp;in&nbsp;block&quot;)</div>
+      <div id="line000497" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000497| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fun&nbsp;()&nbsp;-&gt;&nbsp;(*[1]*)Blocks.take_first_item&nbsp;first_block));</div>
+      <div id="line000498" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000498| ]</div>
+      <div id="line000499" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000499| &nbsp;</div>
+      <div id="line000500" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000500| let&nbsp;_&nbsp;=&nbsp;(*[1]*)run_test_tt_main&nbsp;all_tests</div>
       </div>
     </code>
     <br/>
     <div id="navigator" style="border: solid black 1px; position: fixed; z-index:100; right: 10px; top: 10px; bottom: 10px; width: 16px;">
       <table width="100%" height="100%" border="0" cellspacing="0">
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -1034,6 +1066,6 @@
     &nbsp;&nbsp;&nbsp;<span class="lineMixed">some code</span>&nbsp;-&nbsp;line containing both visited and unvisited points<br/>
     <br/>
     <hr class="codeSep"/>
-    <p class="footer">Generated by <a href="http://bisect.x9c.fr">Bisect 1.3.1</a> on 2019-04-16 22:43:37</p>
+    <p class="footer">Generated by <a href="http://bisect.x9c.fr">Bisect 1.3.1</a> on 2019-04-17 18:53:10</p>
   </body>
 </html>

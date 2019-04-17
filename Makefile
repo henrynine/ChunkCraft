@@ -21,7 +21,7 @@ play:
 	$(OCAMLBUILD) $(MAIN) && ./$(MAIN) 2> /tmp/a.txt
 
 clean:
-	ocamlbuild -clean
+	ocamlbuild -clean && rm *.out
 
 bisect-test:
 	$(OCAMLBUILD) -package bisect -syntax camlp4o,bisect_pp \

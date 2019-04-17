@@ -39,7 +39,7 @@ let inventory_max_size () = 10
 
 (* Helpers *)
 
-let empty_inventory () = {
+let empty_inventory = {
   sets = [];
   max_size = inventory_max_size ()
 }

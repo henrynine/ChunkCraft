@@ -2,16 +2,19 @@ open ANSITerminal
 open Blocks
 open Items
 
+(** A chunk is a sub-section of a map. *)
 type chunk = {
   blocks : Blocks.block list list;
   coords : int * int
 }
 
+(** An inventory contains sets of items, which contain an item and a count. *)
 type inventory = {
   sets : (Items.item * int) list;
   max_size : int
 }
 
+(** The type representing the player. *)
 type player = {
   color : ANSITerminal.style;
   coords : int * int;
@@ -29,7 +32,7 @@ type map = {
 
 val inventory_max_size : unit -> int
 
-val empty_inventory : unit -> inventory
+val empty_inventory : inventory
 
 val get_player_chunk_coords : map -> int * int
 
