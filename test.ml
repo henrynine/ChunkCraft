@@ -15,6 +15,19 @@ let player : State.player = {
     max_size = State.inventory_max_size()}
 }
 
+let inventory_with_3_wood_planks = {
+  sets = [(Items.wood_plank, 3)];
+  max_size = State.inventory_max_size()
+}
+
+let player_with_wood_plank : State.player = {
+  color = ANSITerminal.black;
+  coords = 0, 0;
+  chunk_coords = 0, 0;
+  character = 'i';
+  inv = inventory_with_3_wood_planks;
+}
+
 let inventory1 = {
   sets = [];
   max_size = State.inventory_max_size()
@@ -411,8 +424,8 @@ let map_post_right_move : State.map = {
 "test get_chunk_size_x" >:: (fun -> assert_equal (State.get_chunk_size_x (List.nth (List.nth (State.get_chunks map) 0) 0)) (24));
 "test get_chunk_size_y" >:: (fun -> assert_equal (State.get_chunk_size_y (List.nth (List.nth (State.get_chunks map) 0) 0)) (24));
 "test get_inventory_max_size" >:: (fun -> assert_equal (State.get_inventory_max_size inventory1) (10));
-"test get_inventory_size" >:: (fun -> assert_equal (State.get_inventory_size inventory1) (0));
-"test get_inventory_size" >:: (fun -> assert_equal (State.get_inventory_size inventory1) (0));
+"test get_inventory_size" >:: (fun -> assert_equal (State.get_inventory_size inventory_with_3_wood_planks) (1));
+"test item_in_inventory" >:: (fun -> assert_equal (State.item_in_inventory Items.wood_plank player_with_wood_plank) (true));
 
 ]
 
