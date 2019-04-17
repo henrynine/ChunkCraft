@@ -1,0 +1,217 @@
+<html>
+  <head>
+    <title>Bisect report</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript">
+      <!--
+        function jump(id) {
+          document.body.scrollTop = document.getElementById(id).offsetTop;
+        }
+      -->
+    </script>
+    <script language="javascript" src="file0001.js"></script>
+  </head>
+  <body>
+    <div class="section">File: blocks.ml (<a href="index.html">return to index</a>)</div>
+    <br/>
+    <hr class="codeSep"/>
+    <br/>
+    <table>
+      <tr>
+        <td valign="top" class="section">Statistics:&nbsp;&nbsp;</td>
+        <td valign="top">
+          <table class="simple">
+            <tr><th>kind</th><th width="16px">&nbsp;</th><th>coverage</th></tr>
+            <tr><td>binding</td><td width="16px">&nbsp;</td><td>4 / 4 (100%)</td></tr>
+            <tr><td>sequence</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>for</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>if/then</td><td width="16px">&nbsp;</td><td>4 / 8 (50%)</td></tr>
+            <tr><td>try</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>while</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>match/function</td><td width="16px">&nbsp;</td><td>10 / 10 (100%)</td></tr>
+          </table>
+        </td>
+        <td valign="top">
+          <table class="simple">
+            <tr><th>kind</th><th width="16px">&nbsp;</th><th>coverage</th></tr>
+            <tr><td>class expression</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>class initializer</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>class method</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>class value</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>toplevel expression</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+            <tr><td>lazy operator</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <hr class="codeSep"/>
+    <br/>
+    <div class="section">Source:</div>
+    <br/>
+<div style="font-size: smaller;"><a href="javascript:foldAll();">fold all</a> <a href="javascript:unfoldAll();">unfold all</a></div>
+    <code>
+      <div id="fold000001">
+      <div id="line000001" class="lineNone"><a href="javascript:fold('fold000001');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000001| open&nbsp;ANSITerminal</div>
+      <div id="line000002" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000002| open&nbsp;Items</div>
+      <div id="line000003" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000003| &nbsp;</div>
+      <div id="line000004" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000004| type&nbsp;block&nbsp;=&nbsp;{</div>
+      <div id="line000005" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000005| &nbsp;&nbsp;character&nbsp;:&nbsp;char;</div>
+      <div id="line000006" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000006| &nbsp;&nbsp;color&nbsp;:&nbsp;ANSITerminal.style;</div>
+      <div id="line000007" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000007| &nbsp;&nbsp;background_color&nbsp;:&nbsp;ANSITerminal.style;</div>
+      <div id="line000008" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000008| &nbsp;&nbsp;styles&nbsp;:&nbsp;ANSITerminal.style&nbsp;list;</div>
+      <div id="line000009" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000009| &nbsp;&nbsp;ground&nbsp;:&nbsp;bool;</div>
+      <div id="line000010" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000010| &nbsp;&nbsp;name&nbsp;:&nbsp;string;</div>
+      <div id="line000011" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000011| &nbsp;&nbsp;max_items&nbsp;:&nbsp;int;</div>
+      <div id="line000012" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000012| &nbsp;&nbsp;sets&nbsp;:&nbsp;(Items.item&nbsp;*&nbsp;int)&nbsp;list</div>
+      <div id="line000013" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000013| }</div>
+      <div id="line000014" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000014| &nbsp;</div>
+      <div id="line000015" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000015| let&nbsp;grass&nbsp;:&nbsp;block&nbsp;=&nbsp;(*[1]*){</div>
+      <div id="line000016" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000016| &nbsp;&nbsp;character&nbsp;=&nbsp;'&nbsp;';</div>
+      <div id="line000017" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000017| &nbsp;&nbsp;color&nbsp;=&nbsp;ANSITerminal.black;</div>
+      <div id="line000018" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000018| &nbsp;&nbsp;background_color&nbsp;=&nbsp;ANSITerminal.on_green;</div>
+      <div id="line000019" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000019| &nbsp;&nbsp;styles&nbsp;=&nbsp;[ANSITerminal.Blink];</div>
+      <div id="line000020" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000020| &nbsp;&nbsp;ground&nbsp;=&nbsp;true;</div>
+      <div id="line000021" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000021| &nbsp;&nbsp;name&nbsp;=&nbsp;&quot;grass&quot;;</div>
+      <div id="line000022" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000022| &nbsp;&nbsp;max_items&nbsp;=&nbsp;max_int;</div>
+      <div id="line000023" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000023| &nbsp;&nbsp;sets&nbsp;=&nbsp;[]</div>
+      <div id="line000024" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000024| }</div>
+      <div id="line000025" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000025| &nbsp;</div>
+      <div id="line000026" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000026| let&nbsp;tree&nbsp;:&nbsp;block&nbsp;=&nbsp;(*[1]*){</div>
+      <div id="line000027" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000027| &nbsp;&nbsp;character&nbsp;=&nbsp;'T';</div>
+      <div id="line000028" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000028| &nbsp;&nbsp;color&nbsp;=&nbsp;ANSITerminal.yellow;</div>
+      <div id="line000029" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000029| &nbsp;&nbsp;background_color&nbsp;=&nbsp;ANSITerminal.on_green;</div>
+      <div id="line000030" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000030| &nbsp;&nbsp;styles&nbsp;=&nbsp;[ANSITerminal.Bold];</div>
+      <div id="line000031" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000031| &nbsp;&nbsp;ground&nbsp;=&nbsp;false;</div>
+      <div id="line000032" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000032| &nbsp;&nbsp;name&nbsp;=&nbsp;&quot;tree&quot;;</div>
+      <div id="line000033" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000033| &nbsp;&nbsp;max_items&nbsp;=&nbsp;0;</div>
+      <div id="line000034" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000034| &nbsp;&nbsp;sets&nbsp;=&nbsp;[]</div>
+      <div id="line000035" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000035| }</div>
+      <div id="line000036" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000036| &nbsp;</div>
+      <div id="line000037" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000037| let&nbsp;water&nbsp;:&nbsp;block&nbsp;=&nbsp;(*[1]*){</div>
+      <div id="line000038" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000038| &nbsp;&nbsp;character&nbsp;=&nbsp;'~';</div>
+      <div id="line000039" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000039| &nbsp;&nbsp;color&nbsp;=&nbsp;ANSITerminal.white;</div>
+      <div id="line000040" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000040| &nbsp;&nbsp;background_color&nbsp;=&nbsp;ANSITerminal.on_blue;</div>
+      <div id="line000041" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000041| &nbsp;&nbsp;styles&nbsp;=&nbsp;[ANSITerminal.Blink];</div>
+      <div id="line000042" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000042| &nbsp;&nbsp;ground&nbsp;=&nbsp;false;</div>
+      <div id="line000043" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000043| &nbsp;&nbsp;name&nbsp;=&nbsp;&quot;water&quot;;</div>
+      <div id="line000044" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000044| &nbsp;&nbsp;max_items&nbsp;=&nbsp;0;</div>
+      <div id="line000045" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000045| &nbsp;&nbsp;sets&nbsp;=&nbsp;[]</div>
+      <div id="line000046" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000046| }</div>
+      <div id="line000047" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000047| &nbsp;</div>
+      <div id="line000048" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000048| let&nbsp;get_block_color&nbsp;b&nbsp;=&nbsp;(*[1]*)b.color</div>
+      <div id="line000049" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000049| let&nbsp;get_block_background_color&nbsp;b&nbsp;=&nbsp;(*[1]*)b.background_color</div>
+      </div>
+      <div id="line000050" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000050| let&nbsp;get_block_character&nbsp;b&nbsp;=&nbsp;(*[1]*)if&nbsp;List.length&nbsp;b.sets&nbsp;=&nbsp;0&nbsp;then&nbsp;(*[1]*)b.character&nbsp;else&nbsp;(*[0]*)'*'</div>
+      <div id="fold000051">
+      <div id="line000051" class="lineAllVisited"><a href="javascript:fold('fold000051');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000051| let&nbsp;get_block_ground&nbsp;b&nbsp;=&nbsp;(*[2]*)b.ground</div>
+      <div id="line000052" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000052| let&nbsp;get_block_styles&nbsp;b&nbsp;=&nbsp;(*[1]*)b.styles</div>
+      <div id="line000053" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000053| &nbsp;</div>
+      <div id="line000054" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000054| let&nbsp;add_item_to_block&nbsp;i&nbsp;b&nbsp;(*[4]*):&nbsp;block&nbsp;=</div>
+      </div>
+      <div id="line000055" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000055| &nbsp;&nbsp;if&nbsp;(List.length&nbsp;b.sets)&nbsp;&gt;=&nbsp;b.max_items&nbsp;then&nbsp;(*[0]*)failwith&nbsp;&quot;Block&nbsp;is&nbsp;full&quot;</div>
+      <div id="fold000056">
+      <div id="line000056" class="lineAllVisited"><a href="javascript:fold('fold000056');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000056| &nbsp;&nbsp;else&nbsp;(*[4]*){b&nbsp;with&nbsp;sets&nbsp;=&nbsp;add_to_set_list&nbsp;i&nbsp;b.sets}</div>
+      <div id="line000057" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000057| &nbsp;</div>
+      <div id="line000058" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000058| let&nbsp;remove_item_from_block&nbsp;i&nbsp;b&nbsp;(*[2]*):&nbsp;block&nbsp;=</div>
+      </div>
+      <div id="line000059" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000059| &nbsp;&nbsp;if&nbsp;(List.length&nbsp;b.sets)&nbsp;=&nbsp;0&nbsp;then&nbsp;(*[0]*)failwith&nbsp;&quot;Block&nbsp;has&nbsp;no&nbsp;items&quot;</div>
+      <div id="fold000060">
+      <div id="line000060" class="lineAllVisited"><a href="javascript:fold('fold000060');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000060| &nbsp;&nbsp;else&nbsp;(*[2]*){b&nbsp;with&nbsp;sets&nbsp;=&nbsp;Items.remove_from_set_list&nbsp;i&nbsp;b.sets}</div>
+      <div id="line000061" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000061| &nbsp;</div>
+      <div id="line000062" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000062| let&nbsp;count_sets_in_block&nbsp;b&nbsp;=&nbsp;(*[2]*)List.length&nbsp;b.sets</div>
+      <div id="line000063" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000063| &nbsp;</div>
+      <div id="line000064" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000064| let&nbsp;sets_in_block&nbsp;b&nbsp;=&nbsp;(*[1]*)b.sets</div>
+      <div id="line000065" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000065| &nbsp;</div>
+      <div id="line000066" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000066| let&nbsp;take_first_item&nbsp;(b&nbsp;:&nbsp;block)&nbsp;(*[1]*):&nbsp;(block&nbsp;*&nbsp;Items.item)&nbsp;=</div>
+      </div>
+      <div id="line000067" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000067| &nbsp;&nbsp;if&nbsp;List.length&nbsp;(b.sets)&nbsp;=&nbsp;0&nbsp;then&nbsp;(*[0]*)failwith&nbsp;&quot;No&nbsp;items&nbsp;in&nbsp;block&quot;</div>
+      <div id="fold000068">
+      <div id="line000068" class="lineAllVisited"><a href="javascript:fold('fold000068');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000068| &nbsp;&nbsp;else&nbsp;(*[1]*)let&nbsp;i&nbsp;=&nbsp;fst&nbsp;(List.nth&nbsp;b.sets&nbsp;0)&nbsp;in</div>
+      <div id="line000069" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000069| &nbsp;&nbsp;((*[1]*)(remove_item_from_block&nbsp;i&nbsp;b),&nbsp;i)</div>
+      </div>
+    </code>
+    <br/>
+    <div id="navigator" style="border: solid black 1px; position: fixed; z-index:100; right: 10px; top: 10px; bottom: 10px; width: 16px;">
+      <table width="100%" height="100%" border="0" cellspacing="0">
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000050');" title="jump to line 50"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000055');" title="jump to line 55"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000059');" title="jump to line 59"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000067');" title="jump to line 67"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+      </table>
+    </div>
+    <div class="section">Legend:</div>
+    &nbsp;&nbsp;&nbsp;<span class="lineNone">some code</span>&nbsp;-&nbsp;line containing no point<br/>
+    &nbsp;&nbsp;&nbsp;<span class="lineAllVisited">some code</span>&nbsp;-&nbsp;line containing only visited points<br/>
+    &nbsp;&nbsp;&nbsp;<span class="lineAllUnvisited">some code</span>&nbsp;-&nbsp;line containing only unvisited points<br/>
+    &nbsp;&nbsp;&nbsp;<span class="lineMixed">some code</span>&nbsp;-&nbsp;line containing both visited and unvisited points<br/>
+    <br/>
+    <hr class="codeSep"/>
+    <p class="footer">Generated by <a href="http://bisect.x9c.fr">Bisect 1.3.1</a> on 2019-04-16 22:43:37</p>
+  </body>
+</html>
