@@ -13,7 +13,8 @@ let player : State.player = {
   character = 'i';
   inv = {
     sets = [];
-    max_size = State.inventory_max_size()}
+    max_size = State.inventory_max_size()};
+  equipped_item = None;
 }
 
 let map : State.map = {

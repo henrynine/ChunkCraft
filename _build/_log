@@ -48,16 +48,20 @@ ocamlfind ocamlc -c -package ANSITerminal -o state.cmo state.ml # cached
 # Target: display.cmo, tags: { package(ANSITerminal), byte, compile, extension:cmo, extension:ml, file:display.cmo, file:display.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package ANSITerminal -o display.cmo display.ml
 + ocamlfind ocamlc -c -package ANSITerminal -o display.cmo display.ml
-File "display.ml", line 91, characters 69-72:
+File "display.ml", line 104, characters 67-70:
 Warning 10: this expression should have type unit.
-File "display.ml", line 124, characters 65-68:
+File "display.ml", line 138, characters 69-72:
 Warning 10: this expression should have type unit.
-File "display.ml", line 133, characters 67-70:
+File "display.ml", line 171, characters 65-68:
 Warning 10: this expression should have type unit.
-File "display.ml", line 149, characters 67-70:
+File "display.ml", line 180, characters 67-70:
 Warning 10: this expression should have type unit.
-File "display.ml", line 158, characters 67-70:
+File "display.ml", line 196, characters 67-70:
 Warning 10: this expression should have type unit.
+File "display.ml", line 205, characters 67-70:
+Warning 10: this expression should have type unit.
+File "display.ml", line 94, characters 12-25:
+Warning 26: unused variable new_inventory.
 # Target: main.byte, tags: { package(ANSITerminal), byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet, traverse }
 ocamlfind ocamlc -linkpkg -package ANSITerminal items.cmo blocks.cmo state.cmo display.cmo control.cmo main.cmo -o main.byte
 # Compilation successful.

@@ -17,7 +17,8 @@ type player = {
   coords : int * int;
   chunk_coords : int * int;
   character : char;
-  inv : inventory
+  inv : inventory;
+  equipped_item : (item * int) option
 }
 
 type map = {
@@ -74,7 +75,15 @@ val add_to_inventory_multiple : Items.item -> int -> player -> player
 
 val remove_from_inventory : Items.item -> player -> player
 
-val remove_from_inventory : Items.item -> int -> player -> player
+val remove_from_inventory_multiple : Items.item -> int -> player -> player
+
+val equip_item : Items.item -> int -> map -> player
+
+val unequip_item : map -> map
+
+val has_item_equipped : map -> bool
+
+val equipped_item : map -> (Items.item * int) option
 
 val get_block_in_chunk : map -> chunk -> int -> int -> block
 
@@ -83,3 +92,5 @@ val get_current_chunk : map -> chunk
 val replace_chunk_in_chunks : map -> chunk -> int -> int -> chunk list list
 
 val replace_block_in_chunk : map -> block -> int -> int -> int -> int -> chunk
+
+val inventory_is_full_map : map -> bool

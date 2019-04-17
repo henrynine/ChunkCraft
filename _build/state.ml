@@ -19,7 +19,8 @@ type player = {
   coords : int * int;
   chunk_coords : int * int;
   character : char;
-  inv : inventory
+  inv : inventory;
+  equipped_item : (Items.item * int) option
 }
 
 type map = {
@@ -88,6 +89,8 @@ let in_mining_mode m = m.mining
 
 let inventory_is_full p = (get_inventory_size p.inv) = (get_inventory_max_size p.inv)
 
+let inventory_is_full_map m = inventory_is_full m.player
+
 (* return the chunk in m at c_x c_y with nb at x y in that chunk*)
 let replace_block_in_chunk m nb c_x c_y x y =
   let chunk = List.nth (List.nth m.chunks c_y) c_x in
@@ -135,7 +138,7 @@ let remove_from_inventory (i: Items.item) (p:player) =
   else
   failwith ("That item isn't in that character's inventory")
 
-let remove_from_inventory (i: Items.item) (c : int) (p:player) =
+let remove_from_inventory_multiple (i: Items.item) (c : int) (p:player) =
   if item_in_inventory i p then
   {p with
     inv = {p.inv with
@@ -144,6 +147,27 @@ let remove_from_inventory (i: Items.item) (c : int) (p:player) =
   }
   else
   failwith ("That item isn't in that character's inventory")
+
+let equip_item i c m =
+  match m.player.equipped_item with
+  | None -> {m.player with equipped_item = Some (i, c)}
+            |> remove_from_inventory_multiple i c
+  | Some s -> {m.player with equipped_item = Some (i, c)}
+              |> remove_from_inventory_multiple i c
+              |> add_to_inventory_multiple (fst s) (snd s)
+
+let unequip_item m =
+  match m.player.equipped_item with
+  | None -> failwith "No item equipped"
+  | Some s -> {m with player = ({m.player with equipped_item = None}
+              |> add_to_inventory_multiple (fst s) (snd s))}
+
+let has_item_equipped m =
+  match m.player.equipped_item with
+  | None -> false
+  | Some _ -> true
+
+let equipped_item m = m.player.equipped_item
 
 let get_new_coords m c =
   let (player_x, player_y) = m.player.coords in
@@ -190,7 +214,6 @@ let move_player m c : map =
   if Blocks.get_block_ground next_block then
     if Blocks.count_sets_in_block next_block > 0 then
       (* Item is ground and contains an item/items to be picked up *)
-      (* TODO abstract out m coord changes *)
       (* Pick up all the items *)
       let rec loop nb p =
         if (Blocks.count_sets_in_block nb) = 0 || (inventory_is_full p) then

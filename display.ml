@@ -24,7 +24,12 @@ let print_current_chunk map =
                                   (Char.escaped
                                    (Blocks.get_block_character block)))) row;
                                print_endline "")
-                    (State.get_blocks current_chunk) in
+                    (State.get_blocks current_chunk);
+                    (* Print equipped item *)
+                    match State.equipped_item map with
+                    | None -> print_endline "No item equipped."
+                    | Some (i, c) -> print_endline ("Equipped: " ^ (Items.get_item_name i) ^ " (" ^ (string_of_int c) ^ ")")
+                    in
   let print_player =
     (* ANSITerminal is 1-indexed *)
     ANSITerminal.set_cursor (player_x + 1) (player_y + 1);
@@ -35,9 +40,9 @@ let print_current_chunk map =
   print_chunk;
   print_player;
 
-  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+2);
+  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+3);
   ANSITerminal.erase ANSITerminal.Eol;
-  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+1);
+  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+2);
   ANSITerminal.erase ANSITerminal.Eol
 
 let rec print_inv is_dropping inventory_list=
@@ -50,17 +55,59 @@ let rec show_inventory map =
   ANSITerminal.set_cursor 1 1;
   (* Print inventory in form of "item_name: count" *)
   print_inv false ((State.get_player_inventory map) |> State.get_inventory_sets);
-  print_endline "Press b to exit inventory. Press d to drop items";
+  print_endline "Press e to equip items.\nPress d to drop items.\nPress u to unequip your current equipped item.\nPress b to exit inventory.";
   (* wait for escape key ('b') -> Unix should already be grabbing keys originally *)
   let c = ref (input_char Pervasives.stdin) in
   (* TODO bug is here – for some reason only the first char in the or works *)
-  while ((!c) <> 'b' && (!c) <> 'd') do (* NOTE: !c means the dereference of c; needed for reading mutable variables *)
+  while ((!c) <> 'b' && (!c) <> 'd' && (!c) <> 'e' && (!c) <> 'u') do (* NOTE: !c means the dereference of c; needed for reading mutable variables *)
     print_endline ((!c) |> Char.escaped);
     ANSITerminal.move_bol();
     ANSITerminal.erase ANSITerminal.Eol;
     c := (input_char Pervasives.stdin)
   done;
-  if ((!c) = 'd')
+  if ((!c) = 'u') then
+    begin
+      if State.inventory_is_full_map map then
+      begin
+        print_endline "Your inventory is full. Drop an item to make room to unequip.";
+        show_inventory map
+      end
+      else
+      begin
+        ANSITerminal.erase ANSITerminal.Screen;
+        ANSITerminal.set_cursor 1 1;
+        State.unequip_item map
+      end
+    end
+  else if ((!c) = 'e') then
+    begin
+    ANSITerminal.erase ANSITerminal.Screen;
+    ANSITerminal.set_cursor 1 1;
+    let inventory_list = (State.get_player_inventory map) |> State.get_inventory_sets in
+    print_inv true inventory_list;
+    print_endline "Enter the letter next to the items you want to equip.";
+    c := (input_char Pervasives.stdin);
+    let index_pressed = (Char.code (!c)) - 97 in
+    if (index_pressed < List.length inventory_list) then
+      begin
+        let (item, count) = List.nth inventory_list index_pressed in
+        let new_inventory = Items.remove_from_set_list_multiple item count inventory_list in
+        ANSITerminal.erase ANSITerminal.Screen;
+        ANSITerminal.set_cursor 1 1;
+        {map with player = State.equip_item item count map}
+      end
+    else
+      begin
+        ANSITerminal.erase ANSITerminal.Screen;
+        ANSITerminal.set_cursor 1 1;
+        print_endline "Please enter a valid letter.\nPress n to continue.";
+        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+        (* This helps get rid of the weird extraneous 'y' bug *)
+        ANSITerminal.erase ANSITerminal.Screen;
+        show_inventory map
+      end
+    end
+  else if ((!c) = 'd')
     then
     begin
       ANSITerminal.erase ANSITerminal.Screen;
