@@ -43,6 +43,6 @@ val count_sets_in_block : block -> int
 (** Return the sets of [b]. *)
 val sets_in_block : block -> (Items.item * int) list
 
-(** Return [b] with all copies of its first item removed, as well as the item removed
-    and how many copies were removed. *)
+(** Return [b] with all copies of its first item removed, as well as the item
+  removed and how many copies were removed. *)
 val take_first_item : block -> (block * Items.item * int)

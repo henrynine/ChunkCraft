@@ -29,7 +29,9 @@ let print_current_chunk map =
                     (* Print equipped item *)
                     match State.equipped_item map with
                     | None -> print_endline "No item equipped."
-                    | Some (i, c) -> print_endline ("Equipped: " ^ (Items.get_item_name i) ^ " (" ^ (string_of_int c) ^ ")")
+                    | Some (i, c) -> print_endline ("Equipped: "
+                     ^ (Items.get_item_name i) ^ " ("
+                     ^ (string_of_int c) ^ ")")
                     in
   let print_player =
     (* ANSITerminal is 1-indexed *)
@@ -47,7 +49,9 @@ let print_current_chunk map =
   ANSITerminal.erase ANSITerminal.Eol
 
 let rec print_inv is_dropping inventory_list=
-  List.iteri (fun i (item, count) -> print_endline ((if is_dropping then (Char.escaped (Char.chr (97 + i))) ^ " - " else "") ^ (Items.get_item_name item) ^ ": " ^ (string_of_int count))) inventory_list
+  List.iteri (fun i (item, count) -> print_endline ((if is_dropping then
+    (Char.escaped (Char.chr (97 + i))) ^ " - " else "") ^
+    (Items.get_item_name item) ^ ": " ^ (string_of_int count))) inventory_list
 
 let rec show_inventory map =
   (* clear the screen *)
@@ -55,12 +59,19 @@ let rec show_inventory map =
   (* Set the cursor in the bottom left *)
   ANSITerminal.set_cursor 1 1;
   (* Print inventory in form of "item_name: count" *)
-  print_inv false ((State.get_player_inventory map) |> State.get_inventory_sets);
-  print_endline "Press e to equip items.\nPress d to drop items.\nPress u to unequip your current equipped item.\nPress b to exit inventory.";
-  (* wait for escape key ('b') -> Unix should already be grabbing keys originally *)
+  print_inv false ((State.get_player_inventory map)
+                    |> State.get_inventory_sets);
+  print_endline "Press e to equip items.
+                \nPress d to drop items.
+                \nPress u to unequip your current equipped item.
+                \nPress b to exit inventory.";
+  (* wait for escape key ('b') -> Unix should already be grabbing
+    keys originally *)
   let c = ref (input_char Pervasives.stdin) in
   (* TODO bug is here – for some reason only the first char in the or works *)
-  while ((!c) <> 'b' && (!c) <> 'd' && (!c) <> 'e' && (!c) <> 'u') do (* NOTE: !c means the dereference of c; needed for reading mutable variables *)
+  (* NOTE: !c means the dereference of c;
+      needed for reading mutable variables *)
+  while ((!c) <> 'b' && (!c) <> 'd' && (!c) <> 'e' && (!c) <> 'u') do
     print_endline ((!c) |> Char.escaped);
     ANSITerminal.move_bol();
     ANSITerminal.erase ANSITerminal.Eol;
@@ -70,7 +81,8 @@ let rec show_inventory map =
     begin
       if State.inventory_is_full_map map then
       begin
-        print_endline "Your inventory is full. Drop an item to make room to unequip.";
+        print_endline "Your inventory is full. Drop an item to make room
+          to unequip.";
         show_inventory map
       end
       else
@@ -81,8 +93,10 @@ let rec show_inventory map =
           State.unequip_item map
         else
           begin
-            print_endline "You don't have an item equipped. Press n to continue";
-            while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+            print_endline "You don't have an item equipped.
+                Press n to continue";
+            while (let c = input_char Pervasives.stdin in c <> 'n')
+            do 1+1 done;
             (* This helps get rid of the weird extraneous 'y' bug *)
             ANSITerminal.erase ANSITerminal.Screen;
             show_inventory map
@@ -93,7 +107,8 @@ let rec show_inventory map =
     begin
     ANSITerminal.erase ANSITerminal.Screen;
     ANSITerminal.set_cursor 1 1;
-    let inventory_list = (State.get_player_inventory map) |> State.get_inventory_sets in
+    let inventory_list = (State.get_player_inventory map)
+                          |> State.get_inventory_sets in
     print_inv true inventory_list;
     print_endline "Enter the letter next to the items you want to equip.";
     c := (input_char Pervasives.stdin);
@@ -101,7 +116,8 @@ let rec show_inventory map =
     if (index_pressed < List.length inventory_list) then
       begin
         let (item, count) = List.nth inventory_list index_pressed in
-        let new_inventory = Items.remove_from_set_list_multiple item count inventory_list in
+        let new_inventory = Items.remove_from_set_list_multiple
+                            item count inventory_list in
         ANSITerminal.erase ANSITerminal.Screen;
         ANSITerminal.set_cursor 1 1;
         {map with player = State.equip_item item count map}
@@ -122,7 +138,8 @@ let rec show_inventory map =
     begin
       ANSITerminal.erase ANSITerminal.Screen;
       ANSITerminal.set_cursor 1 1;
-      let inventory_list = (State.get_player_inventory map) |> State.get_inventory_sets in
+      let inventory_list = (State.get_player_inventory map)
+                            |> State.get_inventory_sets in
       print_inv true inventory_list;
       print_endline "Enter the letter next to the items you want to drop.";
       c := (input_char Pervasives.stdin);
@@ -131,16 +148,24 @@ let rec show_inventory map =
         then
           begin
             let (item, count) = List.nth inventory_list index_pressed in
-            let new_inventory = Items.remove_from_set_list_multiple item count inventory_list in
+            let new_inventory = Items.remove_from_set_list_multiple
+                                item count inventory_list in
             let (player_x, player_y) = State.get_player_coords map in
-            let (player_chunk_x, player_chunk_y) = State.get_player_chunk_coords map in
-            let new_block = State.get_block_in_chunk map (State.get_current_chunk map) player_x player_y in
+            let (player_chunk_x, player_chunk_y) =
+                                          State.get_player_chunk_coords map in
+            let new_block = State.get_block_in_chunk map
+                            (State.get_current_chunk map) player_x player_y in
             let current_block_set = Blocks.sets_in_block new_block in
-            let new_block_set = Items.add_to_set_list_multiple item count current_block_set in
-            let new_chunk = State.replace_block_in_chunk map {new_block with sets = new_block_set} player_chunk_x player_chunk_y player_x player_y in
+            let new_block_set = Items.add_to_set_list_multiple item
+                                                    count current_block_set in
+            let new_chunk = State.replace_block_in_chunk map {new_block with
+              sets = new_block_set}
+              player_chunk_x player_chunk_y player_x player_y in
             (* This helps get rid of the weird extraneous 'y' bug *)
             ANSITerminal.erase ANSITerminal.Screen;
-            {map with player = {map.player with inv = {map.player.inv with sets = new_inventory}}; chunks = (State.replace_chunk_in_chunks map new_chunk player_chunk_x player_chunk_y)}
+            {map with player = {map.player with inv = {map.player.inv with
+              sets = new_inventory}}; chunks = (State.replace_chunk_in_chunks
+                                map new_chunk player_chunk_x player_chunk_y)}
           end
         else
           begin
@@ -168,14 +193,17 @@ let rec show_crafting_interface map =
   print_inv false ((State.get_player_inventory map) |> State.get_inventory_sets);
   print_endline "Enter what you want to craft or b to exit: ";
   (* Turn wait for endline to get input back on *)
-  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with c_icanon = true};
+  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with
+                                                            c_icanon = true};
   let desired_item_name = input_line Pervasives.stdin in
-  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with c_icanon = false};
+  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with
+                                                            c_icanon = false};
   ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.set_cursor 1 1;
   if desired_item_name = "b" then map else
   (* Search for all items to find recipe for that item *)
-  let desired_item = List.find_opt (fun i -> Items.get_item_name i = desired_item_name) Items.all_items in
+  let desired_item = List.find_opt (fun i -> Items.get_item_name i =
+                                    desired_item_name) Items.all_items in
   match desired_item with
   | None ->
       begin
@@ -188,38 +216,44 @@ let rec show_crafting_interface map =
     match Items.get_full_recipe i with
     | None ->
         begin
-        print_endline "That is not an item you can craft.\nPress n to continue.";
+        print_endline "That is not an item you can craft.
+                      \nPress n to continue.";
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
         show_crafting_interface map
         end
-    | Some (recipe, output_count) -> (* check if player has r in inventory, if they don't, say that, otherwise craft it *)
+    | Some (recipe, output_count) ->
+      (* check if player has r in inventory, if they don't, say that,
+        otherwise craft it *)
       begin
-        (* print_endline "Found a recipe. Press n to continue"; *)
-        (* List.iter (fun (i', c) -> print_endline ((Items.get_item_name i') ^ ": " ^ (string_of_int c))) recipe; *)
-        (* while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done; *)
         let player_has_enough_items = List.fold_left (fun acc (i', c) ->
-        (c <= Items.get_count_in_set_list i' ((State.get_player_inventory map) |> State.get_inventory_sets)) && acc
-        (* if c <= count of same item as i' in player's inventory, then true, if i' is not in recipe then true, otherwise false *)) true recipe in
-        (* print_endline ("player_has_enough_items: " ^ (string_of_bool player_has_enough_items) ^ ". Press n to continue");
-        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done; *)
+        (c <= Items.get_count_in_set_list i' ((State.get_player_inventory map)
+                                        |> State.get_inventory_sets)) && acc)
+                                        true recipe in
+
         if not player_has_enough_items then
         begin
-        print_endline "You don't have enough of the required materials to craft that.\nPress n to continue."; (* TODO tell the player how many more of each item they need *)
+        print_endline "You don't have enough of the required materials
+                        to craft that.\nPress n to continue.";
+              (* TODO tell the player how many more of each item they need *)
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
         show_crafting_interface map
         end
         else
         begin
         if output_count = 1 then
-        print_endline ("You crafted a " ^ desired_item_name ^ ".\nPress n to continue.")
+        print_endline ("You crafted a " ^ desired_item_name
+                        ^ ".\nPress n to continue.")
         else
-        print_endline ("You crafted " ^ (string_of_int output_count) ^ " " ^ desired_item_name ^ "s.\nPress n to continue.");
+        print_endline ("You crafted " ^ (string_of_int output_count)
+                ^ " " ^ desired_item_name ^ "s.\nPress n to continue.");
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
-        (* remove the recipe items from player inventory, add the crafted item to their inventory *)
-        (* failwith "you crafted that successfully" *)
+        (* remove the recipe items from player inventory,
+          add the crafted item to their inventory *)
         ANSITerminal.erase ANSITerminal.Screen;
         {map with player = {map.player with inv = {map.player.inv with sets =
-          (List.fold_left (fun acc (i', c) -> Items.remove_from_set_list_multiple i' c acc) map.player.inv.sets recipe)
+          (List.fold_left (fun acc (i', c) ->
+            Items.remove_from_set_list_multiple i' c acc)
+            map.player.inv.sets recipe)
           |> Items.add_to_set_list_multiple i output_count}}}
         end
       end

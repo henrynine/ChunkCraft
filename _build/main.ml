@@ -144,7 +144,8 @@ let map : State.map = {
 
 let _ =
   (* Set stdin to not wait for a newline to read input *)
-  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with c_icanon = false};
+  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin)
+    with c_icanon = false};
   (* Clear the screen *)
   ANSITerminal.erase ANSITerminal.Screen;
   (* Print out the starting chunk *)

@@ -109,7 +109,7 @@
       <div id="line000055" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000055| &nbsp;&nbsp;wood_axe;</div>
       <div id="line000056" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000056| ]</div>
       <div id="line000057" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000057| &nbsp;</div>
-      <div id="line000058" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000058| let&nbsp;get_item_name&nbsp;i&nbsp;=&nbsp;(*[82]*)i.name</div>
+      <div id="line000058" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000058| let&nbsp;get_item_name&nbsp;i&nbsp;=&nbsp;(*[88]*)i.name</div>
       <div id="line000059" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000059| &nbsp;</div>
       <div id="line000060" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000060| let&nbsp;get_item_stackable&nbsp;i&nbsp;=&nbsp;(*[1]*)i.stackable</div>
       <div id="line000061" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000061| &nbsp;</div>
@@ -123,46 +123,52 @@
       <div id="line000069" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000069| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[1]*)None</div>
       <div id="line000070" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000070| &nbsp;&nbsp;|&nbsp;Some&nbsp;(_,&nbsp;r)&nbsp;-&gt;&nbsp;(*[1]*)Some&nbsp;r</div>
       <div id="line000071" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000071| &nbsp;</div>
-      <div id="line000072" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000072| let&nbsp;item_in_set_list&nbsp;i&nbsp;l&nbsp;=&nbsp;(*[21]*)List.fold_left&nbsp;(fun&nbsp;acc&nbsp;s&nbsp;-&gt;&nbsp;(*[15]*)(get_item_name&nbsp;i)&nbsp;=&nbsp;(get_item_name&nbsp;(fst&nbsp;s))&nbsp;||&nbsp;(*[4]*)acc)&nbsp;false&nbsp;l</div>
-      <div id="line000073" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000073| &nbsp;</div>
-      <div id="line000074" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000074| let&nbsp;get_count_in_set_list&nbsp;i&nbsp;l&nbsp;=</div>
-      <div id="line000075" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000075| &nbsp;&nbsp;(*[2]*)let&nbsp;s&nbsp;=&nbsp;List.find_opt&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[4]*)i'.name&nbsp;=&nbsp;i.name)&nbsp;l&nbsp;in</div>
-      <div id="line000076" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000076| &nbsp;&nbsp;match&nbsp;s&nbsp;with</div>
-      <div id="line000077" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000077| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[1]*)0</div>
-      <div id="line000078" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000078| &nbsp;&nbsp;|&nbsp;Some&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[1]*)c</div>
-      <div id="line000079" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000079| &nbsp;</div>
-      <div id="line000080" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000080| (*&nbsp;TODO&nbsp;once&nbsp;stack&nbsp;limits&nbsp;are&nbsp;added,&nbsp;put&nbsp;them&nbsp;here&nbsp;*)</div>
-      <div id="line000081" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000081| let&nbsp;add_to_set_list&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(l&nbsp;:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
-      <div id="line000082" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000082| &nbsp;&nbsp;(*[17]*)if&nbsp;item_in_set_list&nbsp;i&nbsp;l&nbsp;then</div>
-      <div id="line000083" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000083| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;already&nbsp;present,&nbsp;increment&nbsp;the&nbsp;count&nbsp;in&nbsp;the&nbsp;set&nbsp;list&nbsp;*)</div>
+      <div id="line000072" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000072| let&nbsp;item_in_set_list&nbsp;i&nbsp;l&nbsp;=&nbsp;(*[21]*)List.fold_left&nbsp;(fun&nbsp;acc&nbsp;s&nbsp;-&gt;&nbsp;(*[15]*)(get_item_name&nbsp;i)&nbsp;=</div>
+      <div id="line000073" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000073| &nbsp;&nbsp;(get_item_name&nbsp;(fst&nbsp;s))&nbsp;||&nbsp;(*[4]*)acc)&nbsp;false&nbsp;l</div>
+      <div id="line000074" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000074| &nbsp;</div>
+      <div id="line000075" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000075| let&nbsp;get_count_in_set_list&nbsp;i&nbsp;l&nbsp;=</div>
+      <div id="line000076" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000076| &nbsp;&nbsp;(*[2]*)let&nbsp;s&nbsp;=&nbsp;List.find_opt&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[4]*)i'.name&nbsp;=&nbsp;i.name)&nbsp;l&nbsp;in</div>
+      <div id="line000077" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000077| &nbsp;&nbsp;match&nbsp;s&nbsp;with</div>
+      <div id="line000078" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000078| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[1]*)0</div>
+      <div id="line000079" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000079| &nbsp;&nbsp;|&nbsp;Some&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[1]*)c</div>
+      <div id="line000080" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000080| &nbsp;</div>
+      <div id="line000081" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000081| (*&nbsp;TODO&nbsp;once&nbsp;stack&nbsp;limits&nbsp;are&nbsp;added,&nbsp;put&nbsp;them&nbsp;here&nbsp;*)</div>
+      <div id="line000082" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000082| let&nbsp;add_to_set_list&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(l&nbsp;:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
+      <div id="line000083" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000083| &nbsp;&nbsp;(*[17]*)if&nbsp;item_in_set_list&nbsp;i&nbsp;l&nbsp;then</div>
+      <div id="line000084" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000084| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;already&nbsp;present,&nbsp;increment&nbsp;the&nbsp;count&nbsp;in&nbsp;the&nbsp;set&nbsp;list&nbsp;*)</div>
+      <div id="line000085" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000085| &nbsp;&nbsp;((*[10]*)List.map&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[10]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)</div>
       </div>
-      <div id="line000084" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000084| &nbsp;&nbsp;((*[10]*)List.map&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[10]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)&nbsp;then&nbsp;((*[10]*)i',&nbsp;c+1)&nbsp;else&nbsp;((*[0]*)i',&nbsp;c))&nbsp;l)</div>
-      <div id="fold000085">
-      <div id="line000085" class="lineNone"><a href="javascript:fold('fold000085');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000085| &nbsp;&nbsp;else</div>
-      <div id="line000086" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000086| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;not&nbsp;present&nbsp;yet,&nbsp;add&nbsp;it&nbsp;with&nbsp;a&nbsp;count&nbsp;of&nbsp;1&nbsp;*)</div>
-      <div id="line000087" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000087| &nbsp;&nbsp;((*[7]*)(i,&nbsp;1)::l)</div>
-      <div id="line000088" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000088| &nbsp;</div>
-      <div id="line000089" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000089| let&nbsp;remove_from_set_list&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(l&nbsp;:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
+      <div id="line000086" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000086| &nbsp;&nbsp;then&nbsp;((*[10]*)i',&nbsp;c+1)&nbsp;else&nbsp;((*[0]*)i',&nbsp;c))&nbsp;l)</div>
+      <div id="fold000087">
+      <div id="line000087" class="lineNone"><a href="javascript:fold('fold000087');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000087| &nbsp;&nbsp;else</div>
+      <div id="line000088" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000088| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;not&nbsp;present&nbsp;yet,&nbsp;add&nbsp;it&nbsp;with&nbsp;a&nbsp;count&nbsp;of&nbsp;1&nbsp;*)</div>
+      <div id="line000089" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000089| &nbsp;&nbsp;((*[7]*)(i,&nbsp;1)::l)</div>
+      <div id="line000090" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000090| &nbsp;</div>
+      <div id="line000091" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000091| let&nbsp;remove_from_set_list&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(l&nbsp;:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
+      <div id="line000092" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000092| &nbsp;&nbsp;(*[1]*)let&nbsp;s&nbsp;=&nbsp;List.map&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[1]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)</div>
       </div>
-      <div id="line000090" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000090| &nbsp;&nbsp;(*[1]*)let&nbsp;s&nbsp;=&nbsp;List.map&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[1]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)&nbsp;then&nbsp;((*[1]*)i',&nbsp;c-1)&nbsp;else&nbsp;((*[0]*)i',&nbsp;c))&nbsp;l&nbsp;in</div>
-      <div id="fold000091">
-      <div id="line000091" class="lineAllVisited"><a href="javascript:fold('fold000091');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000091| &nbsp;&nbsp;(*[1]*)List.filter&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[1]*)c&nbsp;&gt;&nbsp;0)&nbsp;s</div>
-      <div id="line000092" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000092| &nbsp;</div>
-      <div id="line000093" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000093| (*&nbsp;TODO&nbsp;once&nbsp;stack&nbsp;limits&nbsp;are&nbsp;added,&nbsp;put&nbsp;them&nbsp;here&nbsp;*)</div>
-      <div id="line000094" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000094| let&nbsp;add_to_set_list_multiple&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(c&nbsp;:&nbsp;int)&nbsp;(l&nbsp;:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
-      <div id="line000095" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000095| &nbsp;&nbsp;(*[4]*)if&nbsp;item_in_set_list&nbsp;i&nbsp;l&nbsp;then</div>
-      <div id="line000096" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000096| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;already&nbsp;present,&nbsp;increase&nbsp;the&nbsp;count&nbsp;in&nbsp;the&nbsp;set&nbsp;list&nbsp;*)</div>
-      <div id="line000097" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000097| &nbsp;&nbsp;((*[1]*)List.map&nbsp;(fun&nbsp;(i',&nbsp;c')&nbsp;-&gt;&nbsp;(*[2]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)&nbsp;then&nbsp;((*[1]*)i',&nbsp;c'&nbsp;+&nbsp;c)&nbsp;else&nbsp;((*[1]*)i',&nbsp;c'))&nbsp;l)</div>
-      <div id="line000098" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000098| &nbsp;&nbsp;else</div>
-      <div id="line000099" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000099| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;not&nbsp;present&nbsp;yet,&nbsp;add&nbsp;it&nbsp;with&nbsp;a&nbsp;count&nbsp;of&nbsp;c&nbsp;*)</div>
-      <div id="line000100" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000100| &nbsp;&nbsp;((*[3]*)(i,&nbsp;c)::l)</div>
-      <div id="line000101" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000101| &nbsp;</div>
-      <div id="line000102" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000102| let&nbsp;remove_from_set_list_multiple&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(c&nbsp;:&nbsp;int)&nbsp;(l:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
-      <div id="line000103" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000103| &nbsp;&nbsp;(*[4]*)let&nbsp;s&nbsp;=&nbsp;List.map&nbsp;(fun&nbsp;(i',&nbsp;c')&nbsp;-&gt;&nbsp;(*[6]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)&nbsp;then&nbsp;((*[4]*)i',&nbsp;c'-c)&nbsp;else&nbsp;((*[2]*)i',&nbsp;c'))&nbsp;l&nbsp;in</div>
+      <div id="line000093" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000093| &nbsp;&nbsp;then&nbsp;((*[1]*)i',&nbsp;c-1)&nbsp;else&nbsp;((*[0]*)i',&nbsp;c))&nbsp;l&nbsp;in</div>
+      <div id="fold000094">
+      <div id="line000094" class="lineAllVisited"><a href="javascript:fold('fold000094');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000094| &nbsp;&nbsp;(*[1]*)List.filter&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[1]*)c&nbsp;&gt;&nbsp;0)&nbsp;s</div>
+      <div id="line000095" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000095| &nbsp;</div>
+      <div id="line000096" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000096| (*&nbsp;TODO&nbsp;once&nbsp;stack&nbsp;limits&nbsp;are&nbsp;added,&nbsp;put&nbsp;them&nbsp;here&nbsp;*)</div>
+      <div id="line000097" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000097| let&nbsp;add_to_set_list_multiple&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(c&nbsp;:&nbsp;int)&nbsp;(l&nbsp;:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
+      <div id="line000098" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000098| &nbsp;&nbsp;(*[4]*)if&nbsp;item_in_set_list&nbsp;i&nbsp;l&nbsp;then</div>
+      <div id="line000099" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000099| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;already&nbsp;present,&nbsp;increase&nbsp;the&nbsp;count&nbsp;in&nbsp;the&nbsp;set&nbsp;list&nbsp;*)</div>
+      <div id="line000100" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000100| &nbsp;&nbsp;((*[1]*)List.map&nbsp;(fun&nbsp;(i',&nbsp;c')&nbsp;-&gt;&nbsp;(*[2]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)</div>
+      <div id="line000101" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000101| &nbsp;&nbsp;then&nbsp;((*[1]*)i',&nbsp;c'&nbsp;+&nbsp;c)&nbsp;else&nbsp;((*[1]*)i',&nbsp;c'))&nbsp;l)</div>
+      <div id="line000102" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000102| &nbsp;&nbsp;else</div>
+      <div id="line000103" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000103| &nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;not&nbsp;present&nbsp;yet,&nbsp;add&nbsp;it&nbsp;with&nbsp;a&nbsp;count&nbsp;of&nbsp;c&nbsp;*)</div>
+      <div id="line000104" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000104| &nbsp;&nbsp;((*[3]*)(i,&nbsp;c)::l)</div>
+      <div id="line000105" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000105| &nbsp;</div>
+      <div id="line000106" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000106| let&nbsp;remove_from_set_list_multiple&nbsp;(i&nbsp;:&nbsp;item)&nbsp;(c&nbsp;:&nbsp;int)&nbsp;(l:&nbsp;(item&nbsp;*&nbsp;int)&nbsp;list)&nbsp;=</div>
+      <div id="line000107" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000107| &nbsp;&nbsp;(*[5]*)let&nbsp;s&nbsp;=&nbsp;List.map&nbsp;(fun&nbsp;(i',&nbsp;c')&nbsp;-&gt;&nbsp;(*[8]*)if&nbsp;(get_item_name&nbsp;i')&nbsp;=&nbsp;(get_item_name&nbsp;i)</div>
+      <div id="line000108" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000108| &nbsp;&nbsp;then&nbsp;((*[5]*)i',&nbsp;c'-c)&nbsp;else&nbsp;((*[3]*)i',&nbsp;c'))&nbsp;l&nbsp;in</div>
       </div>
-      <div id="line000104" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000104| &nbsp;&nbsp;(*[4]*)if&nbsp;List.fold_left&nbsp;(fun&nbsp;a&nbsp;(i',&nbsp;c')&nbsp;-&gt;&nbsp;(*[6]*)((*[6]*)if&nbsp;c'&nbsp;&lt;&nbsp;0&nbsp;then&nbsp;(*[0]*)true&nbsp;else&nbsp;(*[6]*)false)&nbsp;||&nbsp;(*[6]*)a)&nbsp;false&nbsp;s&nbsp;then&nbsp;(*[0]*)failwith&nbsp;&quot;Can't&nbsp;remove&nbsp;that&nbsp;many&quot;</div>
-      <div id="fold000105">
-      <div id="line000105" class="lineAllVisited"><a href="javascript:fold('fold000105');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000105| &nbsp;&nbsp;else&nbsp;(*[4]*)List.filter&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[6]*)c&nbsp;&gt;&nbsp;0)&nbsp;s</div>
+      <div id="line000109" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000109| &nbsp;&nbsp;(*[5]*)if&nbsp;List.fold_left&nbsp;(fun&nbsp;a&nbsp;(i',&nbsp;c')&nbsp;-&gt;&nbsp;(*[8]*)((*[8]*)if&nbsp;c'&nbsp;&lt;&nbsp;0&nbsp;then&nbsp;(*[0]*)true&nbsp;else&nbsp;(*[8]*)false)&nbsp;||&nbsp;(*[8]*)a)</div>
+      <div id="line000110" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000110| &nbsp;&nbsp;&nbsp;&nbsp;false&nbsp;s&nbsp;then&nbsp;(*[0]*)failwith&nbsp;&quot;Can't&nbsp;remove&nbsp;that&nbsp;many&quot;</div>
+      <div id="fold000111">
+      <div id="line000111" class="lineAllVisited"><a href="javascript:fold('fold000111');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000111| &nbsp;&nbsp;else&nbsp;(*[5]*)List.filter&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[8]*)c&nbsp;&gt;&nbsp;0)&nbsp;s</div>
       </div>
     </code>
     <br/>
@@ -251,27 +257,33 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000084');" title="jump to line 84"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000090');" title="jump to line 90"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000086');" title="jump to line 86"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000093');" title="jump to line 93"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000104');" title="jump to line 104"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000109');" title="jump to line 109"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000110');" title="jump to line 110"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
       </table>
     </div>
@@ -282,6 +294,6 @@
     &nbsp;&nbsp;&nbsp;<span class="lineMixed">some code</span>&nbsp;-&nbsp;line containing both visited and unvisited points<br/>
     <br/>
     <hr class="codeSep"/>
-    <p class="footer">Generated by <a href="http://bisect.x9c.fr">Bisect 1.3.1</a> on 2019-04-17 23:30:34</p>
+    <p class="footer">Generated by <a href="http://bisect.x9c.fr">Bisect 1.3.1</a> on 2019-04-17 23:51:05</p>
   </body>
 </html>

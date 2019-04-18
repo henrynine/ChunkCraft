@@ -48,7 +48,9 @@ val add_to_set_list : item -> (item * int) list -> (item * int) list
 val remove_from_set_list : item -> (item * int) list -> (item * int) list
 
 (** Return [l] with [c] copies of [i] added. *)
-val add_to_set_list_multiple : item -> int -> (item * int) list -> (item * int) list
+val add_to_set_list_multiple :
+  item -> int -> (item * int) list -> (item * int) list
 
 (** Return [l] with [c] copies of [i] removed. *)
-val remove_from_set_list_multiple : item -> int -> (item * int) list -> (item * int) list
+val remove_from_set_list_multiple :
+  item -> int -> (item * int) list -> (item * int) list

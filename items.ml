@@ -69,7 +69,8 @@ let get_craft_count i =
   | None -> None
   | Some (_, r) -> Some r
 
-let item_in_set_list i l = List.fold_left (fun acc s -> (get_item_name i) = (get_item_name (fst s)) || acc) false l
+let item_in_set_list i l = List.fold_left (fun acc s -> (get_item_name i) =
+  (get_item_name (fst s)) || acc) false l
 
 let get_count_in_set_list i l =
   let s = List.find_opt (fun (i', c) -> i'.name = i.name) l in
@@ -81,25 +82,30 @@ let get_count_in_set_list i l =
 let add_to_set_list (i : item) (l : (item * int) list) =
   if item_in_set_list i l then
   (* Item is already present, increment the count in the set list *)
-  (List.map (fun (i', c) -> if (get_item_name i') = (get_item_name i) then (i', c+1) else (i', c)) l)
+  (List.map (fun (i', c) -> if (get_item_name i') = (get_item_name i)
+  then (i', c+1) else (i', c)) l)
   else
   (* Item is not present yet, add it with a count of 1 *)
   ((i, 1)::l)
 
 let remove_from_set_list (i : item) (l : (item * int) list) =
-  let s = List.map (fun (i', c) -> if (get_item_name i') = (get_item_name i) then (i', c-1) else (i', c)) l in
+  let s = List.map (fun (i', c) -> if (get_item_name i') = (get_item_name i)
+  then (i', c-1) else (i', c)) l in
   List.filter (fun (i', c) -> c > 0) s
 
 (* TODO once stack limits are added, put them here *)
 let add_to_set_list_multiple (i : item) (c : int) (l : (item * int) list) =
   if item_in_set_list i l then
   (* Item is already present, increase the count in the set list *)
-  (List.map (fun (i', c') -> if (get_item_name i') = (get_item_name i) then (i', c' + c) else (i', c')) l)
+  (List.map (fun (i', c') -> if (get_item_name i') = (get_item_name i)
+  then (i', c' + c) else (i', c')) l)
   else
   (* Item is not present yet, add it with a count of c *)
   ((i, c)::l)
 
 let remove_from_set_list_multiple (i : item) (c : int) (l: (item * int) list) =
-  let s = List.map (fun (i', c') -> if (get_item_name i') = (get_item_name i) then (i', c'-c) else (i', c')) l in
-  if List.fold_left (fun a (i', c') -> (if c' < 0 then true else false) || a) false s then failwith "Can't remove that many"
+  let s = List.map (fun (i', c') -> if (get_item_name i') = (get_item_name i)
+  then (i', c'-c) else (i', c')) l in
+  if List.fold_left (fun a (i', c') -> (if c' < 0 then true else false) || a)
+    false s then failwith "Can't remove that many"
   else List.filter (fun (i', c) -> c > 0) s

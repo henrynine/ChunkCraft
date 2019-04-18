@@ -183,28 +183,36 @@ let get_new_coords m c =
     end
     in
   (* Calculate the coordinates of the move if it is in the same chunk as before *)
-  let (new_coords_x, new_coords_y) = (player_x + (fst move_tuple), player_y + (snd move_tuple)) in
+  let (new_coords_x, new_coords_y) = (player_x + (fst move_tuple), player_y +
+    (snd move_tuple)) in
   (* Grab the current chunk object *)
-  let current_chunk = List.nth (List.nth m.chunks player_chunk_y) player_chunk_x in
+  let current_chunk = List.nth (List.nth m.chunks player_chunk_y)
+    player_chunk_x in
   (* Calculate the coordinates of the new chunk on the chunk grid.
      Also, if the player moves chunks, then change their coords correspondingly.
      *)
   match (new_coords_x, new_coords_y) with
-    | x, y when x >= get_chunk_size_x current_chunk -> (player_chunk_x + 1, player_chunk_y), (0, y)
-    | x, y when y >= get_chunk_size_y current_chunk -> (player_chunk_x, player_chunk_y + 1), (x, 0)
-    | x, y when x < 0 -> (player_chunk_x - 1, player_chunk_y), ((get_chunk_size_x current_chunk) - 1 , y)
-    | x, y when y < 0 -> (player_chunk_x, player_chunk_y - 1), (x, (get_chunk_size_y current_chunk) - 1)
+    | x, y when x >= get_chunk_size_x current_chunk ->
+      (player_chunk_x + 1, player_chunk_y), (0, y)
+    | x, y when y >= get_chunk_size_y current_chunk ->
+      (player_chunk_x, player_chunk_y + 1), (x, 0)
+    | x, y when x < 0 -> (player_chunk_x - 1, player_chunk_y),
+      ((get_chunk_size_x current_chunk) - 1 , y)
+    | x, y when y < 0 -> (player_chunk_x, player_chunk_y - 1),
+      (x, (get_chunk_size_y current_chunk) - 1)
     | x, y -> (player_chunk_x , player_chunk_y), (x, y)
 
 let move_player m c : map =
   (* Check if the new chunk coordinates are valid *)
-  let ((new_chunk_x, new_chunk_y), (final_coords_x, final_coords_y)) = get_new_coords m c in
+  let ((new_chunk_x, new_chunk_y), (final_coords_x, final_coords_y)) =
+    get_new_coords m c in
   if new_chunk_x < 0 || new_chunk_x >= (List.length (List.hd m.chunks)) then m
   else if new_chunk_y < 0 || new_chunk_y >= (List.length m.chunks) then m
   else
   (* Set the new chunk *)
   let new_chunk = List.nth (List.nth m.chunks new_chunk_y) new_chunk_x in
-  let next_block = get_block_in_chunk m new_chunk final_coords_x final_coords_y in
+  let next_block = get_block_in_chunk m new_chunk final_coords_x final_coords_y
+    in
   if Blocks.get_block_ground next_block then
     if Blocks.count_sets_in_block next_block > 0 then
       (* Item is ground and contains an item/items to be picked up *)
@@ -215,19 +223,16 @@ let move_player m c : map =
               player = {p with
                 coords = (final_coords_x, final_coords_y);
                 chunk_coords = (new_chunk_x, new_chunk_y)};
-              chunks = replace_chunk_in_chunks m (replace_block_in_chunk m nb new_chunk_x new_chunk_y final_coords_x final_coords_y) new_chunk_x new_chunk_y}
-        else let new_block, picked_up_item, num_removed = Blocks.take_first_item nb in
-        let new_player = add_to_inventory_multiple picked_up_item num_removed p in
+              chunks = replace_chunk_in_chunks m (replace_block_in_chunk m nb
+                new_chunk_x new_chunk_y final_coords_x final_coords_y)
+                  new_chunk_x new_chunk_y}
+        else let new_block, picked_up_item, num_removed =
+          Blocks.take_first_item nb in
+        let new_player =
+          add_to_inventory_multiple picked_up_item num_removed p in
         loop new_block new_player in
       loop next_block m.player
-    else {m with player = {m.player with coords = (final_coords_x, final_coords_y); chunk_coords = (new_chunk_x, new_chunk_y)}}
+    else {m with player = {m.player with coords =
+      (final_coords_x, final_coords_y); chunk_coords =
+        (new_chunk_x, new_chunk_y)}}
   else m
-
-let mine m command : map = failwith "unimplemented"
-  (* let ((new_chunk_x, new_chunk_y), (final_coords_x, final_coords_y)) = get_new_coords m command in
-  if new_chunk_x <> (fst get_player_chunk_coords m) || new_chunk_y <> (snd get_player_chunk_coords m)
-    then m (* And also print you can't mine left/right/up/down *)
-    else
-    let block_to_mine = get_block_in_chunk m (get_current_chunk m) block_x block_y in
-    if (not block_to_mine.ground)
-      then  *)
