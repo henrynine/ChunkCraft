@@ -33,7 +33,7 @@ type map = {
 
 
 (* Constants *)
-let inventory_max_size () = 10
+let inventory_max_size = 10
 (* End Constants *)
 
 
@@ -41,7 +41,7 @@ let inventory_max_size () = 10
 
 let empty_inventory = {
   sets = [];
-  max_size = inventory_max_size ()
+  max_size = inventory_max_size
 }
 
 let get_player_chunk_coords m = m.player.chunk_coords
@@ -101,7 +101,7 @@ let replace_chunk_in_chunks m new_chunk x y =
   List.mapi (fun i row -> if i = y then (List.mapi (fun i' c -> if i' = x then new_chunk else c) row) else row) m.chunks
 
 (* Assumes all chunks are the same height *)
-let get_chunk_height m = (List.length (List.hd m.chunks))
+let get_chunk_height m = (List.length (List.hd (List.hd m.chunks)).blocks)
 
 (* End Helpers *)
 
@@ -183,13 +183,7 @@ let get_new_coords m c =
     end
     in
   (* Calculate the coordinates of the move if it is in the same chunk as before *)
-  let (new_coords_x, new_coords_y) =
-    begin
-      match move_tuple with
-        | x, y -> player_x + x, player_y + y
-        | _ -> player_x, player_y
-    end
-    in
+  let (new_coords_x, new_coords_y) = (player_x + (fst move_tuple), player_y + (snd move_tuple)) in
   (* Grab the current chunk object *)
   let current_chunk = List.nth (List.nth m.chunks player_chunk_y) player_chunk_x in
   (* Calculate the coordinates of the new chunk on the chunk grid.
@@ -222,8 +216,8 @@ let move_player m c : map =
                 coords = (final_coords_x, final_coords_y);
                 chunk_coords = (new_chunk_x, new_chunk_y)};
               chunks = replace_chunk_in_chunks m (replace_block_in_chunk m nb new_chunk_x new_chunk_y final_coords_x final_coords_y) new_chunk_x new_chunk_y}
-        else let new_block, picked_up_item = Blocks.take_first_item nb in
-        let new_player = add_to_inventory picked_up_item p in
+        else let new_block, picked_up_item, num_removed = Blocks.take_first_item nb in
+        let new_player = add_to_inventory_multiple picked_up_item num_removed p in
         loop new_block new_player in
       loop next_block m.player
     else {m with player = {m.player with coords = (final_coords_x, final_coords_y); chunk_coords = (new_chunk_x, new_chunk_y)}}

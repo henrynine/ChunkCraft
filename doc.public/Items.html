@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Control.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="State" rel="Chapter" href="State.html">
+<link title="Blocks" rel="Chapter" href="Blocks.html">
+<link title="Display" rel="Chapter" href="Display.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Control" rel="Chapter" href="Control.html">
+<link title="Items" rel="Chapter" href="Items.html"><title>Items</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Control.html" title="Control">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Items.html">Items</a></h1>
+
+<pre><span id="MODULEItems"><span class="keyword">module</span> Items</span>: <code class="code">sig</code> <a href="Items.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><code><span id="TYPEitem"><span class="keyword">type</span> <code class="type"></code>item</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTitem.name">name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTitem.stackable">stackable</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTitem.recipe">recipe</span>&nbsp;: <code class="type">((<a href="Items.html#TYPEitem">item</a> * int) list * int) option</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALlog"><span class="keyword">val</span> log</span> : <code class="type"><a href="Items.html#TYPEitem">item</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>The item for a log.</p>
+
+<p>The item for a wood plank.</p>
+</div>
+</div>
+
+<pre><span id="VALwood_plank"><span class="keyword">val</span> wood_plank</span> : <code class="type"><a href="Items.html#TYPEitem">item</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>The item for a stick.</p>
+</div>
+</div>
+
+<pre><span id="VALstick"><span class="keyword">val</span> stick</span> : <code class="type"><a href="Items.html#TYPEitem">item</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>The item for a wood pick.</p>
+</div>
+</div>
+
+<pre><span id="VALwood_pick"><span class="keyword">val</span> wood_pick</span> : <code class="type"><a href="Items.html#TYPEitem">item</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>The item for a wood shovel.</p>
+</div>
+</div>
+
+<pre><span id="VALwood_shovel"><span class="keyword">val</span> wood_shovel</span> : <code class="type"><a href="Items.html#TYPEitem">item</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>The item for a wood sword.</p>
+</div>
+</div>
+
+<pre><span id="VALwood_sword"><span class="keyword">val</span> wood_sword</span> : <code class="type"><a href="Items.html#TYPEitem">item</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>The item for a wood axe.</p>
+</div>
+</div>
+
+<pre><span id="VALwood_axe"><span class="keyword">val</span> wood_axe</span> : <code class="type"><a href="Items.html#TYPEitem">item</a></code></pre>
+<pre><span id="VALall_items"><span class="keyword">val</span> all_items</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p>A list of all items.</p>
+</div>
+</div>
+
+<pre><span id="VALget_item_name"><span class="keyword">val</span> get_item_name</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the name of <code class="code">i</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_item_stackable"><span class="keyword">val</span> get_item_stackable</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check if <code class="code">i</code> is stackable.</p>
+</div>
+</div>
+
+<pre><span id="VALget_full_recipe"><span class="keyword">val</span> get_full_recipe</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> ((<a href="Items.html#TYPEitem">item</a> * int) list * int) option</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the full recipe for crafting <code class="code">i</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_craft_count"><span class="keyword">val</span> get_craft_count</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> int option</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check how many copies of <code class="code">i</code> you get when you craft it.</p>
+</div>
+</div>
+
+<pre><span id="VALitem_in_set_list"><span class="keyword">val</span> item_in_set_list</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> (<a href="Items.html#TYPEitem">item</a> * int) list -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check if <code class="code">i</code> is in <code class="code">l</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_count_in_set_list"><span class="keyword">val</span> get_count_in_set_list</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> (<a href="Items.html#TYPEitem">item</a> * int) list -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get how many copies of <code class="code">i</code> are in <code class="code">l</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALadd_to_set_list"><span class="keyword">val</span> add_to_set_list</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> (<a href="Items.html#TYPEitem">item</a> * int) list -> (<a href="Items.html#TYPEitem">item</a> * int) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">l</code> with one copy of <code class="code">i</code> added.</p>
+</div>
+</div>
+
+<pre><span id="VALremove_from_set_list"><span class="keyword">val</span> remove_from_set_list</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> (<a href="Items.html#TYPEitem">item</a> * int) list -> (<a href="Items.html#TYPEitem">item</a> * int) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">l</code> with one copy of <code class="code">i</code> removed.</p>
+</div>
+</div>
+
+<pre><span id="VALadd_to_set_list_multiple"><span class="keyword">val</span> add_to_set_list_multiple</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> int -> (<a href="Items.html#TYPEitem">item</a> * int) list -> (<a href="Items.html#TYPEitem">item</a> * int) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">l</code> with <code class="code">c</code> copies of <code class="code">i</code> added.</p>
+</div>
+</div>
+
+<pre><span id="VALremove_from_set_list_multiple"><span class="keyword">val</span> remove_from_set_list_multiple</span> : <code class="type"><a href="Items.html#TYPEitem">item</a> -> int -> (<a href="Items.html#TYPEitem">item</a> * int) list -> (<a href="Items.html#TYPEitem">item</a> * int) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">l</code> with <code class="code">c</code> copies of <code class="code">i</code> removed.</p>
+</div>
+</div>
+</body></html>

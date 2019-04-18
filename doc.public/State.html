@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Blocks.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="State" rel="Chapter" href="State.html">
+<link title="Blocks" rel="Chapter" href="Blocks.html">
+<link title="Display" rel="Chapter" href="Display.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Control" rel="Chapter" href="Control.html">
+<link title="Items" rel="Chapter" href="Items.html"><title>State</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Blocks.html" title="Blocks">Next</a>
+</div>
+<h1>Module <a href="type_State.html">State</a></h1>
+
+<pre><span id="MODULEState"><span class="keyword">module</span> State</span>: <code class="code">sig</code> <a href="State.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><code><span id="TYPEchunk"><span class="keyword">type</span> <code class="type"></code>chunk</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchunk.blocks">blocks</span>&nbsp;: <code class="type"><a href="Blocks.html#TYPEblock">Blocks.block</a> list list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchunk.coords">coords</span>&nbsp;: <code class="type">int * int</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>A chunk is a sub-section of a map. One block represents a position within
+    the chunk. <code class="code">coords</code> is the coordinates of the chunk within the map.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEinventory"><span class="keyword">type</span> <code class="type"></code>inventory</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinventory.sets">sets</span>&nbsp;: <code class="type">(<a href="Items.html#TYPEitem">Items.item</a> * int) list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinventory.max_size">max_size</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>An inventory contains sets of items, which contain an item and a count.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEplayer"><span class="keyword">type</span> <code class="type"></code>player</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplayer.color">color</span>&nbsp;: <code class="type">ANSITerminal.style</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplayer.coords">coords</span>&nbsp;: <code class="type">int * int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplayer.chunk_coords">chunk_coords</span>&nbsp;: <code class="type">int * int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplayer.character">character</span>&nbsp;: <code class="type">char</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplayer.inv">inv</span>&nbsp;: <code class="type"><a href="State.html#TYPEinventory">inventory</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplayer.equipped_item">equipped_item</span>&nbsp;: <code class="type">(<a href="Items.html#TYPEitem">Items.item</a> * int) option</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>The type representing the player. <code class="code">coords</code> represents the player's position
+    within their current chunk. <code class="code">character</code> is the character the player is
+    displayed as in game.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEmap"><span class="keyword">type</span> <code class="type"></code>map</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmap.chunks">chunks</span>&nbsp;: <code class="type"><a href="State.html#TYPEchunk">chunk</a> list list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmap.player">player</span>&nbsp;: <code class="type"><a href="State.html#TYPEplayer">player</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmap.mining">mining</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALinventory_max_size"><span class="keyword">val</span> inventory_max_size</span> : <code class="type">int</code></pre><div class="info ">
+<div class="info-desc">
+<p>The maximum inventory size.</p>
+</div>
+</div>
+
+<pre><span id="VALempty_inventory"><span class="keyword">val</span> empty_inventory</span> : <code class="type"><a href="State.html#TYPEinventory">inventory</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>An empty inventory.</p>
+</div>
+</div>
+
+<pre><span id="VALget_player_chunk_coords"><span class="keyword">val</span> get_player_chunk_coords</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> int * int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the coordinates of the player's current chunk within <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_player_coords"><span class="keyword">val</span> get_player_coords</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> int * int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the coordinates of the player's current position within the current
+    chunk in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_chunks"><span class="keyword">val</span> get_chunks</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> <a href="State.html#TYPEchunk">chunk</a> list list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get all the chunks in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_blocks"><span class="keyword">val</span> get_blocks</span> : <code class="type"><a href="State.html#TYPEchunk">chunk</a> -> <a href="Blocks.html#TYPEblock">Blocks.block</a> list list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get all the blocks in <code class="code">c</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_player_color"><span class="keyword">val</span> get_player_color</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> ANSITerminal.style</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the color used to represent the player in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_player_character"><span class="keyword">val</span> get_player_character</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> char</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the character used to represent the player in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALmove_player"><span class="keyword">val</span> move_player</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> char -> <a href="State.html#TYPEmap">map</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Move the player within <code class="code">m</code>. <code class="code">c</code> of 'w' corresponds to up, 'a' to left,
+   's' to down, 'd' to right.</p>
+</div>
+</div>
+
+<pre><span id="VALget_player_inventory"><span class="keyword">val</span> get_player_inventory</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> <a href="State.html#TYPEinventory">inventory</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the player's current inventory.</p>
+</div>
+</div>
+
+<pre><span id="VALget_chunk_size"><span class="keyword">val</span> get_chunk_size</span> : <code class="type"><a href="State.html#TYPEchunk">chunk</a> -> int * int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the size of a chunk as a tuple.</p>
+</div>
+</div>
+
+<pre><span id="VALget_chunk_size_x"><span class="keyword">val</span> get_chunk_size_x</span> : <code class="type"><a href="State.html#TYPEchunk">chunk</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the x size of a chunk.</p>
+</div>
+</div>
+
+<pre><span id="VALget_chunk_size_y"><span class="keyword">val</span> get_chunk_size_y</span> : <code class="type"><a href="State.html#TYPEchunk">chunk</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the y size of a chunk.</p>
+</div>
+</div>
+
+<pre><span id="VALget_inventory_max_size"><span class="keyword">val</span> get_inventory_max_size</span> : <code class="type"><a href="State.html#TYPEinventory">inventory</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the maximum size of an inventory.</p>
+</div>
+</div>
+
+<pre><span id="VALget_inventory_size"><span class="keyword">val</span> get_inventory_size</span> : <code class="type"><a href="State.html#TYPEinventory">inventory</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the current size of an inventory.</p>
+</div>
+</div>
+
+<pre><span id="VALitem_in_inventory"><span class="keyword">val</span> item_in_inventory</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> <a href="State.html#TYPEplayer">player</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check if <code class="code">i</code> is in the inventory of <code class="code">p</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALcount_of_item_in_inv"><span class="keyword">val</span> count_of_item_in_inv</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> <a href="State.html#TYPEplayer">player</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the count of <code class="code">i</code> in the inventory of <code class="code">p</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_inventory_sets"><span class="keyword">val</span> get_inventory_sets</span> : <code class="type"><a href="State.html#TYPEinventory">inventory</a> -> (<a href="Items.html#TYPEitem">Items.item</a> * int) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get all the sets of items in <code class="code">i</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALin_mining_mode"><span class="keyword">val</span> in_mining_mode</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check whether <code class="code">m</code> is in mining mode.</p>
+</div>
+</div>
+
+<pre><span id="VALinventory_is_full"><span class="keyword">val</span> inventory_is_full</span> : <code class="type"><a href="State.html#TYPEplayer">player</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check if the inventory of <code class="code">p</code> is full.</p>
+</div>
+</div>
+
+<pre><span id="VALget_chunk_height"><span class="keyword">val</span> get_chunk_height</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the height of all chunks in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALadd_to_inventory"><span class="keyword">val</span> add_to_inventory</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> <a href="State.html#TYPEplayer">player</a> -> <a href="State.html#TYPEplayer">player</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">p</code> with <code class="code">i</code> added.</p>
+</div>
+</div>
+
+<pre><span id="VALadd_to_inventory_multiple"><span class="keyword">val</span> add_to_inventory_multiple</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> int -> <a href="State.html#TYPEplayer">player</a> -> <a href="State.html#TYPEplayer">player</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">p</code> with <code class="code">i</code> added <code class="code">c</code> times.</p>
+</div>
+</div>
+
+<pre><span id="VALremove_from_inventory"><span class="keyword">val</span> remove_from_inventory</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> <a href="State.html#TYPEplayer">player</a> -> <a href="State.html#TYPEplayer">player</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">p</code> with <code class="code">i</code> removed.</p>
+</div>
+</div>
+
+<pre><span id="VALremove_from_inventory_multiple"><span class="keyword">val</span> remove_from_inventory_multiple</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> int -> <a href="State.html#TYPEplayer">player</a> -> <a href="State.html#TYPEplayer">player</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">p</code> with <code class="code">i</code> removed <code class="code">c</code> times.</p>
+</div>
+</div>
+
+<pre><span id="VALequip_item"><span class="keyword">val</span> equip_item</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> int -> <a href="State.html#TYPEmap">map</a> -> <a href="State.html#TYPEplayer">player</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Move the player's currently equipped item to their inventory, if they have
+    one, and equip <code class="code">c</code> counts of <code class="code">i</code>. Returns the player with their equipped
+    item and inventory updated.</p>
+</div>
+</div>
+
+<pre><span id="VALunequip_item"><span class="keyword">val</span> unequip_item</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> <a href="State.html#TYPEmap">map</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">m</code> with the player's equipped item returned to their inventory.</p>
+</div>
+</div>
+
+<pre><span id="VALhas_item_equipped"><span class="keyword">val</span> has_item_equipped</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check whether the player in <code class="code">m</code> has an item equipped.</p>
+</div>
+</div>
+
+<pre><span id="VALequipped_item"><span class="keyword">val</span> equipped_item</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> (<a href="Items.html#TYPEitem">Items.item</a> * int) option</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return the currently equipped item of the player in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_block_in_chunk"><span class="keyword">val</span> get_block_in_chunk</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> <a href="State.html#TYPEchunk">chunk</a> -> int -> int -> <a href="Blocks.html#TYPEblock">Blocks.block</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Return the block at position <code class="code">x</code>, <code class="code">y</code> in <code class="code">chunk</code> in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_current_chunk"><span class="keyword">val</span> get_current_chunk</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> <a href="State.html#TYPEchunk">chunk</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the current chunk of <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALreplace_chunk_in_chunks"><span class="keyword">val</span> replace_chunk_in_chunks</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> <a href="State.html#TYPEchunk">chunk</a> -> int -> int -> <a href="State.html#TYPEchunk">chunk</a> list list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">m</code> with <code class="code">new_chunk</code> replacing the chunk at <code class="code">x</code>, <code class="code">y</code> in <code class="code">m</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALreplace_block_in_chunk"><span class="keyword">val</span> replace_block_in_chunk</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> <a href="Blocks.html#TYPEblock">Blocks.block</a> -> int -> int -> int -> int -> <a href="State.html#TYPEchunk">chunk</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Return the chunk at <code class="code">chunk_x</code>, <code class="code">chunk_y</code> in <code class="code">m</code> with <code class="code">nb</code> replacing the
+    block at <code class="code">x</code>, <code class="code">y</code></p>
+</div>
+</div>
+
+<pre><span id="VALinventory_is_full_map"><span class="keyword">val</span> inventory_is_full_map</span> : <code class="type"><a href="State.html#TYPEmap">map</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check if the inventory of the player in <code class="code">m</code> is full.</p>
+</div>
+</div>
+</body></html>

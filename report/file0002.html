@@ -22,13 +22,13 @@
         <td valign="top">
           <table class="simple">
             <tr><th>kind</th><th width="16px">&nbsp;</th><th>coverage</th></tr>
-            <tr><td>binding</td><td width="16px">&nbsp;</td><td>8 / 13 (61%)</td></tr>
+            <tr><td>binding</td><td width="16px">&nbsp;</td><td>11 / 14 (78%)</td></tr>
             <tr><td>sequence</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
             <tr><td>for</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
-            <tr><td>if/then</td><td width="16px">&nbsp;</td><td>4 / 26 (15%)</td></tr>
+            <tr><td>if/then</td><td width="16px">&nbsp;</td><td>17 / 26 (65%)</td></tr>
             <tr><td>try</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
             <tr><td>while</td><td width="16px">&nbsp;</td><td>0 / 0 (-%)</td></tr>
-            <tr><td>match/function</td><td width="16px">&nbsp;</td><td>27 / 58 (46%)</td></tr>
+            <tr><td>match/function</td><td width="16px">&nbsp;</td><td>41 / 55 (74%)</td></tr>
           </table>
         </td>
         <td valign="top">
@@ -87,7 +87,7 @@
       <div id="line000033" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000033| &nbsp;</div>
       <div id="line000034" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000034| &nbsp;</div>
       <div id="line000035" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000035| (*&nbsp;Constants&nbsp;*)</div>
-      <div id="line000036" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000036| let&nbsp;inventory_max_size&nbsp;()&nbsp;=&nbsp;(*[5]*)10</div>
+      <div id="line000036" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000036| let&nbsp;inventory_max_size&nbsp;=&nbsp;(*[1]*)10</div>
       <div id="line000037" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000037| (*&nbsp;End&nbsp;Constants&nbsp;*)</div>
       <div id="line000038" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000038| &nbsp;</div>
       <div id="line000039" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000039| &nbsp;</div>
@@ -95,17 +95,15 @@
       <div id="line000041" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000041| &nbsp;</div>
       <div id="line000042" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000042| let&nbsp;empty_inventory&nbsp;=&nbsp;(*[1]*){</div>
       <div id="line000043" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000043| &nbsp;&nbsp;sets&nbsp;=&nbsp;[];</div>
-      <div id="line000044" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000044| &nbsp;&nbsp;max_size&nbsp;=&nbsp;inventory_max_size&nbsp;()</div>
+      <div id="line000044" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000044| &nbsp;&nbsp;max_size&nbsp;=&nbsp;inventory_max_size</div>
       <div id="line000045" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000045| }</div>
       <div id="line000046" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000046| &nbsp;</div>
-      <div id="line000047" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000047| let&nbsp;get_player_chunk_coords&nbsp;m&nbsp;=&nbsp;(*[1]*)m.player.chunk_coords</div>
+      <div id="line000047" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000047| let&nbsp;get_player_chunk_coords&nbsp;m&nbsp;=&nbsp;(*[2]*)m.player.chunk_coords</div>
       <div id="line000048" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000048| &nbsp;</div>
       <div id="line000049" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000049| let&nbsp;get_current_chunk&nbsp;m&nbsp;=</div>
-      </div>
-      <div id="line000050" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000050| &nbsp;&nbsp;(*[0]*)let&nbsp;x,&nbsp;y&nbsp;=&nbsp;get_player_chunk_coords&nbsp;m&nbsp;in</div>
-      <div id="line000051" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000051| &nbsp;&nbsp;(*[0]*)List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;y)&nbsp;x</div>
-      <div id="fold000052">
-      <div id="line000052" class="lineNone"><a href="javascript:fold('fold000052');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000052| &nbsp;</div>
+      <div id="line000050" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000050| &nbsp;&nbsp;(*[1]*)let&nbsp;x,&nbsp;y&nbsp;=&nbsp;get_player_chunk_coords&nbsp;m&nbsp;in</div>
+      <div id="line000051" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000051| &nbsp;&nbsp;(*[1]*)List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;y)&nbsp;x</div>
+      <div id="line000052" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000052| &nbsp;</div>
       <div id="line000053" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000053| let&nbsp;get_player_coords&nbsp;m&nbsp;=&nbsp;(*[1]*)m.player.coords</div>
       <div id="line000054" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000054| &nbsp;</div>
       <div id="line000055" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000055| let&nbsp;get_chunks&nbsp;m&nbsp;=&nbsp;(*[5]*)m.chunks</div>
@@ -127,11 +125,11 @@
       <div id="line000071" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000071| &nbsp;</div>
       <div id="line000072" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000072| let&nbsp;get_chunk_size_y&nbsp;c&nbsp;=&nbsp;(*[2]*)get_chunk_size&nbsp;c&nbsp;|&gt;&nbsp;snd</div>
       <div id="line000073" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000073| &nbsp;</div>
-      <div id="line000074" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000074| let&nbsp;get_inventory_max_size&nbsp;i&nbsp;=&nbsp;(*[3]*)i.max_size</div>
+      <div id="line000074" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000074| let&nbsp;get_inventory_max_size&nbsp;i&nbsp;=&nbsp;(*[7]*)i.max_size</div>
       <div id="line000075" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000075| &nbsp;</div>
-      <div id="line000076" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000076| let&nbsp;get_inventory_size&nbsp;i&nbsp;=&nbsp;(*[3]*)List.length&nbsp;(i.sets)</div>
+      <div id="line000076" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000076| let&nbsp;get_inventory_size&nbsp;i&nbsp;=&nbsp;(*[7]*)List.length&nbsp;(i.sets)</div>
       <div id="line000077" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000077| &nbsp;</div>
-      <div id="line000078" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000078| let&nbsp;item_in_inventory&nbsp;i&nbsp;p&nbsp;=&nbsp;(*[2]*)List.fold_left&nbsp;(fun&nbsp;acc&nbsp;s&nbsp;-&gt;&nbsp;(*[2]*)(Items.get_item_name&nbsp;i)&nbsp;=&nbsp;(Items.get_item_name&nbsp;(fst&nbsp;s))&nbsp;||&nbsp;(*[1]*)acc)&nbsp;false&nbsp;p.inv.sets</div>
+      <div id="line000078" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000078| let&nbsp;item_in_inventory&nbsp;i&nbsp;p&nbsp;=&nbsp;(*[5]*)List.fold_left&nbsp;(fun&nbsp;acc&nbsp;s&nbsp;-&gt;&nbsp;(*[5]*)(Items.get_item_name&nbsp;i)&nbsp;=&nbsp;(Items.get_item_name&nbsp;(fst&nbsp;s))&nbsp;||&nbsp;(*[2]*)acc)&nbsp;false&nbsp;p.inv.sets</div>
       <div id="line000079" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000079| &nbsp;</div>
       <div id="line000080" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000080| let&nbsp;count_of_item_in_inv&nbsp;i&nbsp;p&nbsp;=</div>
       <div id="line000081" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000081| &nbsp;&nbsp;(*[2]*)let&nbsp;i'&nbsp;=&nbsp;List.find_opt&nbsp;(fun&nbsp;(i',&nbsp;c)&nbsp;-&gt;&nbsp;(*[2]*)Items.get_item_name&nbsp;i&nbsp;=&nbsp;Items.get_item_name&nbsp;i')&nbsp;p.inv.sets&nbsp;in</div>
@@ -139,77 +137,59 @@
       <div id="line000083" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000083| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[1]*)0</div>
       <div id="line000084" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000084| &nbsp;&nbsp;|&nbsp;Some&nbsp;s&nbsp;-&gt;&nbsp;(*[1]*)snd&nbsp;s</div>
       <div id="line000085" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000085| &nbsp;</div>
-      </div>
-      <div id="line000086" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000086| let&nbsp;get_inventory_sets&nbsp;i&nbsp;=&nbsp;(*[0]*)i.sets</div>
-      <div id="fold000087">
-      <div id="line000087" class="lineNone"><a href="javascript:fold('fold000087');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000087| &nbsp;</div>
+      <div id="line000086" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000086| let&nbsp;get_inventory_sets&nbsp;i&nbsp;=&nbsp;(*[1]*)i.sets</div>
+      <div id="line000087" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000087| &nbsp;</div>
       <div id="line000088" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000088| let&nbsp;in_mining_mode&nbsp;m&nbsp;=&nbsp;(*[1]*)m.mining</div>
       <div id="line000089" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000089| &nbsp;</div>
-      <div id="line000090" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000090| let&nbsp;inventory_is_full&nbsp;p&nbsp;=&nbsp;(*[2]*)(get_inventory_size&nbsp;p.inv)&nbsp;=&nbsp;(get_inventory_max_size&nbsp;p.inv)</div>
+      <div id="line000090" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000090| let&nbsp;inventory_is_full&nbsp;p&nbsp;=&nbsp;(*[3]*)(get_inventory_size&nbsp;p.inv)&nbsp;=&nbsp;(get_inventory_max_size&nbsp;p.inv)</div>
       <div id="line000091" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000091| &nbsp;</div>
-      <div id="line000092" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000092| let&nbsp;inventory_is_full_map&nbsp;m&nbsp;=&nbsp;(*[1]*)inventory_is_full&nbsp;m.player</div>
+      <div id="line000092" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000092| let&nbsp;inventory_is_full_map&nbsp;m&nbsp;=&nbsp;(*[2]*)inventory_is_full&nbsp;m.player</div>
       <div id="line000093" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000093| &nbsp;</div>
       <div id="line000094" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000094| (*&nbsp;return&nbsp;the&nbsp;chunk&nbsp;in&nbsp;m&nbsp;at&nbsp;c_x&nbsp;c_y&nbsp;with&nbsp;nb&nbsp;at&nbsp;x&nbsp;y&nbsp;in&nbsp;that&nbsp;chunk*)</div>
       <div id="line000095" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000095| let&nbsp;replace_block_in_chunk&nbsp;m&nbsp;nb&nbsp;c_x&nbsp;c_y&nbsp;x&nbsp;y&nbsp;=</div>
-      </div>
-      <div id="line000096" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000096| &nbsp;&nbsp;(*[0]*)let&nbsp;chunk&nbsp;=&nbsp;List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;c_y)&nbsp;c_x&nbsp;in</div>
-      <div id="line000097" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000097| &nbsp;&nbsp;(*[0]*){chunk&nbsp;with&nbsp;blocks&nbsp;=&nbsp;List.mapi&nbsp;(fun&nbsp;i&nbsp;row&nbsp;-&gt;&nbsp;(*[0]*)if&nbsp;i&nbsp;=&nbsp;y&nbsp;then&nbsp;((*[0]*)List.mapi&nbsp;(fun&nbsp;i'&nbsp;b&nbsp;-&gt;&nbsp;(*[0]*)if&nbsp;i'&nbsp;=&nbsp;x&nbsp;then&nbsp;(*[0]*)nb&nbsp;else&nbsp;(*[0]*)b)&nbsp;row)&nbsp;else&nbsp;(*[0]*)row)&nbsp;chunk.blocks}</div>
-      <div id="fold000098">
-      <div id="line000098" class="lineNone"><a href="javascript:fold('fold000098');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000098| &nbsp;</div>
+      <div id="line000096" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000096| &nbsp;&nbsp;(*[1]*)let&nbsp;chunk&nbsp;=&nbsp;List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;c_y)&nbsp;c_x&nbsp;in</div>
+      <div id="line000097" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000097| &nbsp;&nbsp;(*[1]*){chunk&nbsp;with&nbsp;blocks&nbsp;=&nbsp;List.mapi&nbsp;(fun&nbsp;i&nbsp;row&nbsp;-&gt;&nbsp;(*[24]*)if&nbsp;i&nbsp;=&nbsp;y&nbsp;then&nbsp;((*[1]*)List.mapi&nbsp;(fun&nbsp;i'&nbsp;b&nbsp;-&gt;&nbsp;(*[24]*)if&nbsp;i'&nbsp;=&nbsp;x&nbsp;then&nbsp;(*[1]*)nb&nbsp;else&nbsp;(*[23]*)b)&nbsp;row)&nbsp;else&nbsp;(*[23]*)row)&nbsp;chunk.blocks}</div>
+      <div id="line000098" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000098| &nbsp;</div>
       <div id="line000099" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000099| (*&nbsp;return&nbsp;m.chunks&nbsp;with&nbsp;the&nbsp;chunk&nbsp;at&nbsp;x,&nbsp;y&nbsp;replaced&nbsp;with&nbsp;new_chunk&nbsp;*)</div>
       <div id="line000100" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000100| let&nbsp;replace_chunk_in_chunks&nbsp;m&nbsp;new_chunk&nbsp;x&nbsp;y&nbsp;=</div>
-      </div>
-      <div id="line000101" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000101| &nbsp;&nbsp;(*[0]*)List.mapi&nbsp;(fun&nbsp;i&nbsp;row&nbsp;-&gt;&nbsp;(*[0]*)if&nbsp;i&nbsp;=&nbsp;y&nbsp;then&nbsp;((*[0]*)List.mapi&nbsp;(fun&nbsp;i'&nbsp;c&nbsp;-&gt;&nbsp;(*[0]*)if&nbsp;i'&nbsp;=&nbsp;x&nbsp;then&nbsp;(*[0]*)new_chunk&nbsp;else&nbsp;(*[0]*)c)&nbsp;row)&nbsp;else&nbsp;(*[0]*)row)&nbsp;m.chunks</div>
-      <div id="fold000102">
-      <div id="line000102" class="lineNone"><a href="javascript:fold('fold000102');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000102| &nbsp;</div>
+      <div id="line000101" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000101| &nbsp;&nbsp;(*[1]*)List.mapi&nbsp;(fun&nbsp;i&nbsp;row&nbsp;-&gt;&nbsp;(*[2]*)if&nbsp;i&nbsp;=&nbsp;y&nbsp;then&nbsp;((*[1]*)List.mapi&nbsp;(fun&nbsp;i'&nbsp;c&nbsp;-&gt;&nbsp;(*[2]*)if&nbsp;i'&nbsp;=&nbsp;x&nbsp;then&nbsp;(*[1]*)new_chunk&nbsp;else&nbsp;(*[1]*)c)&nbsp;row)&nbsp;else&nbsp;(*[1]*)row)&nbsp;m.chunks</div>
+      <div id="line000102" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000102| &nbsp;</div>
       <div id="line000103" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000103| (*&nbsp;Assumes&nbsp;all&nbsp;chunks&nbsp;are&nbsp;the&nbsp;same&nbsp;height&nbsp;*)</div>
-      </div>
-      <div id="line000104" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000104| let&nbsp;get_chunk_height&nbsp;m&nbsp;=&nbsp;((*[0]*)List.length&nbsp;(List.hd&nbsp;m.chunks))</div>
-      <div id="fold000105">
-      <div id="line000105" class="lineNone"><a href="javascript:fold('fold000105');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000105| &nbsp;</div>
+      <div id="line000104" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000104| let&nbsp;get_chunk_height&nbsp;m&nbsp;=&nbsp;((*[1]*)List.length&nbsp;(List.hd&nbsp;(List.hd&nbsp;m.chunks)).blocks)</div>
+      <div id="line000105" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000105| &nbsp;</div>
       <div id="line000106" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000106| (*&nbsp;End&nbsp;Helpers&nbsp;*)</div>
       <div id="line000107" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000107| &nbsp;</div>
       <div id="line000108" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000108| (*&nbsp;player&nbsp;with&nbsp;item&nbsp;added&nbsp;to&nbsp;inventory&nbsp;or&nbsp;incremented,&nbsp;depending&nbsp;on&nbsp;which</div>
       <div id="line000109" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000109| &nbsp;&nbsp;&nbsp;is&nbsp;appropriate&nbsp;*)</div>
-      </div>
-      <div id="line000110" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000110| let&nbsp;add_to_inventory&nbsp;(i&nbsp;:&nbsp;Items.item)&nbsp;(p&nbsp;:&nbsp;player)&nbsp;(*[0]*):&nbsp;player&nbsp;=</div>
-      <div id="fold000111">
-      <div id="line000111" class="lineNone"><a href="javascript:fold('fold000111');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000111| &nbsp;&nbsp;(*&nbsp;check&nbsp;if&nbsp;there&nbsp;is&nbsp;room&nbsp;in&nbsp;the&nbsp;player's&nbsp;inventory&nbsp;*)</div>
+      <div id="line000110" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000110| let&nbsp;add_to_inventory&nbsp;(i&nbsp;:&nbsp;Items.item)&nbsp;(p&nbsp;:&nbsp;player)&nbsp;(*[1]*):&nbsp;player&nbsp;=</div>
+      <div id="line000111" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000111| &nbsp;&nbsp;(*&nbsp;check&nbsp;if&nbsp;there&nbsp;is&nbsp;room&nbsp;in&nbsp;the&nbsp;player's&nbsp;inventory&nbsp;*)</div>
       <div id="line000112" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000112| &nbsp;&nbsp;if&nbsp;(get_inventory_size&nbsp;p.inv)&nbsp;&gt;=&nbsp;(get_inventory_max_size&nbsp;p.inv)</div>
       </div>
       <div id="line000113" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000113| &nbsp;&nbsp;then&nbsp;(*[0]*)failwith&nbsp;&quot;Inventory&nbsp;is&nbsp;full&quot;</div>
       <div id="fold000114">
       <div id="line000114" class="lineNone"><a href="javascript:fold('fold000114');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000114| &nbsp;&nbsp;else</div>
-      </div>
-      <div id="line000115" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000115| &nbsp;&nbsp;(*[0]*){p&nbsp;with</div>
-      <div id="fold000116">
-      <div id="line000116" class="lineNone"><a href="javascript:fold('fold000116');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000116| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
+      <div id="line000115" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000115| &nbsp;&nbsp;(*[1]*){p&nbsp;with</div>
+      <div id="line000116" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000116| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
       <div id="line000117" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000117| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets&nbsp;=&nbsp;Items.add_to_set_list&nbsp;i&nbsp;p.inv.sets}</div>
       <div id="line000118" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000118| &nbsp;&nbsp;}</div>
       <div id="line000119" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000119| &nbsp;</div>
-      </div>
-      <div id="line000120" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000120| let&nbsp;add_to_inventory_multiple&nbsp;(i&nbsp;:&nbsp;Items.item)&nbsp;(c&nbsp;:&nbsp;int)&nbsp;(p&nbsp;:&nbsp;player)&nbsp;(*[0]*):&nbsp;player&nbsp;=</div>
-      <div id="fold000121">
-      <div id="line000121" class="lineNone"><a href="javascript:fold('fold000121');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000121| &nbsp;&nbsp;if&nbsp;(get_inventory_size&nbsp;p.inv)&nbsp;&gt;=&nbsp;(get_inventory_max_size&nbsp;p.inv)</div>
+      <div id="line000120" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000120| let&nbsp;add_to_inventory_multiple&nbsp;(i&nbsp;:&nbsp;Items.item)&nbsp;(c&nbsp;:&nbsp;int)&nbsp;(p&nbsp;:&nbsp;player)&nbsp;(*[2]*):&nbsp;player&nbsp;=</div>
+      <div id="line000121" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000121| &nbsp;&nbsp;if&nbsp;(get_inventory_size&nbsp;p.inv)&nbsp;&gt;=&nbsp;(get_inventory_max_size&nbsp;p.inv)</div>
       </div>
       <div id="line000122" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000122| &nbsp;&nbsp;then&nbsp;(*[0]*)failwith&nbsp;&quot;Inventory&nbsp;is&nbsp;full&quot;</div>
       <div id="fold000123">
       <div id="line000123" class="lineNone"><a href="javascript:fold('fold000123');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000123| &nbsp;&nbsp;else</div>
-      </div>
-      <div id="line000124" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000124| &nbsp;&nbsp;(*[0]*){p&nbsp;with</div>
-      <div id="fold000125">
-      <div id="line000125" class="lineNone"><a href="javascript:fold('fold000125');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000125| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
+      <div id="line000124" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000124| &nbsp;&nbsp;(*[2]*){p&nbsp;with</div>
+      <div id="line000125" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000125| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
       <div id="line000126" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000126| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets&nbsp;=&nbsp;Items.add_to_set_list_multiple&nbsp;i&nbsp;c&nbsp;p.inv.sets}</div>
       <div id="line000127" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000127| &nbsp;&nbsp;}</div>
       <div id="line000128" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000128| &nbsp;</div>
       <div id="line000129" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000129| (*&nbsp;Player&nbsp;with:&nbsp;decrement&nbsp;count&nbsp;of&nbsp;item&nbsp;in&nbsp;player's&nbsp;inventory,&nbsp;if&nbsp;the&nbsp;count&nbsp;is&nbsp;then&nbsp;zero,</div>
       <div id="line000130" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000130| &nbsp;&nbsp;&nbsp;remove&nbsp;it&nbsp;from&nbsp;the&nbsp;item&nbsp;*)</div>
       <div id="line000131" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000131| let&nbsp;remove_from_inventory&nbsp;(i:&nbsp;Items.item)&nbsp;(p:player)&nbsp;=</div>
-      </div>
-      <div id="line000132" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000132| &nbsp;&nbsp;(*[0]*)if&nbsp;item_in_inventory&nbsp;i&nbsp;p&nbsp;then</div>
-      <div id="line000133" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000133| &nbsp;&nbsp;(*[0]*){p&nbsp;with</div>
-      <div id="fold000134">
-      <div id="line000134" class="lineNone"><a href="javascript:fold('fold000134');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000134| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
+      <div id="line000132" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000132| &nbsp;&nbsp;(*[1]*)if&nbsp;item_in_inventory&nbsp;i&nbsp;p&nbsp;then</div>
+      <div id="line000133" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000133| &nbsp;&nbsp;(*[1]*){p&nbsp;with</div>
+      <div id="line000134" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000134| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
       <div id="line000135" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000135| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets&nbsp;=&nbsp;Items.remove_from_set_list&nbsp;i&nbsp;p.inv.sets</div>
       <div id="line000136" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000136| &nbsp;&nbsp;&nbsp;&nbsp;}</div>
       <div id="line000137" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000137| &nbsp;&nbsp;}</div>
@@ -219,25 +199,19 @@
       <div id="fold000140">
       <div id="line000140" class="lineNone"><a href="javascript:fold('fold000140');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000140| &nbsp;</div>
       <div id="line000141" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000141| let&nbsp;remove_from_inventory_multiple&nbsp;(i:&nbsp;Items.item)&nbsp;(c&nbsp;:&nbsp;int)&nbsp;(p:player)&nbsp;=</div>
-      </div>
-      <div id="line000142" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000142| &nbsp;&nbsp;(*[0]*)if&nbsp;item_in_inventory&nbsp;i&nbsp;p&nbsp;then</div>
-      <div id="line000143" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000143| &nbsp;&nbsp;(*[0]*){p&nbsp;with</div>
-      <div id="fold000144">
-      <div id="line000144" class="lineNone"><a href="javascript:fold('fold000144');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000144| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
+      <div id="line000142" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000142| &nbsp;&nbsp;(*[2]*)if&nbsp;item_in_inventory&nbsp;i&nbsp;p&nbsp;then</div>
+      <div id="line000143" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000143| &nbsp;&nbsp;(*[1]*){p&nbsp;with</div>
+      <div id="line000144" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000144| &nbsp;&nbsp;&nbsp;&nbsp;inv&nbsp;=&nbsp;{p.inv&nbsp;with</div>
       <div id="line000145" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000145| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets&nbsp;=&nbsp;Items.remove_from_set_list_multiple&nbsp;i&nbsp;c&nbsp;p.inv.sets</div>
       <div id="line000146" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000146| &nbsp;&nbsp;&nbsp;&nbsp;}</div>
       <div id="line000147" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000147| &nbsp;&nbsp;}</div>
       <div id="line000148" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000148| &nbsp;&nbsp;else</div>
-      </div>
-      <div id="line000149" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000149| &nbsp;&nbsp;(*[0]*)failwith&nbsp;(&quot;That&nbsp;item&nbsp;isn't&nbsp;in&nbsp;that&nbsp;character's&nbsp;inventory&quot;)</div>
-      <div id="fold000150">
-      <div id="line000150" class="lineNone"><a href="javascript:fold('fold000150');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000150| &nbsp;</div>
+      <div id="line000149" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000149| &nbsp;&nbsp;(*[1]*)failwith&nbsp;(&quot;That&nbsp;item&nbsp;isn't&nbsp;in&nbsp;that&nbsp;character's&nbsp;inventory&quot;)</div>
+      <div id="line000150" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000150| &nbsp;</div>
       <div id="line000151" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000151| let&nbsp;equip_item&nbsp;i&nbsp;c&nbsp;m&nbsp;=</div>
       <div id="line000152" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000152| &nbsp;&nbsp;match&nbsp;m.player.equipped_item&nbsp;with</div>
-      </div>
-      <div id="line000153" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000153| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[0]*){m.player&nbsp;with&nbsp;equipped_item&nbsp;=&nbsp;Some&nbsp;(i,&nbsp;c)}</div>
-      <div id="fold000154">
-      <div id="line000154" class="lineNone"><a href="javascript:fold('fold000154');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000154| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&gt;&nbsp;remove_from_inventory_multiple&nbsp;i&nbsp;c</div>
+      <div id="line000153" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000153| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[1]*){m.player&nbsp;with&nbsp;equipped_item&nbsp;=&nbsp;Some&nbsp;(i,&nbsp;c)}</div>
+      <div id="line000154" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000154| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&gt;&nbsp;remove_from_inventory_multiple&nbsp;i&nbsp;c</div>
       </div>
       <div id="line000155" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000155| &nbsp;&nbsp;|&nbsp;Some&nbsp;s&nbsp;-&gt;&nbsp;(*[0]*){m.player&nbsp;with&nbsp;equipped_item&nbsp;=&nbsp;Some&nbsp;(i,&nbsp;c)}</div>
       <div id="fold000156">
@@ -248,17 +222,17 @@
       <div id="line000160" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000160| &nbsp;&nbsp;match&nbsp;m.player.equipped_item&nbsp;with</div>
       </div>
       <div id="line000161" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000161| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[0]*)failwith&nbsp;&quot;No&nbsp;item&nbsp;equipped&quot;</div>
-      <div id="line000162" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000162| &nbsp;&nbsp;|&nbsp;Some&nbsp;s&nbsp;-&gt;&nbsp;(*[0]*){m&nbsp;with&nbsp;player&nbsp;=&nbsp;({m.player&nbsp;with&nbsp;equipped_item&nbsp;=&nbsp;None}</div>
-      <div id="fold000163">
-      <div id="line000163" class="lineNone"><a href="javascript:fold('fold000163');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000163| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&gt;&nbsp;add_to_inventory_multiple&nbsp;(fst&nbsp;s)&nbsp;(snd&nbsp;s))}</div>
+      <div id="fold000162">
+      <div id="line000162" class="lineAllVisited"><a href="javascript:fold('fold000162');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000162| &nbsp;&nbsp;|&nbsp;Some&nbsp;s&nbsp;-&gt;&nbsp;(*[1]*){m&nbsp;with&nbsp;player&nbsp;=&nbsp;({m.player&nbsp;with&nbsp;equipped_item&nbsp;=&nbsp;None}</div>
+      <div id="line000163" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000163| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&gt;&nbsp;add_to_inventory_multiple&nbsp;(fst&nbsp;s)&nbsp;(snd&nbsp;s))}</div>
       <div id="line000164" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000164| &nbsp;</div>
       <div id="line000165" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000165| let&nbsp;has_item_equipped&nbsp;m&nbsp;=</div>
       <div id="line000166" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000166| &nbsp;&nbsp;match&nbsp;m.player.equipped_item&nbsp;with</div>
       </div>
       <div id="line000167" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000167| &nbsp;&nbsp;|&nbsp;None&nbsp;-&gt;&nbsp;(*[0]*)false</div>
-      <div id="line000168" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000168| &nbsp;&nbsp;|&nbsp;Some&nbsp;_&nbsp;-&gt;&nbsp;(*[0]*)true</div>
-      <div id="fold000169">
-      <div id="line000169" class="lineNone"><a href="javascript:fold('fold000169');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000169| &nbsp;</div>
+      <div id="fold000168">
+      <div id="line000168" class="lineAllVisited"><a href="javascript:fold('fold000168');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000168| &nbsp;&nbsp;|&nbsp;Some&nbsp;_&nbsp;-&gt;&nbsp;(*[1]*)true</div>
+      <div id="line000169" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000169| &nbsp;</div>
       </div>
       <div id="line000170" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000170| let&nbsp;equipped_item&nbsp;m&nbsp;=&nbsp;(*[0]*)m.player.equipped_item</div>
       <div id="fold000171">
@@ -281,74 +255,66 @@
       <div id="line000183" class="lineNone"><a href="javascript:fold('fold000183');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000183| &nbsp;&nbsp;&nbsp;&nbsp;end</div>
       <div id="line000184" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000184| &nbsp;&nbsp;&nbsp;&nbsp;in</div>
       <div id="line000185" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000185| &nbsp;&nbsp;(*&nbsp;Calculate&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;the&nbsp;move&nbsp;if&nbsp;it&nbsp;is&nbsp;in&nbsp;the&nbsp;same&nbsp;chunk&nbsp;as&nbsp;before&nbsp;*)</div>
-      <div id="line000186" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000186| &nbsp;&nbsp;(*[1]*)let&nbsp;(new_coords_x,&nbsp;new_coords_y)&nbsp;=</div>
-      <div id="line000187" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000187| &nbsp;&nbsp;&nbsp;&nbsp;begin</div>
-      <div id="line000188" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000188| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;match&nbsp;move_tuple&nbsp;with</div>
-      <div id="line000189" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000189| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;-&gt;&nbsp;(*[1]*)player_x&nbsp;+&nbsp;x,&nbsp;player_y&nbsp;+&nbsp;y</div>
+      <div id="line000186" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000186| &nbsp;&nbsp;(*[1]*)let&nbsp;(new_coords_x,&nbsp;new_coords_y)&nbsp;=&nbsp;(player_x&nbsp;+&nbsp;(fst&nbsp;move_tuple),&nbsp;player_y&nbsp;+&nbsp;(snd&nbsp;move_tuple))&nbsp;in</div>
+      <div id="line000187" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000187| &nbsp;&nbsp;(*&nbsp;Grab&nbsp;the&nbsp;current&nbsp;chunk&nbsp;object&nbsp;*)</div>
+      <div id="line000188" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000188| &nbsp;&nbsp;(*[1]*)let&nbsp;current_chunk&nbsp;=&nbsp;List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;player_chunk_y)&nbsp;player_chunk_x&nbsp;in</div>
+      <div id="line000189" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000189| &nbsp;&nbsp;(*&nbsp;Calculate&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;the&nbsp;new&nbsp;chunk&nbsp;on&nbsp;the&nbsp;chunk&nbsp;grid.</div>
+      <div id="line000190" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000190| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also,&nbsp;if&nbsp;the&nbsp;player&nbsp;moves&nbsp;chunks,&nbsp;then&nbsp;change&nbsp;their&nbsp;coords&nbsp;correspondingly.</div>
+      <div id="line000191" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000191| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</div>
+      <div id="line000192" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000192| &nbsp;&nbsp;match&nbsp;(new_coords_x,&nbsp;new_coords_y)&nbsp;with</div>
       </div>
-      <div id="line000190" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000190| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;_&nbsp;-&gt;&nbsp;(*[0]*)player_x,&nbsp;player_y</div>
-      <div id="fold000191">
-      <div id="line000191" class="lineNone"><a href="javascript:fold('fold000191');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000191| &nbsp;&nbsp;&nbsp;&nbsp;end</div>
-      <div id="line000192" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000192| &nbsp;&nbsp;&nbsp;&nbsp;in</div>
-      <div id="line000193" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000193| &nbsp;&nbsp;(*&nbsp;Grab&nbsp;the&nbsp;current&nbsp;chunk&nbsp;object&nbsp;*)</div>
-      <div id="line000194" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000194| &nbsp;&nbsp;(*[1]*)let&nbsp;current_chunk&nbsp;=&nbsp;List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;player_chunk_y)&nbsp;player_chunk_x&nbsp;in</div>
-      <div id="line000195" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000195| &nbsp;&nbsp;(*&nbsp;Calculate&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;the&nbsp;new&nbsp;chunk&nbsp;on&nbsp;the&nbsp;chunk&nbsp;grid.</div>
-      <div id="line000196" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000196| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also,&nbsp;if&nbsp;the&nbsp;player&nbsp;moves&nbsp;chunks,&nbsp;then&nbsp;change&nbsp;their&nbsp;coords&nbsp;correspondingly.</div>
-      <div id="line000197" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000197| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</div>
-      <div id="line000198" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000198| &nbsp;&nbsp;match&nbsp;(new_coords_x,&nbsp;new_coords_y)&nbsp;with</div>
+      <div id="line000193" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000193| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;x&nbsp;&gt;=&nbsp;get_chunk_size_x&nbsp;current_chunk&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x&nbsp;+&nbsp;1,&nbsp;player_chunk_y),&nbsp;(0,&nbsp;y)</div>
+      <div id="line000194" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000194| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;y&nbsp;&gt;=&nbsp;get_chunk_size_y&nbsp;current_chunk&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x,&nbsp;player_chunk_y&nbsp;+&nbsp;1),&nbsp;(x,&nbsp;0)</div>
+      <div id="line000195" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000195| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;x&nbsp;&lt;&nbsp;0&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x&nbsp;-&nbsp;1,&nbsp;player_chunk_y),&nbsp;((get_chunk_size_x&nbsp;current_chunk)&nbsp;-&nbsp;1&nbsp;,&nbsp;y)</div>
+      <div id="line000196" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000196| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;y&nbsp;&lt;&nbsp;0&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x,&nbsp;player_chunk_y&nbsp;-&nbsp;1),&nbsp;(x,&nbsp;(get_chunk_size_y&nbsp;current_chunk)&nbsp;-&nbsp;1)</div>
+      <div id="fold000197">
+      <div id="line000197" class="lineAllVisited"><a href="javascript:fold('fold000197');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000197| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;-&gt;&nbsp;(*[1]*)(player_chunk_x&nbsp;,&nbsp;player_chunk_y),&nbsp;(x,&nbsp;y)</div>
+      <div id="line000198" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000198| &nbsp;</div>
+      <div id="line000199" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000199| let&nbsp;move_player&nbsp;m&nbsp;c&nbsp;(*[1]*):&nbsp;map&nbsp;=</div>
+      <div id="line000200" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000200| &nbsp;&nbsp;(*&nbsp;Check&nbsp;if&nbsp;the&nbsp;new&nbsp;chunk&nbsp;coordinates&nbsp;are&nbsp;valid&nbsp;*)</div>
+      <div id="line000201" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000201| &nbsp;&nbsp;let&nbsp;((new_chunk_x,&nbsp;new_chunk_y),&nbsp;(final_coords_x,&nbsp;final_coords_y))&nbsp;=&nbsp;get_new_coords&nbsp;m&nbsp;c&nbsp;in</div>
       </div>
-      <div id="line000199" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000199| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;x&nbsp;&gt;=&nbsp;get_chunk_size_x&nbsp;current_chunk&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x&nbsp;+&nbsp;1,&nbsp;player_chunk_y),&nbsp;(0,&nbsp;y)</div>
-      <div id="line000200" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000200| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;y&nbsp;&gt;=&nbsp;get_chunk_size_y&nbsp;current_chunk&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x,&nbsp;player_chunk_y&nbsp;+&nbsp;1),&nbsp;(x,&nbsp;0)</div>
-      <div id="line000201" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000201| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;x&nbsp;&lt;&nbsp;0&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x&nbsp;-&nbsp;1,&nbsp;player_chunk_y),&nbsp;((get_chunk_size_x&nbsp;current_chunk)&nbsp;-&nbsp;1&nbsp;,&nbsp;y)</div>
-      <div id="line000202" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000202| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;when&nbsp;y&nbsp;&lt;&nbsp;0&nbsp;-&gt;&nbsp;(*[0]*)(player_chunk_x,&nbsp;player_chunk_y&nbsp;-&nbsp;1),&nbsp;(x,&nbsp;(get_chunk_size_y&nbsp;current_chunk)&nbsp;-&nbsp;1)</div>
-      <div id="fold000203">
-      <div id="line000203" class="lineAllVisited"><a href="javascript:fold('fold000203');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000203| &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x,&nbsp;y&nbsp;-&gt;&nbsp;(*[1]*)(player_chunk_x&nbsp;,&nbsp;player_chunk_y),&nbsp;(x,&nbsp;y)</div>
-      <div id="line000204" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000204| &nbsp;</div>
-      <div id="line000205" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000205| let&nbsp;move_player&nbsp;m&nbsp;c&nbsp;(*[1]*):&nbsp;map&nbsp;=</div>
-      <div id="line000206" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000206| &nbsp;&nbsp;(*&nbsp;Check&nbsp;if&nbsp;the&nbsp;new&nbsp;chunk&nbsp;coordinates&nbsp;are&nbsp;valid&nbsp;*)</div>
-      <div id="line000207" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000207| &nbsp;&nbsp;let&nbsp;((new_chunk_x,&nbsp;new_chunk_y),&nbsp;(final_coords_x,&nbsp;final_coords_y))&nbsp;=&nbsp;get_new_coords&nbsp;m&nbsp;c&nbsp;in</div>
+      <div id="line000202" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000202| &nbsp;&nbsp;(*[1]*)if&nbsp;(*[1]*)new_chunk_x&nbsp;&lt;&nbsp;0&nbsp;||&nbsp;(*[1]*)new_chunk_x&nbsp;&gt;=&nbsp;(List.length&nbsp;(List.hd&nbsp;m.chunks))&nbsp;then&nbsp;(*[0]*)m</div>
+      <div id="line000203" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000203| &nbsp;&nbsp;else&nbsp;(*[1]*)if&nbsp;(*[1]*)new_chunk_y&nbsp;&lt;&nbsp;0&nbsp;||&nbsp;(*[1]*)new_chunk_y&nbsp;&gt;=&nbsp;(List.length&nbsp;m.chunks)&nbsp;then&nbsp;(*[0]*)m</div>
+      <div id="fold000204">
+      <div id="line000204" class="lineNone"><a href="javascript:fold('fold000204');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000204| &nbsp;&nbsp;else</div>
+      <div id="line000205" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000205| &nbsp;&nbsp;(*&nbsp;Set&nbsp;the&nbsp;new&nbsp;chunk&nbsp;*)</div>
+      <div id="line000206" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000206| &nbsp;&nbsp;(*[1]*)let&nbsp;new_chunk&nbsp;=&nbsp;List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;new_chunk_y)&nbsp;new_chunk_x&nbsp;in</div>
+      <div id="line000207" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000207| &nbsp;&nbsp;(*[1]*)let&nbsp;next_block&nbsp;=&nbsp;get_block_in_chunk&nbsp;m&nbsp;new_chunk&nbsp;final_coords_x&nbsp;final_coords_y&nbsp;in</div>
+      <div id="line000208" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000208| &nbsp;&nbsp;(*[1]*)if&nbsp;Blocks.get_block_ground&nbsp;next_block&nbsp;then</div>
+      <div id="line000209" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000209| &nbsp;&nbsp;&nbsp;&nbsp;(*[1]*)if&nbsp;Blocks.count_sets_in_block&nbsp;next_block&nbsp;&gt;&nbsp;0&nbsp;then</div>
+      <div id="line000210" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000210| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;ground&nbsp;and&nbsp;contains&nbsp;an&nbsp;item/items&nbsp;to&nbsp;be&nbsp;picked&nbsp;up&nbsp;*)</div>
+      <div id="line000211" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000211| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*&nbsp;Pick&nbsp;up&nbsp;all&nbsp;the&nbsp;items&nbsp;*)</div>
       </div>
-      <div id="line000208" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000208| &nbsp;&nbsp;(*[1]*)if&nbsp;(*[1]*)new_chunk_x&nbsp;&lt;&nbsp;0&nbsp;||&nbsp;(*[1]*)new_chunk_x&nbsp;&gt;=&nbsp;(List.length&nbsp;(List.hd&nbsp;m.chunks))&nbsp;then&nbsp;(*[0]*)m</div>
-      <div id="line000209" class="lineMixed"><img border="0" height="10" width="10"src="blank.png"/>000209| &nbsp;&nbsp;else&nbsp;(*[1]*)if&nbsp;(*[1]*)new_chunk_y&nbsp;&lt;&nbsp;0&nbsp;||&nbsp;(*[1]*)new_chunk_y&nbsp;&gt;=&nbsp;(List.length&nbsp;m.chunks)&nbsp;then&nbsp;(*[0]*)m</div>
-      <div id="fold000210">
-      <div id="line000210" class="lineNone"><a href="javascript:fold('fold000210');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000210| &nbsp;&nbsp;else</div>
-      <div id="line000211" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000211| &nbsp;&nbsp;(*&nbsp;Set&nbsp;the&nbsp;new&nbsp;chunk&nbsp;*)</div>
-      <div id="line000212" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000212| &nbsp;&nbsp;(*[1]*)let&nbsp;new_chunk&nbsp;=&nbsp;List.nth&nbsp;(List.nth&nbsp;m.chunks&nbsp;new_chunk_y)&nbsp;new_chunk_x&nbsp;in</div>
-      <div id="line000213" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000213| &nbsp;&nbsp;(*[1]*)let&nbsp;next_block&nbsp;=&nbsp;get_block_in_chunk&nbsp;m&nbsp;new_chunk&nbsp;final_coords_x&nbsp;final_coords_y&nbsp;in</div>
-      <div id="line000214" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000214| &nbsp;&nbsp;(*[1]*)if&nbsp;Blocks.get_block_ground&nbsp;next_block&nbsp;then</div>
-      <div id="line000215" class="lineAllVisited"><img border="0" height="10" width="10"src="dash.png"/>000215| &nbsp;&nbsp;&nbsp;&nbsp;(*[1]*)if&nbsp;Blocks.count_sets_in_block&nbsp;next_block&nbsp;&gt;&nbsp;0&nbsp;then</div>
-      <div id="line000216" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000216| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*&nbsp;Item&nbsp;is&nbsp;ground&nbsp;and&nbsp;contains&nbsp;an&nbsp;item/items&nbsp;to&nbsp;be&nbsp;picked&nbsp;up&nbsp;*)</div>
-      <div id="line000217" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000217| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*&nbsp;Pick&nbsp;up&nbsp;all&nbsp;the&nbsp;items&nbsp;*)</div>
+      <div id="line000212" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000212| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)let&nbsp;rec&nbsp;loop&nbsp;nb&nbsp;p&nbsp;=</div>
+      <div id="line000213" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000213| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)if&nbsp;(*[0]*)(Blocks.count_sets_in_block&nbsp;nb)&nbsp;=&nbsp;0&nbsp;||&nbsp;((*[0]*)inventory_is_full&nbsp;p)&nbsp;then</div>
+      <div id="line000214" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000214| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*){m&nbsp;with</div>
+      <div id="fold000215">
+      <div id="line000215" class="lineNone"><a href="javascript:fold('fold000215');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000215| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;player&nbsp;=&nbsp;{p&nbsp;with</div>
+      <div id="line000216" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000216| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coords&nbsp;=&nbsp;(final_coords_x,&nbsp;final_coords_y);</div>
+      <div id="line000217" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000217| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chunk_coords&nbsp;=&nbsp;(new_chunk_x,&nbsp;new_chunk_y)};</div>
+      <div id="line000218" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000218| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chunks&nbsp;=&nbsp;replace_chunk_in_chunks&nbsp;m&nbsp;(replace_block_in_chunk&nbsp;m&nbsp;nb&nbsp;new_chunk_x&nbsp;new_chunk_y&nbsp;final_coords_x&nbsp;final_coords_y)&nbsp;new_chunk_x&nbsp;new_chunk_y}</div>
       </div>
-      <div id="line000218" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000218| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)let&nbsp;rec&nbsp;loop&nbsp;nb&nbsp;p&nbsp;=</div>
-      <div id="line000219" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000219| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)if&nbsp;(*[0]*)(Blocks.count_sets_in_block&nbsp;nb)&nbsp;=&nbsp;0&nbsp;||&nbsp;((*[0]*)inventory_is_full&nbsp;p)&nbsp;then</div>
-      <div id="line000220" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000220| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*){m&nbsp;with</div>
-      <div id="fold000221">
-      <div id="line000221" class="lineNone"><a href="javascript:fold('fold000221');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000221| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;player&nbsp;=&nbsp;{p&nbsp;with</div>
-      <div id="line000222" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000222| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coords&nbsp;=&nbsp;(final_coords_x,&nbsp;final_coords_y);</div>
-      <div id="line000223" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000223| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chunk_coords&nbsp;=&nbsp;(new_chunk_x,&nbsp;new_chunk_y)};</div>
-      <div id="line000224" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000224| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chunks&nbsp;=&nbsp;replace_chunk_in_chunks&nbsp;m&nbsp;(replace_block_in_chunk&nbsp;m&nbsp;nb&nbsp;new_chunk_x&nbsp;new_chunk_y&nbsp;final_coords_x&nbsp;final_coords_y)&nbsp;new_chunk_x&nbsp;new_chunk_y}</div>
+      <div id="line000219" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000219| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;(*[0]*)let&nbsp;new_block,&nbsp;picked_up_item,&nbsp;num_removed&nbsp;=&nbsp;Blocks.take_first_item&nbsp;nb&nbsp;in</div>
+      <div id="line000220" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000220| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)let&nbsp;new_player&nbsp;=&nbsp;add_to_inventory_multiple&nbsp;picked_up_item&nbsp;num_removed&nbsp;p&nbsp;in</div>
+      <div id="line000221" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000221| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)loop&nbsp;new_block&nbsp;new_player&nbsp;in</div>
+      <div id="line000222" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000222| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)loop&nbsp;next_block&nbsp;m.player</div>
+      <div id="fold000223">
+      <div id="line000223" class="lineAllVisited"><a href="javascript:fold('fold000223');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000223| &nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;(*[1]*){m&nbsp;with&nbsp;player&nbsp;=&nbsp;{m.player&nbsp;with&nbsp;coords&nbsp;=&nbsp;(final_coords_x,&nbsp;final_coords_y);&nbsp;chunk_coords&nbsp;=&nbsp;(new_chunk_x,&nbsp;new_chunk_y)}}</div>
       </div>
-      <div id="line000225" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000225| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;(*[0]*)let&nbsp;new_block,&nbsp;picked_up_item&nbsp;=&nbsp;Blocks.take_first_item&nbsp;nb&nbsp;in</div>
-      <div id="line000226" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000226| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)let&nbsp;new_player&nbsp;=&nbsp;add_to_inventory&nbsp;picked_up_item&nbsp;p&nbsp;in</div>
-      <div id="line000227" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000227| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)loop&nbsp;new_block&nbsp;new_player&nbsp;in</div>
-      <div id="line000228" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000228| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(*[0]*)loop&nbsp;next_block&nbsp;m.player</div>
-      <div id="fold000229">
-      <div id="line000229" class="lineAllVisited"><a href="javascript:fold('fold000229');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000229| &nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;(*[1]*){m&nbsp;with&nbsp;player&nbsp;=&nbsp;{m.player&nbsp;with&nbsp;coords&nbsp;=&nbsp;(final_coords_x,&nbsp;final_coords_y);&nbsp;chunk_coords&nbsp;=&nbsp;(new_chunk_x,&nbsp;new_chunk_y)}}</div>
+      <div id="line000224" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000224| &nbsp;&nbsp;else&nbsp;(*[0]*)m</div>
+      <div id="fold000225">
+      <div id="line000225" class="lineNone"><a href="javascript:fold('fold000225');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000225| &nbsp;</div>
       </div>
-      <div id="line000230" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000230| &nbsp;&nbsp;else&nbsp;(*[0]*)m</div>
-      <div id="fold000231">
-      <div id="line000231" class="lineNone"><a href="javascript:fold('fold000231');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000231| &nbsp;</div>
-      </div>
-      <div id="line000232" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000232| let&nbsp;mine&nbsp;m&nbsp;command&nbsp;(*[0]*):&nbsp;map&nbsp;=&nbsp;failwith&nbsp;&quot;unimplemented&quot;</div>
-      <div id="fold000233">
-      <div id="line000233" class="lineNone"><a href="javascript:fold('fold000233');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000233| &nbsp;&nbsp;(*&nbsp;let&nbsp;((new_chunk_x,&nbsp;new_chunk_y),&nbsp;(final_coords_x,&nbsp;final_coords_y))&nbsp;=&nbsp;get_new_coords&nbsp;m&nbsp;command&nbsp;in</div>
-      <div id="line000234" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000234| &nbsp;&nbsp;if&nbsp;new_chunk_x&nbsp;&lt;&gt;&nbsp;(fst&nbsp;get_player_chunk_coords&nbsp;m)&nbsp;||&nbsp;new_chunk_y&nbsp;&lt;&gt;&nbsp;(snd&nbsp;get_player_chunk_coords&nbsp;m)</div>
-      <div id="line000235" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000235| &nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;m&nbsp;(*&nbsp;And&nbsp;also&nbsp;print&nbsp;you&nbsp;can't&nbsp;mine&nbsp;left/right/up/down&nbsp;*)</div>
-      <div id="line000236" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000236| &nbsp;&nbsp;&nbsp;&nbsp;else</div>
-      <div id="line000237" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000237| &nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;block_to_mine&nbsp;=&nbsp;get_block_in_chunk&nbsp;m&nbsp;(get_current_chunk&nbsp;m)&nbsp;block_x&nbsp;block_y&nbsp;in</div>
-      <div id="line000238" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000238| &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(not&nbsp;block_to_mine.ground)</div>
-      <div id="line000239" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000239| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;&nbsp;*)</div>
+      <div id="line000226" class="lineAllUnvisited"><img border="0" height="10" width="10"src="blank.png"/>000226| let&nbsp;mine&nbsp;m&nbsp;command&nbsp;(*[0]*):&nbsp;map&nbsp;=&nbsp;failwith&nbsp;&quot;unimplemented&quot;</div>
+      <div id="fold000227">
+      <div id="line000227" class="lineNone"><a href="javascript:fold('fold000227');"><img border="0" height="10" width="10" src="minus.png" title="fold code"/></a>000227| &nbsp;&nbsp;(*&nbsp;let&nbsp;((new_chunk_x,&nbsp;new_chunk_y),&nbsp;(final_coords_x,&nbsp;final_coords_y))&nbsp;=&nbsp;get_new_coords&nbsp;m&nbsp;command&nbsp;in</div>
+      <div id="line000228" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000228| &nbsp;&nbsp;if&nbsp;new_chunk_x&nbsp;&lt;&gt;&nbsp;(fst&nbsp;get_player_chunk_coords&nbsp;m)&nbsp;||&nbsp;new_chunk_y&nbsp;&lt;&gt;&nbsp;(snd&nbsp;get_player_chunk_coords&nbsp;m)</div>
+      <div id="line000229" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000229| &nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;m&nbsp;(*&nbsp;And&nbsp;also&nbsp;print&nbsp;you&nbsp;can't&nbsp;mine&nbsp;left/right/up/down&nbsp;*)</div>
+      <div id="line000230" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000230| &nbsp;&nbsp;&nbsp;&nbsp;else</div>
+      <div id="line000231" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000231| &nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;block_to_mine&nbsp;=&nbsp;get_block_in_chunk&nbsp;m&nbsp;(get_current_chunk&nbsp;m)&nbsp;block_x&nbsp;block_y&nbsp;in</div>
+      <div id="line000232" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000232| &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(not&nbsp;block_to_mine.ground)</div>
+      <div id="line000233" class="lineNone"><img border="0" height="10" width="10"src="dash.png"/>000233| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;&nbsp;*)</div>
       </div>
     </code>
     <br/>
@@ -403,8 +369,6 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000050');" title="jump to line 50"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000051');" title="jump to line 51"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -439,7 +403,6 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000086');" title="jump to line 86"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -449,35 +412,37 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000096');" title="jump to line 96"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000097');" title="jump to line 97"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000101');" title="jump to line 101"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000104');" title="jump to line 104"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000110');" title="jump to line 110"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000113');" title="jump to line 113"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000115');" title="jump to line 115"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000120');" title="jump to line 120"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000122');" title="jump to line 122"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000124');" title="jump to line 124"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -485,8 +450,9 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000132');" title="jump to line 132"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000133');" title="jump to line 133"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -495,18 +461,18 @@
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000139');" title="jump to line 139"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000142');" title="jump to line 142"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000143');" title="jump to line 143"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000149');" title="jump to line 149"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000153');" title="jump to line 153"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000155');" title="jump to line 155"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -515,13 +481,13 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000161');" title="jump to line 161"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000162');" title="jump to line 162"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000167');" title="jump to line 167"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000168');" title="jump to line 168"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000170');" title="jump to line 170"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -543,7 +509,20 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000190');" title="jump to line 190"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000193');" title="jump to line 193"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000194');" title="jump to line 194"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000195');" title="jump to line 195"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000196');" title="jump to line 196"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000202');" title="jump to line 202"></td></tr>
+        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000203');" title="jump to line 203"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -552,40 +531,21 @@
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000199');" title="jump to line 199"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000200');" title="jump to line 200"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000201');" title="jump to line 201"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000202');" title="jump to line 202"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000212');" title="jump to line 212"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000213');" title="jump to line 213"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000214');" title="jump to line 214"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000208');" title="jump to line 208"></td></tr>
-        <tr><td bgcolor="yellow" style="cursor: pointer;" onclick="javascript:jump('line000209');" title="jump to line 209"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000218');" title="jump to line 218"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000219');" title="jump to line 219"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000220');" title="jump to line 220"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000221');" title="jump to line 221"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000222');" title="jump to line 222"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
+        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000224');" title="jump to line 224"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000225');" title="jump to line 225"></td></tr>
         <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000226');" title="jump to line 226"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000227');" title="jump to line 227"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000228');" title="jump to line 228"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000230');" title="jump to line 230"></td></tr>
-        <tr><td bgcolor="gray"></td></tr>
-        <tr><td bgcolor="red" style="cursor: pointer;" onclick="javascript:jump('line000232');" title="jump to line 232"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
         <tr><td bgcolor="gray"></td></tr>
@@ -602,6 +562,6 @@
     &nbsp;&nbsp;&nbsp;<span class="lineMixed">some code</span>&nbsp;-&nbsp;line containing both visited and unvisited points<br/>
     <br/>
     <hr class="codeSep"/>
-    <p class="footer">Generated by <a href="http://bisect.x9c.fr">Bisect 1.3.1</a> on 2019-04-17 18:53:10</p>
+    <p class="footer">Generated by <a href="http://bisect.x9c.fr">Bisect 1.3.1</a> on 2019-04-17 23:30:34</p>
   </body>
 </html>

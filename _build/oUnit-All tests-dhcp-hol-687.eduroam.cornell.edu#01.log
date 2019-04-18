@@ -1,0 +1,84 @@
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:0:test get_player_chunk_coords.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:0:test get_player_chunk_coords is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:0:test get_player_chunk_coords.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:2:test get_chunks.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:2:test get_chunks is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:2:test get_chunks.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:4:test get_player_color.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:4:test get_player_color is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:4:test get_player_color.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:6:test move_player.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:6:test move_player is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:6:test move_player.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:8:test get_chunk_size.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:8:test get_chunk_size is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:8:test get_chunk_size.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:10:test get_chunk_size_y.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:10:test get_chunk_size_y is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:10:test get_chunk_size_y.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:12:test get_inventory_size.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:12:test get_inventory_size is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:12:test get_inventory_size.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:14:test item_in_inventory on non-present item.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:14:test item_in_inventory on non-present item is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:14:test item_in_inventory on non-present item.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:17:test in_mining_mode.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:17:test in_mining_mode is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:17:test in_mining_mode.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:19:test inventory_is_full_map.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:19:test inventory_is_full_map is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:19:test inventory_is_full_map.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:20:test replace_block_in_chunk.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:20:test replace_block_in_chunk is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:20:test replace_block_in_chunk.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:22:test inventory_is_full_map.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:22:test inventory_is_full_map is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:22:test inventory_is_full_map.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:24:test add_to_inventory.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:24:test add_to_inventory is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:24:test add_to_inventory.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:26:test equip_item.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:26:test equip_item is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:26:test equip_item.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:28:test has_item_equipped.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:28:test has_item_equipped is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:28:test has_item_equipped.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:30:test get_current_chunk.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:30:test get_current_chunk is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:30:test get_current_chunk.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:33:test get_block_background_color.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:33:test get_block_background_color is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:33:test get_block_background_color.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:34:test get_block_character.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:34:test get_block_character is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:34:test get_block_character.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:36:test get_block_styles.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:36:test get_block_styles is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:36:test get_block_styles.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:38:test remove_item_from_block.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:38:test remove_item_from_block is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:38:test remove_item_from_block.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:40:test sets_in_block.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:40:test sets_in_block is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:40:test sets_in_block.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:41:test take_first_item.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:41:test take_first_item is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:41:test take_first_item.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:44:test take_first_item_fail.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:44:test take_first_item_fail is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:44:test take_first_item_fail.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:45:test get_item_stackable.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:45:test get_item_stackable is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:45:test get_item_stackable.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:48:test get_craft_count.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:48:test get_craft_count is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:48:test get_craft_count.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:49:test get_craft_count_none.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:49:test get_craft_count_none is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:49:test get_craft_count_none.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:51:test get_count_in_set_list.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:51:test get_count_in_set_list is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:51:test get_count_in_set_list.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Start test All tests:53:test add_to_set_list_multiple_not_there.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: Test All tests:53:test add_to_set_list_multiple_not_there is successful.
+2019-04-18T03:34:07+00:00 dhcp-hol-687.eduroam.cornell.edu#01 I: End test All tests:53:test add_to_set_list_multiple_not_there.

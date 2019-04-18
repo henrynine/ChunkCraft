@@ -11,14 +11,16 @@ let player : State.player = {
   character = 'i';
   inv = {
     sets = [];
-    max_size = State.inventory_max_size()};
+    max_size = State.inventory_max_size};
   equipped_item = None
 }
 
 let inventory_with_3_wood_planks = {
   sets = [(Items.wood_plank, 3)];
-  max_size = State.inventory_max_size()
+  max_size = State.inventory_max_size
 }
+
+let set_of_3_wood_planks = [(Items.wood_plank, 3)]
 
 let player_with_wood_plank : State.player = {
   color = ANSITerminal.black;
@@ -29,9 +31,32 @@ let player_with_wood_plank : State.player = {
   equipped_item = None;
 }
 
+let player_with_log_equipped : State.player = {
+  color = ANSITerminal.black;
+  coords = 0, 0;
+  chunk_coords = 0, 0;
+  character = 'i';
+  inv = inventory_with_3_wood_planks;
+  equipped_item = Some (Items.log, 1);
+}
+
+let player_with_wood_plank_and_log : State.player = {
+  color = ANSITerminal.black;
+  coords = 0, 0;
+  chunk_coords = 0, 0;
+  character = 'i';
+  inv = {inventory_with_3_wood_planks with sets = ((Items.log, 1)::inventory_with_3_wood_planks.sets)};
+  equipped_item = None;
+}
+
 let inventory1 = {
   sets = [];
-  max_size = State.inventory_max_size()
+  max_size = State.inventory_max_size
+}
+
+let inventory_full = {
+  sets = [(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3);(Items.wood_plank, 3)];
+  max_size = State.inventory_max_size
 }
 
 let player_post_right_move : State.player = {
@@ -41,7 +66,7 @@ let player_post_right_move : State.player = {
   character = 'i';
   inv = {
     sets = [];
-    max_size = State.inventory_max_size()};
+    max_size = State.inventory_max_size};
   equipped_item = None;
 }
 
@@ -194,6 +219,130 @@ let chunks1 : State.chunk list list =
     }
   ]
  ]
+
+ let chunk_with_new_tree_block : State.chunk= {
+   blocks = [
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; {Blocks.grass with sets = Items.add_to_set_list Items.log (Items.add_to_set_list Items.log (Items.add_to_set_list Items.log Blocks.grass.sets))}; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+   ];
+   coords = 0, 0;
+ }
+
+let chunks_with_chunk_with_new_tree_block = [
+    [
+      chunk_with_new_tree_block;
+     {
+       blocks = [
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.tree; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+         [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       ];
+       coords = 1,0;
+     }
+  ];
+  [{
+     blocks = [
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.tree; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.tree; Blocks.tree; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+       [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+     ];
+     coords = 0,1;
+   };
+    {
+      blocks = [
+        [Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree; Blocks.grass; Blocks.tree;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.water; Blocks.water; Blocks.water; Blocks.water; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+        [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
+      ];
+      coords = 1,1;
+    }
+  ]
+]
 
 let map : State.map = {
     chunks = [[{
@@ -444,10 +593,38 @@ let map_post_right_move : State.map = {
 (* Blocks testing*)
 let first_chunk = (List.nth (List.nth map.chunks 0) 0)
 let first_block = (List.nth (List.nth first_chunk.blocks 0) 0)
-let first_block_with_log = Blocks.add_item_to_block Items.log first_block
-let first_block_with_2_items = Blocks.add_item_to_block Items.wood_sword first_block_with_log
-let first_block_with_sword = Blocks.add_item_to_block Items.wood_sword first_block
+let first_block_with_log : block = {
+  character = ' ';
+  color = ANSITerminal.black;
+  background_color = ANSITerminal.on_green;
+  styles = [ANSITerminal.Blink];
+  ground = true;
+  name = "grass";
+  max_items = max_int;
+  sets = [(Items.log, 1)]
+}
+let first_block_with_2_items : block = {
+  character = ' ';
+  color = ANSITerminal.black;
+  background_color = ANSITerminal.on_green;
+  styles = [ANSITerminal.Blink];
+  ground = true;
+  name = "grass";
+  max_items = max_int;
+  sets = [(Items.wood_sword, 1); (Items.log, 1)]
+}
+let first_block_with_sword : block = {
+  character = ' ';
+  color = ANSITerminal.black;
+  background_color = ANSITerminal.on_green;
+  styles = [ANSITerminal.Blink];
+  ground = true;
+  name = "grass";
+  max_items = max_int;
+  sets = [(Items.wood_sword, 1)]
+}
 let tree_block = (List.nth (List.nth first_chunk.blocks 8) 3)
+let three_planks_and_two_logs = [(Items.wood_plank, 3); (Items.log, 2)]
 
 let all_tests = "All tests" >::: [
 
@@ -473,6 +650,23 @@ let all_tests = "All tests" >::: [
 "test in_mining_mode" >:: (fun _ -> assert_equal (State.in_mining_mode map) false);
 "test inventory_is_full" >:: (fun _ -> assert_equal (State.inventory_is_full player_with_wood_plank) false);
 "test inventory_is_full_map" >:: (fun _ -> assert_equal (State.inventory_is_full_map map) false);
+"test replace_block_in_chunk" >:: (fun _ -> assert_equal (State.replace_block_in_chunk map tree_block 0 0 4 8) chunk_with_new_tree_block);
+"test replace_chunk_in_chunks" >:: (fun _ -> assert_equal (State.replace_chunk_in_chunks map chunk_with_new_tree_block 0 0) chunks_with_chunk_with_new_tree_block);
+"test inventory_is_full_map" >:: (fun _ -> assert_equal (State.inventory_is_full_map {map with player = {player with inv = inventory_full}}) (true));
+"test get_chunk_height" >:: (fun _ -> assert_equal (State.get_chunk_height map) (24));
+"test add_to_inventory" >:: (fun _ -> assert_equal (State.add_to_inventory Items.wood_plank player) (State.remove_from_inventory_multiple Items.wood_plank 2 player_with_wood_plank));
+"test add_to_inventory_multiple" >:: (fun _ -> assert_equal (State.add_to_inventory_multiple Items.wood_plank 2 player) (State.remove_from_inventory Items.wood_plank player_with_wood_plank));
+"test equip_item" >:: (fun _ -> assert_equal (State.equip_item Items.log 1 {map with player = player_with_wood_plank_and_log}) (player_with_log_equipped));
+"test unequip_item" >:: (fun _ -> assert_equal (State.unequip_item {map with player = player_with_log_equipped}) ({map with player = player_with_wood_plank_and_log}));
+"test has_item_equipped" >:: (fun _ -> assert_equal (State.has_item_equipped {map with player = player_with_log_equipped}) true);
+"test equipped_item" >:: (fun _ -> assert_equal (State.equipped_item {map with player = player_with_log_equipped}) (Some (Items.log, 1)));
+"test get_current_chunk" >:: (fun _ -> assert_equal (State.get_current_chunk map) (first_chunk));
+"test get_inventory_sets" >:: (fun _ -> assert_equal (State.get_inventory_sets inventory_with_3_wood_planks) (set_of_3_wood_planks));
+(* "test picking up items by walking over" *)
+(* NOTE fix the bug for picking up multiple items in a block *)
+
+
+
 
 (* Blocks testing*)
 
@@ -482,16 +676,16 @@ let all_tests = "All tests" >::: [
 "test get_block_ground" >:: (fun _ -> assert_equal (Blocks.get_block_ground first_block) (true));
 "test get_block_styles" >:: (fun _ -> assert_equal (Blocks.get_block_styles first_block) ([ANSITerminal.Blink]));
 "test add_item_to_block" >:: (fun _ -> assert_equal (first_block_with_log) (Blocks.add_item_to_block Items.log first_block));
-"test remove_item_from_block" >:: (fun _ -> assert_equal (first_block) (Blocks.remove_item_from_block Items.log first_block_with_log));
+"test remove_item_from_block" >:: (fun _ -> assert_equal (first_block) (Blocks.remove_item_from_block Items.log 1 first_block_with_log));
 "test count_sets_in_block" >:: (fun _ -> assert_equal (1) (Blocks.count_sets_in_block first_block_with_log));
 "test sets_in_block" >:: (fun _ -> assert_equal (Blocks.sets_in_block first_block_with_log) ([(Items.log, 1)]));
-"test take_first_item" >:: (fun _ -> assert_equal (Blocks.take_first_item first_block_with_2_items) ((first_block_with_log, Items.wood_sword)));
+"test take_first_item" >:: (fun _ -> assert_equal (Blocks.take_first_item first_block_with_2_items) ((first_block_with_log, Items.wood_sword, 1)));
 "test add_item_to_block_fail" >::
     (fun _ -> assert_raises (Failure "Block is full")
         (fun () -> Blocks.add_item_to_block Items.wood_sword tree_block));
 "test remove_item_from_block_fail" >::
     (fun _ -> assert_raises (Failure "Block has no items")
-        (fun () -> Blocks.remove_item_from_block Items.wood_sword first_block));
+        (fun () -> Blocks.remove_item_from_block Items.wood_sword 1 first_block));
 "test take_first_item_fail" >::
     (fun _ -> assert_raises (Failure "No items in block")
         (fun () -> Blocks.take_first_item first_block));
@@ -499,7 +693,16 @@ let all_tests = "All tests" >::: [
 (* Item testing*)
 
 "test get_item_stackable" >:: (fun _ -> assert_equal (Items.get_item_stackable Items.log) (true));
-(* "test get_full_recipe" >:: (fun ) *)
+"test get_full_recipe" >:: (fun _ -> assert_equal (Items.get_full_recipe Items.log) (None));
+"test get_full_recipe_some" >:: (fun _ -> assert_equal (Items.get_full_recipe Items.wood_plank) (Some ([(log, 1)], 4)));
+"test get_craft_count" >:: (fun _ -> assert_equal (Items.get_craft_count Items.wood_plank) (Some 4));
+"test get_craft_count_none" >:: (fun _ -> assert_equal (Items.get_craft_count Items.log) (None));
+"test get_count_in_set_list" >:: (fun _ -> assert_equal (Items.get_count_in_set_list Items.log three_planks_and_two_logs) 2);
+"test get_count_in_set_list" >:: (fun _ -> assert_equal (Items.get_count_in_set_list Items.wood_sword three_planks_and_two_logs) 0);
+"test add_to_set_list_multiple_there" >:: (fun _ -> assert_equal (add_to_set_list_multiple Items.log 1 three_planks_and_two_logs) ([(Items.wood_plank, 3); (Items.log, 3)]));
+"test add_to_set_list_multiple_not_there" >:: (fun _ -> assert_equal (add_to_set_list_multiple Items.wood_sword 1 three_planks_and_two_logs) ([(Items.wood_sword, 1); (Items.wood_plank, 3); (Items.log, 2)]));
+"test remove_from_set_list_multiple" >:: (fun _ -> assert_equal (remove_from_set_list_multiple Items.log 1 three_planks_and_two_logs) ([(Items.wood_plank, 3); (Items.log, 1)]));
+
 ]
 
 let _ = run_test_tt_main all_tests

@@ -21,7 +21,20 @@ play:
 	$(OCAMLBUILD) $(MAIN) && ./$(MAIN) 2> /tmp/a.txt
 
 clean:
-	ocamlbuild -clean && rm *.out
+	ocamlbuild -clean
+
+docs: docs-public docs-private
+
+docs-public: build
+	mkdir -p doc.public
+	ocamlfind ocamldoc -I _build -package yojson,ANSITerminal \
+		-html -stars -d doc.public $(MLIS)
+
+docs-private: build
+	mkdir -p doc.private
+	ocamlfind ocamldoc -I _build -package yojson,ANSITerminal \
+		-html -stars -d doc.private \
+		-inv-merge-ml-mli -m A $(MLIS) $(MLS)
 
 bisect-test:
 	$(OCAMLBUILD) -package bisect -syntax camlp4o,bisect_pp \
