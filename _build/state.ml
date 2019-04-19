@@ -267,11 +267,13 @@ let mine map direction : map =
     begin
       let current_chunk = get_current_chunk map in
       let block_to_mine = get_block_in_chunk current_chunk new_coords_x new_coords_y in
-      if (get_block_ground block_to_mine)
+      if (get_block_ground block_to_mine || (match Converter.block_to_item block_to_mine with | None -> true | Some _ -> false))
         then map
         else
           begin
-            let (item, count) = Converter.block_to_item block_to_mine in
+            let (item, count) = match Converter.block_to_item block_to_mine with
+              | Some (i, c) -> (i, c)
+              | None -> failwith "Block not mineable" in
             let new_player = add_to_inventory_multiple item count map.player in
             {map with player = new_player; mining = false;
               chunks = replace_chunk_in_chunks map (replace_block_in_chunk map map.default_block

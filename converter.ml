@@ -9,6 +9,6 @@ let items_to_blocks = [
   (Items.wood_plank, Blocks.wood_plank);
 ]
 
-let block_to_item block = List.assoc block blocks_to_items
+let block_to_item block = List.assoc_opt block blocks_to_items
 
-let item_to_block item = List.assoc item items_to_blocks
+let item_to_block item = List.assoc_opt item items_to_blocks
