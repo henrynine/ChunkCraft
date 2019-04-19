@@ -15,7 +15,7 @@ build:
 	$(OCAMLBUILD) $(OBJECTS)
 
 zip:
-	zip beta.zip *.ml* _tags Makefile
+	zip beta.zip *.ml* _tags Makefile README.md
 
 test:
 	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST)

@@ -1,6 +1,7 @@
 open ANSITerminal
 open Blocks
 open Items
+open Converter
 
 (* Types *)
 
@@ -26,7 +27,9 @@ type player = {
 type map = {
   chunks : chunk list list;
   player : player;
-  mining : bool
+  mining : bool;
+  placement : bool;
+  default_block : Blocks.block
 }
 
 (* End Types *)
@@ -56,7 +59,7 @@ let get_chunks m = m.chunks
 
 let get_blocks c = c.blocks
 
-let get_block_in_chunk m chunk block_x block_y =
+let get_block_in_chunk chunk block_x block_y =
   List.nth (List.nth (get_blocks chunk) block_y) block_x
 
 let get_player_color m = m.player.color
@@ -202,6 +205,10 @@ let get_new_coords m c =
       (x, (get_chunk_size_y current_chunk) - 1)
     | x, y -> (player_chunk_x , player_chunk_y), (x, y)
 
+let is_different_chunk map new_chunk_x new_chunk_y =
+  let (current_chunk_x, current_chunk_y) = get_player_chunk_coords map in
+    (new_chunk_x <> current_chunk_x) || (new_chunk_y <> current_chunk_y)
+
 let move_player m c : map =
   (* Check if the new chunk coordinates are valid *)
   let ((new_chunk_x, new_chunk_y), (final_coords_x, final_coords_y)) =
@@ -211,7 +218,7 @@ let move_player m c : map =
   else
   (* Set the new chunk *)
   let new_chunk = List.nth (List.nth m.chunks new_chunk_y) new_chunk_x in
-  let next_block = get_block_in_chunk m new_chunk final_coords_x final_coords_y
+  let next_block = get_block_in_chunk new_chunk final_coords_x final_coords_y
     in
   if Blocks.get_block_ground next_block then
     if Blocks.count_sets_in_block next_block > 0 then
@@ -241,7 +248,7 @@ let drop_item item count map : map =
   let new_player = remove_from_inventory_multiple item count map.player in
   let (player_x, player_y) = get_player_coords map in
   let (player_chunk_x, player_chunk_y) = get_player_chunk_coords map in
-  let new_block = get_block_in_chunk map (get_current_chunk map) player_x
+  let new_block = get_block_in_chunk (get_current_chunk map) player_x
                                      player_y in
   let new_block_with_items = Blocks.add_item_to_block_multiple item count
                                                                new_block in
@@ -249,3 +256,26 @@ let drop_item item count map : map =
                   player_chunk_x player_chunk_y player_x player_y in
   {map with player = new_player; chunks = (replace_chunk_in_chunks map
                                  new_chunk player_chunk_x player_chunk_y)}
+
+let mine map direction : map =
+  let player_tool = equipped_item map in
+  let ((new_chunk_x, new_chunk_y), (new_coords_x, new_coords_y)) =
+    get_new_coords map direction in
+  if (is_different_chunk map new_chunk_x new_chunk_y)
+    then map
+    else
+    begin
+      let current_chunk = get_current_chunk map in
+      let block_to_mine = get_block_in_chunk current_chunk new_coords_x new_coords_y in
+      if (get_block_ground block_to_mine)
+        then map
+        else
+          begin
+            let (item, count) = Converter.block_to_item block_to_mine in
+            let new_player = add_to_inventory_multiple item count map.player in
+            {map with player = new_player; mining = false;
+              chunks = replace_chunk_in_chunks map (replace_block_in_chunk map map.default_block
+                new_chunk_x new_chunk_y new_coords_x new_coords_y)
+                  new_chunk_x new_chunk_y}
+          end
+    end

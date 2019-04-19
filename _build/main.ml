@@ -140,6 +140,8 @@ let map : State.map = {
   ]];
   player = player;
   mining = false;
+  placement = false;
+  default_block = Blocks.grass
 }
 
 let _ =

@@ -35,15 +35,17 @@ let print_current_chunk map =
                     in
   let print_player =
     (* ANSITerminal is 1-indexed *)
+    ANSITerminal.save_cursor();
     ANSITerminal.set_cursor (player_x + 1) (player_y + 1);
     ANSITerminal.(print_string
                   (ANSITerminal.Bold::[State.get_player_color map;
                    Blocks.get_block_background_color current_block])
-                  (Char.escaped (State.get_player_character map))) in
+                  (Char.escaped (State.get_player_character map)));
+    ANSITerminal.restore_cursor() in
   print_chunk;
   print_player;
 
-  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+3);
+  ANSITerminal.move_cursor 1 ((State.get_chunk_size_y current_chunk)+3);
   ANSITerminal.erase ANSITerminal.Eol;
   ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+2);
   ANSITerminal.erase ANSITerminal.Eol

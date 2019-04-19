@@ -32,7 +32,9 @@ type player = {
 type map = {
   chunks : chunk list list;
   player : player;
-  mining : bool
+  mining : bool;
+  placement : bool;
+  default_block : Blocks.block
 }
 
 (** The maximum inventory size. *)
@@ -127,7 +129,7 @@ val has_item_equipped : map -> bool
 val equipped_item : map -> (Items.item * int) option
 
 (** Return the block at position [x], [y] in [chunk] in [m]. *)
-val get_block_in_chunk : map -> chunk -> int -> int -> block
+val get_block_in_chunk : chunk -> int -> int -> block
 
 (** Get the current chunk of [m]. *)
 val get_current_chunk : map -> chunk
@@ -145,3 +147,6 @@ val inventory_is_full_map : map -> bool
 (** Return [map] with [count] copies of [item] added to the player's current
     block. *)
 val drop_item : Items.item -> int -> map -> map
+
+(** Mine the block in [direction], if it is valid. *)
+val mine : map -> char -> map

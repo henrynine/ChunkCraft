@@ -29,6 +29,10 @@ ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o display.cmi display.
 ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmo main.ml # cached
 # Target: blocks.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:blocks.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package ANSITerminal -package OUnit -modules blocks.ml > blocks.ml.depends # cached
+# Target: colors.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:colors.mli, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules colors.mli > colors.mli.depends # cached
+# Target: colors.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:colors.mli, interf, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o colors.cmi colors.mli # cached
 # Target: blocks.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:blocks.cmo, file:blocks.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o blocks.cmo blocks.ml # cached
 # Target: control.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:control.ml, ocaml, ocamldep, quiet, traverse }
@@ -45,8 +49,23 @@ ocamlfind ocamldep -package ANSITerminal -package OUnit -modules items.ml > item
 ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o items.cmo items.ml # cached
 # Target: state.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:state.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package ANSITerminal -package OUnit -modules state.ml > state.ml.depends
+# Target: converter.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:converter.mli, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules converter.mli > converter.mli.depends # cached
+# Target: converter.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:converter.mli, interf, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o converter.cmi converter.mli # cached
 # Target: state.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:state.cmo, file:state.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o state.cmo state.ml
++ ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o state.cmo state.ml
+File "state.ml", line 261, characters 6-17:
+Warning 26: unused variable player_tool.
+# Target: colors.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:colors.ml, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules colors.ml > colors.ml.depends # cached
+# Target: colors.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:colors.cmo, file:colors.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o colors.cmo colors.ml # cached
+# Target: converter.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:converter.ml, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules converter.ml > converter.ml.depends # cached
+# Target: converter.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:converter.cmo, file:converter.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o converter.cmo converter.ml # cached
 # Target: main.byte, tags: { package(ANSITerminal), package(OUnit), byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet, traverse }
-ocamlfind ocamlc -linkpkg -package ANSITerminal -package OUnit items.cmo blocks.cmo state.cmo display.cmo control.cmo main.cmo -o main.byte
+ocamlfind ocamlc -linkpkg -package ANSITerminal -package OUnit colors.cmo items.cmo blocks.cmo converter.cmo state.cmo display.cmo control.cmo main.cmo -o main.byte
 # Compilation successful.

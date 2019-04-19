@@ -19,6 +19,8 @@ val grass : block
 val tree : block
 (** A grass block. *)
 val water : block
+(** A wood plank block. *)
+val wood_plank : block
 
 (** Get the color of [b]. *)
 val get_block_color : block -> ANSITerminal.style

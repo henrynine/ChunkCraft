@@ -915,7 +915,7 @@ let all_tests = "All tests" >::: [
     (Blocks.add_item_to_block Items.log first_block));
 "test remove_item_from_block" >::
   (fun _ -> assert_equal (first_block)
-    (Blocks.remove_item_from_block Items.log 1 first_block_with_log));
+    (Blocks.remove_item_from_block_multiple Items.log 1 first_block_with_log));
 "test count_sets_in_block" >::
   (fun _ -> assert_equal (1) (Blocks.count_sets_in_block first_block_with_log));
 "test sets_in_block" >::
@@ -929,7 +929,7 @@ let all_tests = "All tests" >::: [
         (fun () -> Blocks.add_item_to_block Items.wood_sword tree_block));
 "test remove_item_from_block_fail" >::
     (fun _ -> assert_raises (Failure "Block has no items")
-      (fun () -> Blocks.remove_item_from_block Items.wood_sword 1 first_block));
+      (fun () -> Blocks.remove_item_from_block_multiple Items.wood_sword 1 first_block));
 "test take_first_item_fail" >::
     (fun _ -> assert_raises (Failure "No items in block")
         (fun () -> Blocks.take_first_item first_block));

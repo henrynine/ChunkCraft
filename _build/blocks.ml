@@ -45,6 +45,17 @@ let water : block = {
   sets = []
 }
 
+let wood_plank : block = {
+  character = ' ';
+  color = ANSITerminal.black;
+  background_color = Colors.on_brown;
+  styles = [];
+  ground = false;
+  name = "wood plank";
+  max_items = 0;
+  sets = [];
+}
+
 let get_block_color b = b.color
 let get_block_background_color b = b.background_color
 let get_block_character b = if List.length b.sets = 0 then b.character else '*'
