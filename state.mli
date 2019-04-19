@@ -141,3 +141,7 @@ val replace_block_in_chunk : map -> block -> int -> int -> int -> int -> chunk
 
 (** Check if the inventory of the player in [m] is full. *)
 val inventory_is_full_map : map -> bool
+
+(** Return [map] with [count] copies of [item] added to the player's current
+    block. *)
+val drop_item : Items.item -> int -> map -> map

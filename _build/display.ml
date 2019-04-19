@@ -147,25 +147,11 @@ let rec show_inventory map =
       if (index_pressed < List.length inventory_list)
         then
           begin
+            (* TODO move this logic to state perhaps *)
+            (* Take item, give map with player inventory having all of item removed, block where player currently is replaced with that block with items added *)
             let (item, count) = List.nth inventory_list index_pressed in
-            let new_inventory = Items.remove_from_set_list_multiple
-                                item count inventory_list in
-            let (player_x, player_y) = State.get_player_coords map in
-            let (player_chunk_x, player_chunk_y) =
-                                          State.get_player_chunk_coords map in
-            let new_block = State.get_block_in_chunk map
-                            (State.get_current_chunk map) player_x player_y in
-            let current_block_set = Blocks.sets_in_block new_block in
-            let new_block_set = Items.add_to_set_list_multiple item
-                                                    count current_block_set in
-            let new_chunk = State.replace_block_in_chunk map {new_block with
-              sets = new_block_set}
-              player_chunk_x player_chunk_y player_x player_y in
-            (* This helps get rid of the weird extraneous 'y' bug *)
             ANSITerminal.erase ANSITerminal.Screen;
-            {map with player = {map.player with inv = {map.player.inv with
-              sets = new_inventory}}; chunks = (State.replace_chunk_in_chunks
-                                map new_chunk player_chunk_x player_chunk_y)}
+            State.drop_item item count map
           end
         else
           begin

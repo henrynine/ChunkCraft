@@ -236,3 +236,16 @@ let move_player m c : map =
       (final_coords_x, final_coords_y); chunk_coords =
         (new_chunk_x, new_chunk_y)}}
   else m
+
+let drop_item item count map : map =
+  let new_player = remove_from_inventory_multiple item count map.player in
+  let (player_x, player_y) = get_player_coords map in
+  let (player_chunk_x, player_chunk_y) = get_player_chunk_coords map in
+  let new_block = get_block_in_chunk map (get_current_chunk map) player_x
+                                     player_y in
+  let new_block_with_items = Blocks.add_item_to_block_multiple item count
+                                                               new_block in
+  let new_chunk = replace_block_in_chunk map new_block_with_items
+                  player_chunk_x player_chunk_y player_x player_y in
+  {map with player = new_player; chunks = (replace_chunk_in_chunks map
+                                 new_chunk player_chunk_x player_chunk_y)}

@@ -14,6 +14,9 @@ default: build
 build:
 	$(OCAMLBUILD) $(OBJECTS)
 
+zip:
+	zip beta.zip *.ml* _tags Makefile
+
 test:
 	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST)
 

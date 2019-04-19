@@ -141,7 +141,7 @@
 </div>
 </div>
 
-<pre><span id="VALremove_item_from_block"><span class="keyword">val</span> remove_item_from_block</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> <a href="Blocks.html#TYPEblock">block</a> -> <a href="Blocks.html#TYPEblock">block</a></code></pre><div class="info ">
+<pre><span id="VALremove_item_from_block"><span class="keyword">val</span> remove_item_from_block</span> : <code class="type"><a href="Items.html#TYPEitem">Items.item</a> -> int -> <a href="Blocks.html#TYPEblock">block</a> -> <a href="Blocks.html#TYPEblock">block</a></code></pre><div class="info ">
 <div class="info-desc">
 <p>Return <code class="code">b</code> with <code class="code">i</code> removed from its sets.</p>
 </div>
@@ -153,5 +153,16 @@
 </div>
 </div>
 
-<pre><span id="VALsets_in_block"><span class="keyword">val</span> sets_in_block</span> : <code class="type"><a href="Blocks.html#TYPEblock">block</a> -> (<a href="Items.html#TYPEitem">Items.item</a> * int) list</code></pre>
-<pre><span id="VALtake_first_item"><span class="keyword">val</span> take_first_item</span> : <code class="type"><a href="Blocks.html#TYPEblock">block</a> -> <a href="Blocks.html#TYPEblock">block</a> * <a href="Items.html#TYPEitem">Items.item</a></code></pre></body></html>
+<pre><span id="VALsets_in_block"><span class="keyword">val</span> sets_in_block</span> : <code class="type"><a href="Blocks.html#TYPEblock">block</a> -> (<a href="Items.html#TYPEitem">Items.item</a> * int) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return the sets of <code class="code">b</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALtake_first_item"><span class="keyword">val</span> take_first_item</span> : <code class="type"><a href="Blocks.html#TYPEblock">block</a> -> <a href="Blocks.html#TYPEblock">block</a> * <a href="Items.html#TYPEitem">Items.item</a> * int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return <code class="code">b</code> with all copies of its first item removed, as well as the item
+  removed and how many copies were removed.</p>
+</div>
+</div>
+</body></html>

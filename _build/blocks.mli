@@ -34,8 +34,11 @@ val get_block_styles : block -> ANSITerminal.style list
 (** Return [b] with [i] added to its sets. *)
 val add_item_to_block : Items.item -> block -> block
 
-(** Return [b] with [i] removed from its sets. *)
-val remove_item_from_block : Items.item -> int -> block -> block
+(** Return [b] with [c] copies of [i] added to its sets. *)
+val add_item_to_block_multiple : Items.item -> int -> block -> block
+
+(** Return [b] with [c] copies of [i] removed from its sets. *)
+val remove_item_from_block_multiple : Items.item -> int -> block -> block
 
 (** Return how many sets are in [b]. *)
 val count_sets_in_block : block -> int

@@ -53,9 +53,13 @@ let get_block_styles b = b.styles
 
 let add_item_to_block i b : block =
   if (List.length b.sets) >= b.max_items then failwith "Block is full"
-  else {b with sets = add_to_set_list i b.sets}
+  else {b with sets = Items.add_to_set_list i b.sets}
 
-let remove_item_from_block i c b : block =
+let add_item_to_block_multiple i c b =
+  if (List.length b.sets) >= b.max_items then failwith "Block is full"
+  else {b with sets = Items.add_to_set_list_multiple i c b.sets}
+
+let remove_item_from_block_multiple i c b : block =
   if (List.length b.sets) = 0 then failwith "Block has no items"
   else {b with sets = Items.remove_from_set_list_multiple i c b.sets}
 
@@ -66,4 +70,4 @@ let sets_in_block b = b.sets
 let take_first_item (b : block) : (block * Items.item * int) =
   if List.length (b.sets) = 0 then failwith "No items in block"
   else let i, c = (List.nth b.sets 0) in
-  ((remove_item_from_block i c b), i, c)
+  ((remove_item_from_block_multiple i c b), i, c)
