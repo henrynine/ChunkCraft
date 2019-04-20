@@ -5,6 +5,8 @@ open Converter
 
 (* Types *)
 
+type mode = Base | Mining | Placing
+
 type chunk = {
   blocks : Blocks.block list list;
   coords : int * int
@@ -27,8 +29,7 @@ type player = {
 type map = {
   chunks : chunk list list;
   player : player;
-  mining : bool;
-  placement : bool;
+  mode : mode;
   default_block : Blocks.block
 }
 
@@ -80,14 +81,15 @@ let get_inventory_size i = List.length (i.sets)
 
 let item_in_inventory i p = List.fold_left (fun acc s -> (Items.get_item_name i) = (Items.get_item_name (fst s)) || acc) false p.inv.sets
 
-let toggle_mining_mode map =
-  {map with mining = not map.mining;
-            placement = false}
+let set_to_mining_mode map =
+  {map with mode = Mining}
 
-let toggle_placement_mode map =
-  {map with placement = not map.placement;
-            mining = false}
-            
+let set_to_placing_mode map =
+  {map with mode = Placing}
+
+let set_to_base_mode map =
+  {map with mode = Base}
+
 let count_of_item_in_inv i p =
   let i' = List.find_opt (fun (i', c) -> Items.get_item_name i = Items.get_item_name i') p.inv.sets in
   match i' with
@@ -96,9 +98,7 @@ let count_of_item_in_inv i p =
 
 let get_inventory_sets i = i.sets
 
-let in_mining_mode m = m.mining
-
-let in_placement_mode m = m.placement
+let get_map_mode m = m.mode
 
 let inventory_is_full p = (get_inventory_size p.inv) = (get_inventory_max_size p.inv)
 
@@ -260,7 +260,7 @@ let move_player m c : map =
       loop next_block m.player
     else {m with player = {m.player with coords =
       (final_coords_x, final_coords_y); chunk_coords =
-        (new_chunk_x, new_chunk_y)}}
+        (new_chunk_x, new_chunk_y)}; mode = Base}
   else m
 
 let drop_item item count map : map =
@@ -280,20 +280,20 @@ let mine map direction : map =
   let player_tool = equipped_item map in
   let ((new_chunk_x, new_chunk_y), (new_coords_x, new_coords_y)) =
     get_new_coords map direction in
-  if (is_different_chunk map new_chunk_x new_chunk_y) then map
+  if (is_different_chunk map new_chunk_x new_chunk_y) then move_player map direction
   else
   begin
     let current_chunk = get_current_chunk map in
     let block_to_mine = get_block_in_chunk current_chunk new_coords_x new_coords_y in
     if (get_block_ground block_to_mine || (match Converter.block_to_item block_to_mine with | None -> true | Some _ -> false))
-      then map
+      then move_player map direction
       else
         begin
           let (item, count) = match Converter.block_to_item block_to_mine with
             | Some (i, c) -> (i, c)
             | None -> failwith "Block not mineable" in
           let new_player = add_to_inventory_multiple item count map.player in
-          {map with player = new_player; mining = false;
+          {map with player = new_player; mode = Base;
             chunks = replace_chunk_in_chunks map (replace_block_in_chunk map map.default_block
               new_chunk_x new_chunk_y new_coords_x new_coords_y)
                 new_chunk_x new_chunk_y}
@@ -303,7 +303,7 @@ let mine map direction : map =
 let place map direction : map =
   let ((chunk_x, chunk_y), (new_coords_x, new_coords_y)) =
     get_new_coords map direction in
-  if (is_different_chunk map chunk_x chunk_y || not (has_item_equipped map)) then map
+  if (is_different_chunk map chunk_x chunk_y || not (has_item_equipped map)) then move_player map direction
   else
     begin
       let current_chunk = get_current_chunk map in
@@ -320,7 +320,7 @@ let place map direction : map =
               | None -> true
               | Some _ -> false
               end)) then
-        map
+        move_player map direction
       else
         begin
           let placed_block =
@@ -330,7 +330,7 @@ let place map direction : map =
             | None -> failwith "Shouldn't have gotten here"
             | Some b -> b) in
           let new_player = fst (decrement_equipped_item map.player) in
-          {map with player = new_player; placement = false;
+          {map with player = new_player; mode = Base;
             chunks = replace_chunk_in_chunks map (replace_block_in_chunk map placed_block
               chunk_x chunk_y new_coords_x new_coords_y) chunk_x chunk_y}
         end

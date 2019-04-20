@@ -2,6 +2,8 @@ open ANSITerminal
 open Blocks
 open Items
 
+type mode = Base | Mining | Placing
+
 (** A chunk is a sub-section of a map. One block represents a position within
     the chunk. [coords] is the coordinates of the chunk within the map. *)
 type chunk = {
@@ -27,13 +29,11 @@ type player = {
   equipped_item : (item * int) option
 }
 
-(* The type representing the game map. [mining] represents whether or not the
-   map is in mining mode. *)
+(* The type representing the game map. *)
 type map = {
   chunks : chunk list list;
   player : player;
-  mining : bool;
-  placement : bool;
+  mode : mode;
   default_block : Blocks.block
 }
 
@@ -93,11 +93,8 @@ val count_of_item_in_inv : Items.item -> player -> int
 (** Get all the sets of items in [i]. *)
 val get_inventory_sets : inventory -> (Items.item * int) list
 
-(** Check whether [m] is in mining mode. *)
-val in_mining_mode : map -> bool
-
-(** Check whether [m] is in placement mode. *)
-val in_placement_mode : map -> bool
+(** Get the current mode of the map. *)
+val get_map_mode : map -> mode
 
 (** Check if the inventory of [p] is full. *)
 val inventory_is_full : player -> bool
@@ -157,6 +154,13 @@ val mine : map -> char -> map
 (** Place the player's equipped item in [direction], if that is valid. *)
 val place : map -> char -> map
 
-val toggle_mining_mode : map -> map
+(** Set the map to placing mode. *)
 
-val toggle_placement_mode : map -> map
+(** Set the map to mining mode. *)
+val set_to_mining_mode : map -> map
+
+(** Set the map to placing mode. *)
+val set_to_placing_mode : map -> map
+
+(** Set the map to base mode. *)
+val set_to_base_mode : map -> map
