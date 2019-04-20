@@ -165,9 +165,14 @@ let equip_item i c m =
   match m.player.equipped_item with
   | None -> {m.player with equipped_item = Some (i, c)}
             |> remove_from_inventory_multiple i c
-  | Some s -> {m.player with equipped_item = Some (i, c)}
+  | Some (i', c') ->
+    begin
+    let same_item = (Items.get_item_name i) = (Items.get_item_name i') in
+    {m.player with equipped_item = if same_item then Some (i, c+c') else Some (i, c)}
               |> remove_from_inventory_multiple i c
-              |> add_to_inventory_multiple (fst s) (snd s)
+              |> (if same_item then (fun x -> x) else
+                 add_to_inventory_multiple i' c')
+    end
 
 let unequip_item m =
   match m.player.equipped_item with
@@ -277,7 +282,6 @@ let drop_item item count map : map =
                                  new_chunk player_chunk_x player_chunk_y)}
 
 let mine map direction : map =
-  let player_tool = equipped_item map in
   let ((new_chunk_x, new_chunk_y), (new_coords_x, new_coords_y)) =
     get_new_coords map direction in
   if (is_different_chunk map new_chunk_x new_chunk_y) then move_player map direction
@@ -285,6 +289,15 @@ let mine map direction : map =
   begin
     let current_chunk = get_current_chunk map in
     let block_to_mine = get_block_in_chunk current_chunk new_coords_x new_coords_y in
+    let preferred_tools = Blocks.get_preferred_tools block_to_mine in
+    let player_tool = equipped_item map in
+    let preferred_tool_is_equipped =
+      begin
+        match (match player_tool with | None -> None | Some (i, c) -> Some i) with
+          | None -> false
+          | Some tool -> List.mem tool preferred_tools
+      end
+    in
     if (get_block_ground block_to_mine || (match Converter.block_to_item block_to_mine with | None -> true | Some _ -> false))
       then move_player map direction
       else
@@ -292,7 +305,17 @@ let mine map direction : map =
           let (item, count) = match Converter.block_to_item block_to_mine with
             | Some (i, c) -> (i, c)
             | None -> failwith "Block not mineable" in
-          let new_player = add_to_inventory_multiple item count map.player in
+
+          let new_count =
+            begin
+              if preferred_tool_is_equipped
+              then count * Items.get_preferred_multiplier
+                (match player_tool with | None -> failwith "Should never get here"
+                                        | Some (i, c) -> i)
+              else count
+            end
+            in
+          let new_player = add_to_inventory_multiple item new_count map.player in
           {map with player = new_player; mode = Base;
             chunks = replace_chunk_in_chunks map (replace_block_in_chunk map map.default_block
               new_chunk_x new_chunk_y new_coords_x new_coords_y)
@@ -303,35 +326,32 @@ let mine map direction : map =
 let place map direction : map =
   let ((chunk_x, chunk_y), (new_coords_x, new_coords_y)) =
     get_new_coords map direction in
-  if (is_different_chunk map chunk_x chunk_y || not (has_item_equipped map)) then move_player map direction
+  let current_chunk = get_current_chunk map in
+  let block_to_place_in =
+    get_block_in_chunk current_chunk new_coords_x new_coords_y in
+  (* *)
+  if (is_different_chunk map chunk_x chunk_y ||
+      not (has_item_equipped map) ||
+      not (get_block_ground block_to_place_in) ||
+      (match map.player.equipped_item with
+        | None -> true
+        | Some (i, c) ->
+          begin
+          match Converter.item_to_block i with
+          | None -> true
+          | Some _ -> false
+          end)
+      ) then move_player map direction
   else
     begin
-      let current_chunk = get_current_chunk map in
-      let block_to_place_in =
-        get_block_in_chunk current_chunk new_coords_x new_coords_y in
-      (* if the player tries to place on a non-ground block or tries to place
-         with an un-placeable item equipped *)
-      if ((not (get_block_ground block_to_place_in)) ||
-          (match map.player.equipped_item with
-            | None -> true
-            | Some (i, c) ->
-              begin
-              match Converter.item_to_block (match map.player.equipped_item with | None -> failwith "Shouldn't have gotten here" | Some (i, c) -> i) with
-              | None -> true
-              | Some _ -> false
-              end)) then
-        move_player map direction
-      else
-        begin
-          let placed_block =
-            (match Converter.item_to_block (match map.player.equipped_item with
-               | None -> failwith "Shouldn't have gotten here"
-               | Some (i, c) -> i) with
+      let placed_block =
+        match (Converter.item_to_block (match map.player.equipped_item with
             | None -> failwith "Shouldn't have gotten here"
-            | Some b -> b) in
-          let new_player = fst (decrement_equipped_item map.player) in
-          {map with player = new_player; mode = Base;
-            chunks = replace_chunk_in_chunks map (replace_block_in_chunk map placed_block
-              chunk_x chunk_y new_coords_x new_coords_y) chunk_x chunk_y}
-        end
+            | Some (i, c) -> i)) with
+        | None -> failwith "Shouldn't have gotten here"
+        | Some b -> b in
+      let new_player = fst (decrement_equipped_item map.player) in
+      {map with player = new_player; mode = Base;
+        chunks = replace_chunk_in_chunks map (replace_block_in_chunk map placed_block
+          chunk_x chunk_y new_coords_x new_coords_y) chunk_x chunk_y}
     end

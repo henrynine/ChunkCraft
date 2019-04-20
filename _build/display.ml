@@ -27,27 +27,37 @@ let print_current_chunk map =
                                print_endline "")
                     (State.get_blocks current_chunk);
                     (* Print equipped item *)
+                    begin
                     match State.equipped_item map with
                     | None -> print_endline "No item equipped."
                     | Some (i, c) -> print_endline ("Equipped: "
                      ^ (Items.get_item_name i) ^ " ("
                      ^ (string_of_int c) ^ ")")
-                    in
+                    end;
+                    begin
+                    match State.get_map_mode map with
+                    | State.Base -> ()
+                    | State.Mining -> print_endline "In mining mode."
+                    | State.Placing -> print_endline "In placing mode."
+                    end in
   let print_player =
     (* ANSITerminal is 1-indexed *)
-    ANSITerminal.save_cursor();
     ANSITerminal.set_cursor (player_x + 1) (player_y + 1);
     ANSITerminal.(print_string
                   (ANSITerminal.Bold::[State.get_player_color map;
                    Blocks.get_block_background_color current_block])
-                  (Char.escaped (State.get_player_character map)));
-    ANSITerminal.restore_cursor() in
+                  (Char.escaped (State.get_player_character map))) in
   print_chunk;
   print_player;
 
-  ANSITerminal.move_cursor 1 ((State.get_chunk_size_y current_chunk)+3);
+  let adjustment = match State.get_map_mode map with
+                   | State.Base -> 0
+                   | State.Mining -> 1
+                   | State.Placing -> 1 in
+
+  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+3+adjustment);
   ANSITerminal.erase ANSITerminal.Eol;
-  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+2);
+  ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+2+adjustment);
   ANSITerminal.erase ANSITerminal.Eol
 
 let rec print_inv is_dropping inventory_list=

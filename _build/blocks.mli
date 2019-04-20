@@ -11,6 +11,7 @@ type block = {
   name : string;
   max_items : int;
   sets : (Items.item * int) list;
+  preferred_tools : Items.item list
 }
 
 (** A grass block. *)
@@ -21,6 +22,8 @@ val tree : block
 val water : block
 (** A wood plank block. *)
 val wood_plank : block
+(** A stone block. *)
+val stone : block
 
 (** Get the color of [b]. *)
 val get_block_color : block -> ANSITerminal.style
@@ -51,3 +54,5 @@ val sets_in_block : block -> (Items.item * int) list
 (** Return [b] with all copies of its first item removed, as well as the item
   removed and how many copies were removed. *)
 val take_first_item : block -> (block * Items.item * int)
+
+val get_preferred_tools : block -> Items.item list

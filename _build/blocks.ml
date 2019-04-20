@@ -9,7 +9,8 @@ type block = {
   ground : bool;
   name : string;
   max_items : int;
-  sets : (Items.item * int) list
+  sets : (Items.item * int) list;
+  preferred_tools : Items.item list
 }
 
 let grass : block = {
@@ -20,7 +21,8 @@ let grass : block = {
   ground = true;
   name = "grass";
   max_items = max_int;
-  sets = []
+  sets = [];
+  preferred_tools = []
 }
 
 let tree : block = {
@@ -31,7 +33,8 @@ let tree : block = {
   ground = false;
   name = "tree";
   max_items = 0;
-  sets = []
+  sets = [];
+  preferred_tools = [Items.wood_axe; Items.stone_axe]
 }
 
 let water : block = {
@@ -42,7 +45,8 @@ let water : block = {
   ground = false;
   name = "water";
   max_items = 0;
-  sets = []
+  sets = [];
+  preferred_tools = []
 }
 
 let wood_plank : block = {
@@ -54,6 +58,19 @@ let wood_plank : block = {
   name = "wood plank";
   max_items = 0;
   sets = [];
+  preferred_tools = []
+}
+
+let stone : block = {
+  character = ' ';
+  color = ANSITerminal.black;
+  background_color = Colors.on_gray;
+  styles = [];
+  ground = false;
+  name = "wood plank";
+  max_items = 0;
+  sets = [];
+  preferred_tools = [Items.wood_pick; Items.stone_pick]
 }
 
 let get_block_color b = b.color
@@ -82,3 +99,6 @@ let take_first_item (b : block) : (block * Items.item * int) =
   if List.length (b.sets) = 0 then failwith "No items in block"
   else let i, c = (List.nth b.sets 0) in
   ((remove_item_from_block_multiple i c b), i, c)
+
+let get_preferred_tools b =
+  b.preferred_tools
