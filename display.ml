@@ -118,8 +118,6 @@ let rec show_inventory map =
     if (index_pressed < List.length inventory_list) then
       begin
         let (item, count) = List.nth inventory_list index_pressed in
-        let new_inventory = Items.remove_from_set_list_multiple
-                            item count inventory_list in
         ANSITerminal.erase ANSITerminal.Screen;
         ANSITerminal.set_cursor 1 1;
         {map with player = State.equip_item item count map}

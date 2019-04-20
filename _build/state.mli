@@ -96,6 +96,9 @@ val get_inventory_sets : inventory -> (Items.item * int) list
 (** Check whether [m] is in mining mode. *)
 val in_mining_mode : map -> bool
 
+(** Check whether [m] is in placement mode. *)
+val in_placement_mode : map -> bool
+
 (** Check if the inventory of [p] is full. *)
 val inventory_is_full : player -> bool
 
@@ -150,3 +153,10 @@ val drop_item : Items.item -> int -> map -> map
 
 (** Mine the block in [direction], if it is valid. *)
 val mine : map -> char -> map
+
+(** Place the player's equipped item in [direction], if that is valid. *)
+val place : map -> char -> map
+
+val toggle_mining_mode : map -> map
+
+val toggle_placement_mode : map -> map
