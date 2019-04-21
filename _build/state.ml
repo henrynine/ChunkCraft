@@ -285,7 +285,6 @@ let drop_item item count map : map =
 let mine map direction : map =
   let ((new_chunk_x, new_chunk_y), (new_coords_x, new_coords_y)) =
     get_new_coords map direction in
-<<<<<<< HEAD
   if (is_different_chunk map new_chunk_x new_chunk_y) then move_player map direction
   else
   begin
@@ -356,7 +355,7 @@ let place map direction : map =
       {map with player = new_player; mode = Base;
         chunks = replace_chunk_in_chunks map (replace_block_in_chunk map placed_block
           chunk_x chunk_y new_coords_x new_coords_y) chunk_x chunk_y}
-=======
+    end
   if (is_different_chunk map new_chunk_x new_chunk_y)
     then map
     else
@@ -376,5 +375,4 @@ let place map direction : map =
                 new_chunk_x new_chunk_y new_coords_x new_coords_y)
                   new_chunk_x new_chunk_y}
           end
->>>>>>> 92ceab7220393fe59d1ccb607ca9c11035c9ca24
     end
