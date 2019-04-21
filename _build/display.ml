@@ -100,26 +100,18 @@ let rec show_inventory map =
       begin
         print_endline "Your inventory is full. Drop an item to make room
           to unequip.";
-        ANSITerminal.erase ANSITerminal.Screen;
         show_inventory map
       end
       else
       begin
-        ANSITerminal.erase ANSITerminal.Screen;
-        ANSITerminal.set_cursor 1 1;
         if State.has_item_equipped map then
-        begin
-        ANSITerminal.erase ANSITerminal.Screen;
-        State.unequip_item map
-        end
+          State.unequip_item map
         else
           begin
             print_endline "You don't have an item equipped.
                 Press n to continue";
             while (let c = input_char Pervasives.stdin in c <> 'n')
             do 1+1 done;
-            (* This helps get rid of the weird extraneous 'y' bug *)
-            ANSITerminal.erase ANSITerminal.Screen;
             show_inventory map
           end
       end
@@ -137,8 +129,6 @@ let rec show_inventory map =
     if (index_pressed < List.length inventory_list) then
       begin
         let (item, count) = List.nth inventory_list index_pressed in
-        ANSITerminal.erase ANSITerminal.Screen;
-        ANSITerminal.set_cursor 1 1;
         {map with player = State.equip_item item count map}
       end
     else
@@ -146,10 +136,6 @@ let rec show_inventory map =
         ANSITerminal.erase ANSITerminal.Screen;
         ANSITerminal.set_cursor 1 1;
         print_endline "Please enter a valid letter.\nPress n to continue.";
-        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
-        ANSITerminal.erase ANSITerminal.Screen;
-        (* This helps get rid of the weird extraneous 'y' bug *)
-        ANSITerminal.erase ANSITerminal.Screen;
         show_inventory map
       end
     end
@@ -170,7 +156,6 @@ let rec show_inventory map =
             (* TODO move this logic to state perhaps *)
             (* Take item, give map with player inventory having all of item removed, block where player currently is replaced with that block with items added *)
             let (item, count) = List.nth inventory_list index_pressed in
-            ANSITerminal.erase ANSITerminal.Screen;
             State.drop_item item count map
           end
         else
@@ -179,19 +164,13 @@ let rec show_inventory map =
           ANSITerminal.set_cursor 1 1;
           print_endline "Please enter a valid letter.\nPress n to continue.";
           while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
-          (* This helps get rid of the weird extraneous 'y' bug *)
-          ANSITerminal.erase ANSITerminal.Screen;
           show_inventory map
           end
     end
-    else
-    begin
-      (* This helps get rid of the weird extraneous 'y' bug *)
-      ANSITerminal.erase ANSITerminal.Screen;
-      map
-    end) in
+    else map) in
   (* put the screen back *)
   ANSITerminal.resize original_width original_height;
+  ANSITerminal.erase ANSITerminal.Screen;
   res
 
 
