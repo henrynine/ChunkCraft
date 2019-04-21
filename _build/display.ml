@@ -202,7 +202,6 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
       begin
       print_endline "That is not an item you can craft.\nPress n to continue.";
       while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
-      ANSITerminal.erase ANSITerminal.Screen;
       show_crafting_interface map
       end
   | Some i ->
@@ -213,7 +212,6 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
         print_endline "That is not an item you can craft.
                       \nPress n to continue.";
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
-        ANSITerminal.erase ANSITerminal.Screen;
         show_crafting_interface map
         end
     | Some (recipe, output_count) ->
@@ -243,7 +241,6 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
           List.iter (fun (i', c) -> print_endline((Items.get_item_name i') ^ " x" ^ (string_of_int c))) sets_required;
           print_endline "Press n to continue.";
           while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
-          ANSITerminal.erase ANSITerminal.Screen;
           show_crafting_interface map
         end
         else
@@ -257,7 +254,6 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
         (* remove the recipe items from player inventory,
           add the crafted item to their inventory *)
-        ANSITerminal.erase ANSITerminal.Screen;
         {map with player = {map.player with inv = {map.player.inv with sets =
           (List.fold_left (fun acc (i', c) ->
             Items.remove_from_set_list_multiple i' c acc)
@@ -268,4 +264,5 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
     end) in
   (* put the screen back *)
   ANSITerminal.resize original_width original_height;
+  ANSITerminal.erase ANSITerminal.Screen;
   res
