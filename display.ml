@@ -153,8 +153,6 @@ let rec show_inventory map =
       if (index_pressed < List.length inventory_list)
         then
           begin
-            (* TODO move this logic to state perhaps *)
-            (* Take item, give map with player inventory having all of item removed, block where player currently is replaced with that block with items added *)
             let (item, count) = List.nth inventory_list index_pressed in
             State.drop_item item count map
           end
@@ -228,16 +226,18 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
           print_endline "You don't have enough of the required materials to craft that.";
           print_endline "To craft that, you would need:";
           (* TODO tell the player how many more of each item they need *)
-          (* The double fold left looks complicated, but it is done in two parts
-             to look more simple – first it gets the raw list of items in the
-             recipe and how many more are needed in the player's inventory to
-             craft it, and the second fold eliminates any items that have a
-             count of zero or less, i.e. the player has enough in their
-             inventory already. *)
-          let sets_required = (List.fold_left (fun acc (i', c) -> Items.add_to_set_list_multiple i' (c - (Items.get_count_in_set_list i'
-                                      (State.get_player_inventory map
-                                       |> State.get_inventory_sets))) acc) [] recipe)
-            |> List.fold_left (fun acc (i', c) -> if c > 0 then (i',c):: acc else acc) [] in
+          (* Get the raw list of items in the recipe and how many more are
+             needed in the player's inventory to craft it, then filter out any
+             items that have a count of zero or less, i.e. the player has enough
+             in their inventory already. *)
+          let inventory_sets =
+            (State.get_player_inventory map |> State.get_inventory_sets) in
+          let sets_required =
+            (List.fold_left (fun acc (i', c) ->
+                 Items.add_to_set_list_multiple i'
+                 (c - (Items.get_count_in_set_list i' inventory_sets)) acc)
+               [] recipe)
+            |> List.filter (fun (i', c) -> c > 0) in
           List.iter (fun (i', c) -> print_endline((Items.get_item_name i') ^ " x" ^ (string_of_int c))) sets_required;
           print_endline "Press n to continue.";
           while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;

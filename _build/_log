@@ -58,11 +58,11 @@ ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o display.cmo display.
 + ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o display.cmo display.ml
 File "display.ml", line 114, characters 15-18:
 Warning 10: this expression should have type unit.
-File "display.ml", line 166, characters 69-72:
+File "display.ml", line 164, characters 69-72:
 Warning 10: this expression should have type unit.
-File "display.ml", line 204, characters 65-68:
+File "display.ml", line 202, characters 65-68:
 Warning 10: this expression should have type unit.
-File "display.ml", line 214, characters 67-70:
+File "display.ml", line 212, characters 67-70:
 Warning 10: this expression should have type unit.
 File "display.ml", line 243, characters 69-72:
 Warning 10: this expression should have type unit.
