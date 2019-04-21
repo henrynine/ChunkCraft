@@ -114,7 +114,8 @@ let replace_chunk_in_chunks m new_chunk x y =
   List.mapi (fun i row -> if i = y then (List.mapi (fun i' c -> if i' = x then new_chunk else c) row) else row) m.chunks
 
 (* Assumes all chunks are the same height *)
-let get_chunk_height m = (List.length (List.hd (List.hd m.chunks)).blocks)
+let get_chunk_height m = get_chunk_size_y (m.chunks |> List.hd |> List.hd)
+let get_chunk_width m = get_chunk_size_x (m.chunks |> List.hd |> List.hd)
 
 (* End Helpers *)
 

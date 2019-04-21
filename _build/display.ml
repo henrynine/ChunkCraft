@@ -66,6 +66,8 @@ let rec print_inv is_dropping inventory_list=
     (Items.get_item_name item) ^ ": " ^ (string_of_int count))) inventory_list
 
 let rec show_inventory map =
+  (* Save current terminal size *)
+  let original_width, original_height = ANSITerminal.size () in
   (* clear the screen *)
   ANSITerminal.erase ANSITerminal.Screen;
   (* Set the cursor in the bottom left *)
@@ -95,6 +97,7 @@ let rec show_inventory map =
       begin
         print_endline "Your inventory is full. Drop an item to make room
           to unequip.";
+        ANSITerminal.erase ANSITerminal.Screen;
         show_inventory map
       end
       else
@@ -102,7 +105,10 @@ let rec show_inventory map =
         ANSITerminal.erase ANSITerminal.Screen;
         ANSITerminal.set_cursor 1 1;
         if State.has_item_equipped map then
-          State.unequip_item map
+        begin
+        ANSITerminal.erase ANSITerminal.Screen;
+        State.unequip_item map
+        end
         else
           begin
             print_endline "You don't have an item equipped.
@@ -138,6 +144,7 @@ let rec show_inventory map =
         ANSITerminal.set_cursor 1 1;
         print_endline "Please enter a valid letter.\nPress n to continue.";
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+        ANSITerminal.erase ANSITerminal.Screen;
         (* This helps get rid of the weird extraneous 'y' bug *)
         ANSITerminal.erase ANSITerminal.Screen;
         show_inventory map
@@ -196,7 +203,8 @@ let rec show_crafting_interface map =
                                                             c_icanon = false};
   ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.set_cursor 1 1;
-  if desired_item_name = "b" then map else
+  if desired_item_name = "b" then map
+  else
   (* Search for all items to find recipe for that item *)
   let desired_item = List.find_opt (fun i -> Items.get_item_name i =
                                     desired_item_name) Items.all_items in
@@ -205,6 +213,7 @@ let rec show_crafting_interface map =
       begin
       print_endline "That is not an item you can craft.\nPress n to continue.";
       while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+      ANSITerminal.erase ANSITerminal.Screen;
       show_crafting_interface map
       end
   | Some i ->
@@ -215,6 +224,7 @@ let rec show_crafting_interface map =
         print_endline "That is not an item you can craft.
                       \nPress n to continue.";
         while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+        ANSITerminal.erase ANSITerminal.Screen;
         show_crafting_interface map
         end
     | Some (recipe, output_count) ->
@@ -228,11 +238,17 @@ let rec show_crafting_interface map =
 
         if not player_has_enough_items then
         begin
-        print_endline "You don't have enough of the required materials
-                        to craft that.\nPress n to continue.";
-              (* TODO tell the player how many more of each item they need *)
-        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
-        show_crafting_interface map
+          print_endline "You don't have enough of the required materials
+                          to craft that.\nPress n to continue.";
+          print_endline "To craft that, you would need:";
+          (* TODO tell the player how many more of each item they need *)
+          let sets_required = (List.fold_left (fun acc (i', c) -> Items.add_to_set_list_multiple i' (c - (Items.get_count_in_set_list i'
+                                      (State.get_player_inventory map
+                                       |> State.get_inventory_sets))) acc) [] recipe) in
+          List.iter (fun (i', c) -> print_endline("i: " ^ (Items.get_item_name i') ^ ", c: " ^ (string_of_int c))) sets_required;
+          while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+          ANSITerminal.erase ANSITerminal.Screen;
+          show_crafting_interface map
         end
         else
         begin

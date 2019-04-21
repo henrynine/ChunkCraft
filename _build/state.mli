@@ -99,8 +99,11 @@ val get_map_mode : map -> mode
 (** Check if the inventory of [p] is full. *)
 val inventory_is_full : player -> bool
 
-(** Get the height of all chunks in [m].*)
+(** Get the height of all chunks in [m]. *)
 val get_chunk_height : map -> int
+
+(** Get the width of all chunks in [m]. *)
+val get_chunk_width : map -> int
 
 (** Return [p] with [i] added. *)
 val add_to_inventory : Items.item -> player -> player
