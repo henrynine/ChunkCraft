@@ -1,92 +1,83 @@
 ### Starting build.
 # Target: main.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:main.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules main.mli > main.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules main.mli > main.mli.depends # cached
 # Target: state.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:state.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules state.mli > state.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules state.mli > state.mli.depends # cached
 # Target: blocks.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:blocks.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules blocks.mli > blocks.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules blocks.mli > blocks.mli.depends # cached
 # Target: items.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:items.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules items.mli > items.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules items.mli > items.mli.depends # cached
 # Target: items.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:items.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o items.cmi items.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o items.cmi items.mli # cached
 # Target: blocks.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:blocks.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o blocks.cmi blocks.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o blocks.cmi blocks.mli # cached
 # Target: state.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:state.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o state.cmi state.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o state.cmi state.mli # cached
 # Target: main.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:main.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmi main.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmi main.mli # cached
 # Target: main.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:main.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules main.ml > main.ml.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules main.ml > main.ml.depends # cached
 # Target: control.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:control.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules control.mli > control.mli.depends
-# Target: display.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:display.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules display.mli > display.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules control.mli > control.mli.depends # cached
 # Target: control.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:control.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o control.cmi control.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o control.cmi control.mli # cached
+# Target: display.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:display.mli, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules display.mli > display.mli.depends # cached
 # Target: display.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:display.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o display.cmi display.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o display.cmi display.mli # cached
 # Target: main.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmo main.ml
-+ ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmo main.ml
-File "main.ml", line 161, characters 16-35:
-Warning 52: Code should not depend on the actual values of
-this constructor's arguments. They are only for information
-and may change in future versions. (See manual section 8.5)
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmo main.ml # cached
 # Target: blocks.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:blocks.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules blocks.ml > blocks.ml.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules blocks.ml > blocks.ml.depends # cached
 # Target: colors.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:colors.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules colors.mli > colors.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules colors.mli > colors.mli.depends # cached
 # Target: colors.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:colors.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o colors.cmi colors.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o colors.cmi colors.mli # cached
+# Target: blocks.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:blocks.cmo, file:blocks.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o blocks.cmo blocks.ml # cached
 # Target: control.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:control.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules control.ml > control.ml.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules control.ml > control.ml.depends # cached
+# Target: control.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:control.cmo, file:control.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o control.cmo control.ml # cached
 # Target: display.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:display.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package ANSITerminal -package OUnit -modules display.ml > display.ml.depends
 # Target: items.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:items.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules items.ml > items.ml.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules items.ml > items.ml.depends # cached
+# Target: items.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:items.cmo, file:items.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o items.cmo items.ml # cached
 # Target: state.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:state.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules state.ml > state.ml.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules state.ml > state.ml.depends # cached
 # Target: converter.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:converter.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules converter.mli > converter.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules converter.mli > converter.mli.depends # cached
 # Target: converter.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:converter.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o converter.cmi converter.mli
-# Target: blocks.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:blocks.cmo, file:blocks.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o blocks.cmo blocks.ml
-# Target: control.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:control.cmo, file:control.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o control.cmo control.ml
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o converter.cmi converter.mli # cached
+# Target: state.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:state.cmo, file:state.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o state.cmo state.ml # cached
 # Target: display.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:display.cmo, file:display.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o display.cmo display.ml
 + ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o display.cmo display.ml
-File "display.ml", line 117, characters 15-18:
+File "display.ml", line 120, characters 15-18:
 Warning 10: this expression should have type unit.
-File "display.ml", line 146, characters 67-70:
+File "display.ml", line 149, characters 67-70:
 Warning 10: this expression should have type unit.
-File "display.ml", line 178, characters 69-72:
+File "display.ml", line 181, characters 69-72:
 Warning 10: this expression should have type unit.
-File "display.ml", line 215, characters 65-68:
+File "display.ml", line 225, characters 65-68:
 Warning 10: this expression should have type unit.
-File "display.ml", line 226, characters 67-70:
+File "display.ml", line 236, characters 67-70:
 Warning 10: this expression should have type unit.
-File "display.ml", line 249, characters 69-72:
+File "display.ml", line 266, characters 69-72:
 Warning 10: this expression should have type unit.
-File "display.ml", line 261, characters 67-70:
+File "display.ml", line 278, characters 67-70:
 Warning 10: this expression should have type unit.
-File "display.ml", line 70, characters 22-37:
-Warning 26: unused variable original_height.
-File "display.ml", line 70, characters 6-20:
-Warning 26: unused variable original_width.
-# Target: items.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:items.cmo, file:items.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o items.cmo items.ml
-# Target: state.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:state.cmo, file:state.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o state.cmo state.ml
 # Target: colors.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:colors.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules colors.ml > colors.ml.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules colors.ml > colors.ml.depends # cached
 # Target: colors.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:colors.cmo, file:colors.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o colors.cmo colors.ml
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o colors.cmo colors.ml # cached
 # Target: converter.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:converter.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules converter.ml > converter.ml.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules converter.ml > converter.ml.depends # cached
 # Target: converter.cmo, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:cmo, extension:ml, file:converter.cmo, file:converter.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o converter.cmo converter.ml
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o converter.cmo converter.ml # cached
 # Target: main.byte, tags: { package(ANSITerminal), package(OUnit), byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet, traverse }
 ocamlfind ocamlc -linkpkg -package ANSITerminal -package OUnit colors.cmo items.cmo blocks.cmo converter.cmo state.cmo display.cmo control.cmo main.cmo -o main.byte
 # Compilation successful.

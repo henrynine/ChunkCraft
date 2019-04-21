@@ -68,8 +68,11 @@ let rec print_inv is_dropping inventory_list=
 let rec show_inventory map =
   (* Save current terminal size *)
   let original_width, original_height = ANSITerminal.size () in
+  (* Resize terminal *)
+  ANSITerminal.resize 80 24;
+  let res =
   (* clear the screen *)
-  ANSITerminal.erase ANSITerminal.Screen;
+  (ANSITerminal.erase ANSITerminal.Screen;
   (* Set the cursor in the bottom left *)
   ANSITerminal.set_cursor 1 1;
   (* Print inventory in form of "item_name: count" *)
@@ -186,12 +189,19 @@ let rec show_inventory map =
       (* This helps get rid of the weird extraneous 'y' bug *)
       ANSITerminal.erase ANSITerminal.Screen;
       map
-    end
+    end) in
+  (* put the screen back *)
+  ANSITerminal.resize original_width original_height;
+  res
 
 
 
 let rec show_crafting_interface map =
-  ANSITerminal.erase ANSITerminal.Screen;
+(* Save current terminal size *)
+let original_width, original_height = ANSITerminal.size () in
+(* Resize terminal *)
+ANSITerminal.resize 80 24;
+let res = (ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.set_cursor 1 1;
   print_inv false ((State.get_player_inventory map) |> State.get_inventory_sets);
   print_endline "Enter what you want to craft or b to exit: ";
@@ -238,14 +248,21 @@ let rec show_crafting_interface map =
 
         if not player_has_enough_items then
         begin
-          print_endline "You don't have enough of the required materials
-                          to craft that.\nPress n to continue.";
+          print_endline "You don't have enough of the required materials to craft that.";
           print_endline "To craft that, you would need:";
           (* TODO tell the player how many more of each item they need *)
+          (* The double fold left looks complicated, but it is done in two parts
+             to look more simple – first it gets the raw list of items in the
+             recipe and how many more are needed in the player's inventory to
+             craft it, and the second fold eliminates any items that have a
+             count of zero or less, i.e. the player has enough in their
+             inventory already. *)
           let sets_required = (List.fold_left (fun acc (i', c) -> Items.add_to_set_list_multiple i' (c - (Items.get_count_in_set_list i'
                                       (State.get_player_inventory map
-                                       |> State.get_inventory_sets))) acc) [] recipe) in
-          List.iter (fun (i', c) -> print_endline("i: " ^ (Items.get_item_name i') ^ ", c: " ^ (string_of_int c))) sets_required;
+                                       |> State.get_inventory_sets))) acc) [] recipe)
+            |> List.fold_left (fun acc (i', c) -> if c > 0 then (i',c):: acc else acc) [] in
+          List.iter (fun (i', c) -> print_endline((Items.get_item_name i') ^ " x" ^ (string_of_int c))) sets_required;
+          print_endline "Press n to continue.";
           while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
           ANSITerminal.erase ANSITerminal.Screen;
           show_crafting_interface map
@@ -269,4 +286,7 @@ let rec show_crafting_interface map =
           |> Items.add_to_set_list_multiple i output_count}}}
         end
       end
-    end
+    end) in
+  (* put the screen back *)
+  ANSITerminal.resize original_width original_height;
+  res
