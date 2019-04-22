@@ -4,6 +4,10 @@ open Items
 open Unix
 open Blocks
 
+let press_n_to_continue () =
+  print_endline "Press n to continue.";
+  while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done
+
 let print_current_chunk map =
   (* put the cursor in the upper left corner *)
   ANSITerminal.set_cursor 1 1;
@@ -110,10 +114,8 @@ let rec show_inventory map =
           State.unequip_item map
         else
           begin
-            print_endline "You don't have an item equipped.
-                Press n to continue";
-            while (let c = input_char Pervasives.stdin in c <> 'n')
-            do 1+1 done;
+            print_endline "You don't have an item equipped.";
+            press_n_to_continue ();
             show_inventory map
           end
       end
@@ -137,7 +139,8 @@ let rec show_inventory map =
       begin
         ANSITerminal.erase ANSITerminal.Screen;
         ANSITerminal.set_cursor 1 1;
-        print_endline "Please enter a valid letter.\nPress n to continue.";
+        print_endline "Please enter a valid letter.";
+        press_n_to_continue ();
         show_inventory map
       end
     end
@@ -162,8 +165,8 @@ let rec show_inventory map =
           begin
           ANSITerminal.erase ANSITerminal.Screen;
           ANSITerminal.set_cursor 1 1;
-          print_endline "Please enter a valid letter.\nPress n to continue.";
-          while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+          print_endline "Please enter a valid letter.";
+          press_n_to_continue ();
           show_inventory map
           end
     end
@@ -209,9 +212,7 @@ let rec show_crafting_interface map =
   print_endline
     "With what you currently have in your inventory, you can craft:";
   List.iter (fun i -> print_endline (Items.get_item_name i)) craftable_items;
-  (* TODO make press n to continue its own function *)
-  print_endline "Press n to continue.";
-  while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+  press_n_to_continue ();
   map (* just for now *) (* maybe should be a different return maybe not *)
   end
   else
@@ -221,8 +222,8 @@ let rec show_crafting_interface map =
   match desired_item with
   | None ->
       begin
-      print_endline "That is not an item you can craft.\nPress n to continue.";
-      while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+      print_endline "That is not an item you can craft.";
+      press_n_to_continue ();
       show_crafting_interface map
       end
   | Some i ->
@@ -230,9 +231,8 @@ let rec show_crafting_interface map =
     match Items.get_full_recipe i with
     | None ->
         begin
-        print_endline "That is not an item you can craft.
-                      \nPress n to continue.";
-        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+        print_endline "That is not an item you can craft.";
+        press_n_to_continue ();
         show_crafting_interface map
         end
     | Some (recipe, output_count) ->
@@ -245,19 +245,17 @@ let rec show_crafting_interface map =
           print_endline "To craft that, you would need:";
           State.sets_needed_to_craft map recipe |>
           List.iter (fun (i', c) -> print_endline((Items.get_item_name i') ^ " x" ^ (string_of_int c)));
-          print_endline "Press n to continue.";
-          while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+          press_n_to_continue ();
           show_crafting_interface map
         end
         else
         begin
         if output_count = 1 then
-        print_endline ("You crafted a " ^ desired_item_name
-                        ^ ".\nPress n to continue.")
+        print_endline ("You crafted a " ^ desired_item_name ^ ".")
         else
-        print_endline ("You crafted " ^ (string_of_int output_count)
-                ^ " " ^ desired_item_name ^ "s.\nPress n to continue.");
-        while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+        print_endline ("You crafted " ^ (string_of_int output_count) ^ " "
+                       ^ desired_item_name ^ "s.");
+        press_n_to_continue ();
         (* remove the recipe items from player inventory,
           add the crafted item to their inventory *)
         {map with player = {map.player with inv = {map.player.inv with sets =
