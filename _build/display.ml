@@ -28,6 +28,7 @@ let print_current_chunk map =
                     (State.get_blocks current_chunk);
                     (* Print equipped item *)
                     begin
+                    ANSITerminal.erase ANSITerminal.Eol;
                     match State.equipped_item map with
                     | None -> print_endline "No item equipped."
                     | Some (i, c) -> print_endline ("Equipped: "
@@ -35,6 +36,7 @@ let print_current_chunk map =
                      ^ (string_of_int c) ^ ")")
                     end;
                     begin
+                    ANSITerminal.erase ANSITerminal.Eol;
                     match State.get_map_mode map with
                     | State.Base -> ()
                     | State.Mining -> print_endline "In mining mode."
