@@ -1,6 +1,6 @@
 ### Starting build.
 # Target: main.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:main.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package ANSITerminal -package OUnit -modules main.mli > main.mli.depends
+ocamlfind ocamldep -package ANSITerminal -package OUnit -modules main.mli > main.mli.depends # cached
 # Target: state.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:state.mli, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package ANSITerminal -package OUnit -modules state.mli > state.mli.depends # cached
 # Target: blocks.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:blocks.mli, ocaml, ocamldep, quiet, traverse }
@@ -14,7 +14,7 @@ ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o blocks.cmi blocks.ml
 # Target: state.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:state.mli, interf, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o state.cmi state.mli # cached
 # Target: main.cmi, tags: { package(ANSITerminal), package(OUnit), byte, compile, extension:mli, file:main.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmi main.mli
+ocamlfind ocamlc -c -package ANSITerminal -package OUnit -o main.cmi main.mli # cached
 # Target: main.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:main.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package ANSITerminal -package OUnit -modules main.ml > main.ml.depends # cached
 # Target: control.mli.depends, tags: { package(ANSITerminal), package(OUnit), extension:mli, file:control.mli, ocaml, ocamldep, quiet, traverse }
@@ -60,13 +60,15 @@ File "display.ml", line 116, characters 15-18:
 Warning 10: this expression should have type unit.
 File "display.ml", line 166, characters 69-72:
 Warning 10: this expression should have type unit.
-File "display.ml", line 204, characters 65-68:
+File "display.ml", line 214, characters 61-64:
 Warning 10: this expression should have type unit.
-File "display.ml", line 214, characters 67-70:
+File "display.ml", line 225, characters 65-68:
 Warning 10: this expression should have type unit.
-File "display.ml", line 245, characters 69-72:
+File "display.ml", line 235, characters 67-70:
 Warning 10: this expression should have type unit.
-File "display.ml", line 256, characters 67-70:
+File "display.ml", line 249, characters 69-72:
+Warning 10: this expression should have type unit.
+File "display.ml", line 260, characters 67-70:
 Warning 10: this expression should have type unit.
 # Target: colors.ml.depends, tags: { package(ANSITerminal), package(OUnit), extension:ml, file:colors.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package ANSITerminal -package OUnit -modules colors.ml > colors.ml.depends # cached

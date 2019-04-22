@@ -359,3 +359,17 @@ let place map direction : map =
         chunks = replace_chunk_in_chunks map (replace_block_in_chunk map placed_block
           chunk_x chunk_y new_coords_x new_coords_y) chunk_x chunk_y}
     end
+
+let sets_needed_to_craft map recipe =
+  (* Get the raw list of items in the recipe and how many more are
+     needed in the player's inventory to craft it, then filter out any
+     items that have a count of zero or less, i.e. the player has enough
+     in their inventory already. *)
+  (List.fold_left (fun acc (i', c) ->
+        Items.add_to_set_list_multiple i'
+        (c - (Items.get_count_in_set_list i' map.player.inv.sets)) acc) []
+        recipe)
+  |> List.filter (fun (i', c) -> c > 0)
+
+let player_has_enough_items map recipe =
+  List.length (sets_needed_to_craft map recipe) = 0

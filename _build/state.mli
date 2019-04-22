@@ -167,3 +167,11 @@ val set_to_placing_mode : map -> map
 
 (** Set the map to base mode. *)
 val set_to_base_mode : map -> map
+
+(** Check if the player in [map] has enough items in their inventory to craft
+    [recipe]. *)
+val player_has_enough_items : map -> (Items.item * int) list -> bool
+
+(** Return a set list representing how many more of each item the player in
+    [map] needs to craft [recipe]. *)
+val sets_needed_to_craft : map -> (Items.item * int) list -> (Items.item * int) list

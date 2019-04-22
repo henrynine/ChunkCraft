@@ -176,14 +176,14 @@ let rec show_inventory map =
 
 
 let rec show_crafting_interface map =
-(* Save current terminal size *)
-let original_width, original_height = ANSITerminal.size () in
-(* Resize terminal *)
-ANSITerminal.resize 80 24;
-let res = (ANSITerminal.erase ANSITerminal.Screen;
+  (* Save current terminal size *)
+  let original_width, original_height = ANSITerminal.size () in
+  (* Resize terminal *)
+  ANSITerminal.resize 80 24;
+  let res = (ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.set_cursor 1 1;
   print_inv false ((State.get_player_inventory map) |> State.get_inventory_sets);
-  print_endline "Enter what you want to craft or b to exit: ";
+  print_endline "Enter what you want to craft. Enter all to see all the items you can craft with your current items b to exit: ";
   (* Turn wait for endline to get input back on *)
   Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with
                                                             c_icanon = true};
@@ -193,6 +193,27 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.set_cursor 1 1;
   if desired_item_name = "b" then map
+  else
+  if desired_item_name = "all" then
+  begin
+  (* List all items that can be crafted with the items in inventory *)
+  (* go through Items.all_items, call State.player_has_enough_items on that item's recipe*)
+  let craftable_items =
+    List.filter
+      (fun i ->
+        match Items.get_full_recipe i with
+        | None -> false
+        | Some (recipe, _) -> State.player_has_enough_items map recipe)
+      Items.all_items in
+  (* TODO print a different message if it's empty – also apply to general inventory, dropping, equipping, anything else? *)
+  print_endline
+    "With what you currently have in your inventory, you can craft:";
+  List.iter (fun i -> print_endline (Items.get_item_name i)) craftable_items;
+  (* TODO make press n to continue its own function *)
+  print_endline "Press n to continue.";
+  while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
+  map (* just for now *) (* maybe should be a different return maybe not *)
+  end
   else
   (* Search for all items to find recipe for that item *)
   let desired_item = List.find_opt (fun i -> Items.get_item_name i =
@@ -218,29 +239,12 @@ let res = (ANSITerminal.erase ANSITerminal.Screen;
       (* check if player has r in inventory, if they don't, say that,
         otherwise craft it *)
       begin
-        let player_has_enough_items = List.fold_left (fun acc (i', c) ->
-        (c <= Items.get_count_in_set_list i' ((State.get_player_inventory map)
-                                        |> State.get_inventory_sets)) && acc)
-                                        true recipe in
-
-        if not player_has_enough_items then
+        if not (State.player_has_enough_items map recipe) then
         begin
           print_endline "You don't have enough of the required materials to craft that.";
           print_endline "To craft that, you would need:";
-          (* TODO tell the player how many more of each item they need *)
-          (* Get the raw list of items in the recipe and how many more are
-             needed in the player's inventory to craft it, then filter out any
-             items that have a count of zero or less, i.e. the player has enough
-             in their inventory already. *)
-          let inventory_sets =
-            (State.get_player_inventory map |> State.get_inventory_sets) in
-          let sets_required =
-            (List.fold_left (fun acc (i', c) ->
-                 Items.add_to_set_list_multiple i'
-                 (c - (Items.get_count_in_set_list i' inventory_sets)) acc)
-               [] recipe)
-            |> List.filter (fun (i', c) -> c > 0) in
-          List.iter (fun (i', c) -> print_endline((Items.get_item_name i') ^ " x" ^ (string_of_int c))) sets_required;
+          State.sets_needed_to_craft map recipe |>
+          List.iter (fun (i', c) -> print_endline((Items.get_item_name i') ^ " x" ^ (string_of_int c)));
           print_endline "Press n to continue.";
           while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done;
           show_crafting_interface map
