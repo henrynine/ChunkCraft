@@ -1,0 +1,5 @@
+_build/*
+*.zip
+bisect*
+report/*
+*.byte
