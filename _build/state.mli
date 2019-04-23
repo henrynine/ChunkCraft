@@ -176,4 +176,4 @@ val player_has_enough_items : map -> (Items.item * int) list -> bool
     [map] needs to craft [recipe]. *)
 val sets_needed_to_craft : map -> (Items.item * int) list -> (Items.item * int) list
 
-val update_entities : map -> map
+val update_non_player_actions : map -> map

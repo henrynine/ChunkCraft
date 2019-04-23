@@ -67,10 +67,22 @@ let stone : block = {
   background_color = Colors.on_gray;
   styles = [];
   ground = false;
-  name = "wood plank";
+  name = "stone";
   max_items = 0;
   sets = [];
   preferred_tools = [Items.wood_pick; Items.stone_pick]
+}
+
+let cobblestone : block = {
+  character = 'X';
+  color = ANSITerminal.black;
+  background_color = Colors.on_gray;
+  styles = [];
+  ground = false;
+  name = "cobblestone";
+  max_items = 0;
+  sets = [];
+  preferred_tools = []
 }
 
 let get_block_color b = b.color

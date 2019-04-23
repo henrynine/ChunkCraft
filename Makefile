@@ -1,6 +1,6 @@
 # Acknowledgement: this Makefile is heavily based on the provided Makefile for
 #                  A2
-MODULES=state blocks display main control items
+MODULES=blocks colors control converter display entities items main state
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES:=.ml)
 MLIS=$(MODULES:=.mli)

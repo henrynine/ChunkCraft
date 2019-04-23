@@ -24,6 +24,8 @@ val water : block
 val wood_plank : block
 (** A stone block. *)
 val stone : block
+(** A cobblestone block. *)
+val cobblestone : block
 
 (** Get the color of [b]. *)
 val get_block_color : block -> ANSITerminal.style

@@ -62,31 +62,38 @@ let stone : item = {
   preferred_multiplier = 1;
 }
 
+let cobblestone : item = {
+  name = "cobblestone";
+  stackable = true;
+  recipe = None;
+  preferred_multiplier = 1;
+}
+
 let stone_pick : item = {
   name = "stone pick";
   stackable = false;
-  recipe = Some ([(stone, 3); (stick, 2)], 1);
+  recipe = Some ([(cobblestone, 3); (stick, 2)], 1);
   preferred_multiplier = 3;
 }
 
 let stone_shovel : item = {
   name = "wood shovel";
   stackable = false;
-  recipe = Some ([(stone, 1); (stick, 2)], 1);
+  recipe = Some ([(cobblestone, 1); (stick, 2)], 1);
   preferred_multiplier = 3;
 }
 
 let stone_sword : item = {
   name = "stone sword";
   stackable = false;
-  recipe = Some ([(stone, 2); (stick, 1)], 1);
+  recipe = Some ([(cobblestone, 2); (stick, 1)], 1);
   preferred_multiplier = 3;
 }
 
 let stone_axe : item = {
   name = "stone axe";
   stackable = false;
-  recipe = Some ([(stone, 3); (stick, 2)], 1);
+  recipe = Some ([(cobblestone, 3); (stick, 2)], 1);
   preferred_multiplier = 3;
 }
 
@@ -103,6 +110,7 @@ let all_items = [
   stone_shovel;
   stone_sword;
   stone_axe;
+  cobblestone
 ]
 
 let get_item_name i = i.name

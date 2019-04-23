@@ -6,7 +6,7 @@ open Control
 open Unix
 open Items
 
-exception UpdateEntities of State.map
+exception Update of State.map
 
 let player : State.player = {
   color = ANSITerminal.black;
@@ -161,7 +161,7 @@ let _ =
       (* Set what to do when the timer goes off*)
       ignore (Sys.signal
         Sys.sigalrm
-        (Sys.Signal_handle (fun _ -> if (!game_is_paused) then () else raise(UpdateEntities (State.update_entities map)))));
+        (Sys.Signal_handle (fun _ -> if (!game_is_paused) then () else raise(Update (State.update_non_player_actions map)))));
       let c = input_char Pervasives.stdin in
       try
         let map = Control.handle_command map c game_is_paused in
@@ -172,7 +172,7 @@ let _ =
         Display.print_current_chunk map;
         print_endline "Unknown command";
         main_loop map
-    with UpdateEntities new_map ->
+    with Update new_map ->
       Display.print_current_chunk new_map;
       main_loop new_map in
 

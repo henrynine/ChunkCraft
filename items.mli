@@ -30,6 +30,8 @@ val stone_shovel : item
 val stone_sword : item
 (** The item for a stone axe. *)
 val stone_axe : item
+(** The item for cobblestone. *)
+val cobblestone : item
 
 (** A list of all items. *)
 val all_items : item list
