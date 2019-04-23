@@ -6,6 +6,8 @@ open Control
 open Unix
 open Items
 
+exception UpdateEntities of State.map
+
 let player : State.player = {
   color = ANSITerminal.black;
   coords = 0, 0;
@@ -149,6 +151,47 @@ let _ =
     with c_icanon = false};
   (* Clear the screen *)
   ANSITerminal.erase ANSITerminal.Screen;
+  (* Resize the terminal to fit the chunk size *)
+  ANSITerminal.resize (State.get_chunk_width map) (State.get_chunk_height map + 3);
+  (* Print out the starting chunk *)
+  Display.print_current_chunk map;
+  let rec main_loop map =
+    try
+      let game_is_paused = ref (false) in
+      (* Set what to do when the timer goes off*)
+      ignore (Sys.signal
+        Sys.sigalrm
+        (Sys.Signal_handle (fun _ -> if (!game_is_paused) then () else raise(UpdateEntities (State.update_entities map)))));
+      let c = input_char Pervasives.stdin in
+      try
+        let map = Control.handle_command map c game_is_paused in
+        Display.print_current_chunk map;
+        main_loop map
+      with Failure("Unknown command") ->
+        (* Display.print_current_chunk map; *)
+        Display.print_current_chunk map;
+        print_endline "Unknown command";
+        main_loop map
+    with UpdateEntities new_map ->
+      Display.print_current_chunk new_map;
+      main_loop new_map in
+
+  let timer : Unix.interval_timer = Unix.ITIMER_REAL in
+  let initial_status : Unix.interval_timer_status =
+    {
+      it_interval = 2.;
+      it_value = 2.;
+    } in
+  let start = Unix.setitimer timer initial_status in
+  main_loop map
+
+(* let og_main_loop =
+  (* Set stdin to not wait for a newline to read input *)
+  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin)
+    with c_icanon = false};
+  (* Clear the screen *)
+  ANSITerminal.erase ANSITerminal.Screen;
+  (* Resize the terminal to fit the chunk size *)
   ANSITerminal.resize (State.get_chunk_width map) (State.get_chunk_height map + 3);
   (* Print out the starting chunk *)
   Display.print_current_chunk map;
@@ -163,4 +206,4 @@ let _ =
       Display.print_current_chunk map;
       print_endline "Unknown command";
       main_loop map in
-  main_loop map
+  main_loop map *)

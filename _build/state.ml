@@ -373,3 +373,8 @@ let sets_needed_to_craft map recipe =
 
 let player_has_enough_items map recipe =
   List.length (sets_needed_to_craft map recipe) = 0
+
+let update_entities map =
+  try
+    unequip_item map
+  with Failure("No item equipped") -> map

@@ -175,3 +175,5 @@ val player_has_enough_items : map -> (Items.item * int) list -> bool
 (** Return a set list representing how many more of each item the player in
     [map] needs to craft [recipe]. *)
 val sets_needed_to_craft : map -> (Items.item * int) list -> (Items.item * int) list
+
+val update_entities : map -> map
