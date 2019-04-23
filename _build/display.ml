@@ -66,10 +66,13 @@ let print_current_chunk map =
   ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+2+adjustment);
   ANSITerminal.erase ANSITerminal.Eol
 
-let rec print_inv is_dropping inventory_list=
-  List.iteri (fun i (item, count) -> print_endline ((if is_dropping then
-    (Char.escaped (Char.chr (97 + i))) ^ " - " else "") ^
-    (Items.get_item_name item) ^ ": " ^ (string_of_int count))) inventory_list
+let rec print_inv is_dropping inventory_list =
+  if List.length inventory_list = 0 then
+    print_endline "Your inventory is empty."
+  else
+    List.iteri (fun i (item, count) -> print_endline ((if is_dropping then
+      (Char.escaped (Char.chr (97 + i))) ^ " - " else "") ^
+      (Items.get_item_name item) ^ ": " ^ (string_of_int count))) inventory_list
 
 let rec show_inventory map =
   (* Save current terminal size *)
@@ -84,14 +87,13 @@ let rec show_inventory map =
   (* Print inventory in form of "item_name: count" *)
   print_inv false ((State.get_player_inventory map)
                     |> State.get_inventory_sets);
-  print_endline "Press e to equip items.
-                \nPress d to drop items.
-                \nPress u to unequip your current equipped item.
-                \nPress b to exit inventory.";
+  print_endline "Press e to equip items.\n\
+                 Press d to drop items.\n\
+                 Press u to unequip your current equipped item.\n\
+                 Press b to exit inventory.";
   (* wait for escape key ('b') -> Unix should already be grabbing
     keys originally *)
   let c = ref (input_char Pervasives.stdin) in
-  (* TODO bug is here – for some reason only the first char in the or works *)
   (* NOTE: !c means the dereference of c;
       needed for reading mutable variables *)
   while ((!c) <> 'b' && (!c) <> 'd' && (!c) <> 'e' && (!c) <> 'u') do
@@ -114,6 +116,8 @@ let rec show_inventory map =
           State.unequip_item map
         else
           begin
+            ANSITerminal.set_cursor 1 1;
+            ANSITerminal.erase ANSITerminal.Screen;
             print_endline "You don't have an item equipped.";
             press_n_to_continue ();
             show_inventory map
@@ -122,28 +126,39 @@ let rec show_inventory map =
     end
   else if ((!c) = 'e') then
     begin
-    ANSITerminal.erase ANSITerminal.Screen;
-    ANSITerminal.set_cursor 1 1;
-    let inventory_list = (State.get_player_inventory map)
-                          |> State.get_inventory_sets in
-    print_inv true inventory_list;
-    print_endline "Enter the letter next to the items you want to equip.";
-    c := (input_char Pervasives.stdin);
-    let index_pressed = (Char.code (!c)) - 97 in
-    if (index_pressed < List.length inventory_list) then
+      ANSITerminal.erase ANSITerminal.Screen;
+      ANSITerminal.set_cursor 1 1;
+      let inventory_list = (State.get_player_inventory map)
+                            |> State.get_inventory_sets in
+      print_inv true inventory_list;
+      if List.length inventory_list > 0 then
       begin
-        let (item, count) = List.nth inventory_list index_pressed in
-        {map with player = State.equip_item item count map}
+        print_endline "Enter the letter next to the items you want to equip.";
+        c := (input_char Pervasives.stdin);
+        let index_pressed = (Char.code (!c)) - 97 in
+        if (index_pressed < List.length inventory_list) then
+          begin
+            let (item, count) = List.nth inventory_list index_pressed in
+            {map with player = State.equip_item item count map}
+          end
+        else
+          begin
+            ANSITerminal.erase ANSITerminal.Screen;
+            ANSITerminal.set_cursor 1 1;
+            print_endline "Please enter a valid letter.";
+            press_n_to_continue ();
+            show_inventory map
+          end
+        end
+        else
+          begin
+          press_n_to_continue();
+          show_inventory map
+          end
       end
-    else
-      begin
-        ANSITerminal.erase ANSITerminal.Screen;
-        ANSITerminal.set_cursor 1 1;
-        print_endline "Please enter a valid letter.";
-        press_n_to_continue ();
-        show_inventory map
-      end
-    end
+
+
+
   else if ((!c) = 'd')
     then
     begin
@@ -152,23 +167,31 @@ let rec show_inventory map =
       let inventory_list = (State.get_player_inventory map)
                             |> State.get_inventory_sets in
       print_inv true inventory_list;
-      print_endline "Enter the letter next to the items you want to drop.";
-      c := (input_char Pervasives.stdin);
-      let index_pressed = (Char.code (!c)) - 97 in
-      if (index_pressed < List.length inventory_list)
-        then
-          begin
-            let (item, count) = List.nth inventory_list index_pressed in
-            State.drop_item item count map
-          end
-        else
-          begin
-          ANSITerminal.erase ANSITerminal.Screen;
-          ANSITerminal.set_cursor 1 1;
-          print_endline "Please enter a valid letter.";
-          press_n_to_continue ();
-          show_inventory map
-          end
+      if List.length inventory_list > 0 then
+        begin
+        print_endline "Enter the letter next to the items you want to drop.";
+        c := (input_char Pervasives.stdin);
+        let index_pressed = (Char.code (!c)) - 97 in
+        if (index_pressed < List.length inventory_list)
+          then
+            begin
+              let (item, count) = List.nth inventory_list index_pressed in
+              State.drop_item item count map
+            end
+          else
+            begin
+            ANSITerminal.erase ANSITerminal.Screen;
+            ANSITerminal.set_cursor 1 1;
+            print_endline "Please enter a valid letter.";
+            press_n_to_continue ();
+            show_inventory map
+            end
+        end
+      else
+        begin
+        press_n_to_continue();
+        show_inventory map
+        end
     end
     else map) in
   (* put the screen back *)
@@ -209,11 +232,16 @@ let rec show_crafting_interface map =
         | Some (recipe, _) -> State.player_has_enough_items map recipe)
       Items.all_items in
   (* TODO print a different message if it's empty – also apply to general inventory, dropping, equipping, anything else? *)
-  print_endline
-    "With what you currently have in your inventory, you can craft:";
-  List.iter (fun i -> print_endline (Items.get_item_name i)) craftable_items;
+  if List.length craftable_items = 0 then
+    print_endline "You can't craft anything with your current inventory."
+  else
+   begin
+    print_endline
+      "With what you currently have in your inventory, you can craft:";
+    List.iter (fun i -> print_endline (Items.get_item_name i)) craftable_items
+   end;
   press_n_to_continue ();
-  map (* just for now *) (* maybe should be a different return maybe not *)
+  show_crafting_interface map
   end
   else
   (* Search for all items to find recipe for that item *)
