@@ -97,6 +97,13 @@ let stone_axe : item = {
   preferred_multiplier = 3;
 }
 
+let door : item = {
+  name = "door";
+  stackable = true;
+  recipe = Some ([(wood_plank, 2)], 1);
+  preferred_multiplier = 1;
+}
+
 let all_items = [
   log;
   wood_plank;
@@ -110,7 +117,8 @@ let all_items = [
   stone_shovel;
   stone_sword;
   stone_axe;
-  cobblestone
+  cobblestone;
+  door
 ]
 
 let get_item_name i = i.name

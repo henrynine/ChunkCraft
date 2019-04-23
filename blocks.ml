@@ -10,7 +10,9 @@ type block = {
   name : string;
   max_items : int;
   sets : (Items.item * int) list;
-  preferred_tools : Items.item list
+  preferred_tools : Items.item list;
+  action : block -> (Items.item * int) list -> int ->
+           (block * ((Items.item * int) list))
 }
 
 let grass : block = {
@@ -22,7 +24,8 @@ let grass : block = {
   name = "grass";
   max_items = max_int;
   sets = [];
-  preferred_tools = []
+  preferred_tools = [];
+  action = (fun b i m -> (b, i))
 }
 
 let tree : block = {
@@ -34,7 +37,8 @@ let tree : block = {
   name = "tree";
   max_items = 0;
   sets = [];
-  preferred_tools = [Items.wood_axe; Items.stone_axe]
+  preferred_tools = [Items.wood_axe; Items.stone_axe];
+  action = (fun b i m -> (b, i))
 }
 
 let water : block = {
@@ -46,7 +50,8 @@ let water : block = {
   name = "water";
   max_items = 0;
   sets = [];
-  preferred_tools = []
+  preferred_tools = [];
+  action = (fun b i m -> (b, i))
 }
 
 let wood_plank : block = {
@@ -58,7 +63,8 @@ let wood_plank : block = {
   name = "wood plank";
   max_items = 0;
   sets = [];
-  preferred_tools = []
+  preferred_tools = [];
+  action = (fun b i m -> (b, i))
 }
 
 let stone : block = {
@@ -70,7 +76,8 @@ let stone : block = {
   name = "stone";
   max_items = 0;
   sets = [];
-  preferred_tools = [Items.wood_pick; Items.stone_pick]
+  preferred_tools = [Items.wood_pick; Items.stone_pick];
+  action = (fun b i m -> (b, i))
 }
 
 let cobblestone : block = {
@@ -82,7 +89,46 @@ let cobblestone : block = {
   name = "cobblestone";
   max_items = 0;
   sets = [];
-  preferred_tools = []
+  preferred_tools = [];
+  action = (fun b i m -> (b, i))
+}
+
+let rec closed_door : block = {
+  character = 'X';
+  color = ANSITerminal.black;
+  background_color = Colors.on_brown;
+  styles = [];
+  ground = false;
+  name = "closed door";
+  max_items = 0;
+  sets = [];
+  preferred_tools = [];
+  (* Hacky but works *)
+  action = (fun b i m-> ({
+    character = 'O';
+    color = ANSITerminal.black;
+    background_color = Colors.on_brown;
+    styles = [];
+    ground = true;
+    name = "open door";
+    max_items = 0;
+    sets = [];
+    preferred_tools = [];
+    action = (fun b i m -> (closed_door, i))
+  }, i))
+}
+
+let open_door : block = {
+  character = 'O';
+  color = ANSITerminal.black;
+  background_color = Colors.on_brown;
+  styles = [];
+  ground = true;
+  name = "open door";
+  max_items = 0;
+  sets = [];
+  preferred_tools = [];
+  action = (fun b i m -> (closed_door, i))
 }
 
 let get_block_color b = b.color
@@ -90,6 +136,8 @@ let get_block_background_color b = b.background_color
 let get_block_character b = if List.length b.sets = 0 then b.character else '*'
 let get_block_ground b = b.ground
 let get_block_styles b = b.styles
+let get_preferred_tools b = b.preferred_tools
+let get_block_action b = b.action
 
 let add_item_to_block i b : block =
   if (List.length b.sets) >= b.max_items then failwith "Block is full"
@@ -111,6 +159,3 @@ let take_first_item (b : block) : (block * Items.item * int) =
   if List.length (b.sets) = 0 then failwith "No items in block"
   else let i, c = (List.nth b.sets 0) in
   ((remove_item_from_block_multiple i c b), i, c)
-
-let get_preferred_tools b =
-  b.preferred_tools

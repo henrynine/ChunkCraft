@@ -5,7 +5,7 @@ open Converter
 
 (* Types *)
 
-type mode = Base | Mining | Placing
+type mode = Base | Mining | Placing | Interacting
 
 type chunk = {
   blocks : Blocks.block list list;
@@ -89,6 +89,9 @@ let set_to_placing_mode map =
 
 let set_to_base_mode map =
   {map with mode = Base}
+
+let set_to_interacting_mode map =
+  {map with mode = Interacting}
 
 let count_of_item_in_inv i p =
   let i' = List.find_opt (fun (i', c) -> Items.get_item_name i = Items.get_item_name i') p.inv.sets in
@@ -330,7 +333,6 @@ let place map direction : map =
   let current_chunk = get_current_chunk map in
   let block_to_place_in =
     get_block_in_chunk current_chunk new_coords_x new_coords_y in
-  (* *)
   if (is_different_chunk map chunk_x chunk_y ||
       not (has_item_equipped map) ||
       not (get_block_ground block_to_place_in) ||
@@ -344,6 +346,7 @@ let place map direction : map =
           end)
       ) then move_player map direction
   else
+  (* TODO remove this redundancy *)
   if (is_different_chunk map chunk_x chunk_y)
     then map
     else
@@ -359,6 +362,25 @@ let place map direction : map =
         chunks = replace_chunk_in_chunks map (replace_block_in_chunk map placed_block
           chunk_x chunk_y new_coords_x new_coords_y) chunk_x chunk_y}
     end
+
+let interact map direction : map =
+  let ((chunk_x, chunk_y), (new_coords_x, new_coords_y)) =
+    get_new_coords map direction in
+  let current_chunk = get_current_chunk map in
+  let block_to_interact_with =
+    get_block_in_chunk current_chunk new_coords_x new_coords_y in
+  if (is_different_chunk map chunk_x chunk_y) then move_player map direction
+  else
+  let new_block, new_inv_sets = (Blocks.get_block_action block_to_interact_with)
+      block_to_interact_with (map.player.inv.sets) (map.player.inv.max_size) in
+  {map with player =
+    {map.player with inv = {map.player.inv with sets = new_inv_sets}};
+    mode = Base;
+    chunks = replace_chunk_in_chunks map
+      (replace_block_in_chunk map new_block chunk_x chunk_y
+          new_coords_x new_coords_y)
+      chunk_x chunk_y}
+
 
 let sets_needed_to_craft map recipe =
   (* Get the raw list of items in the recipe and how many more are

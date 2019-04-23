@@ -45,6 +45,7 @@ let print_current_chunk map =
                     | State.Base -> ()
                     | State.Mining -> print_endline "In mining mode."
                     | State.Placing -> print_endline "In placing mode."
+                    | State.Interacting -> print_endline "In interacting mode."
                     end in
   let print_player =
     (* ANSITerminal is 1-indexed *)
@@ -59,7 +60,8 @@ let print_current_chunk map =
   let adjustment = match State.get_map_mode map with
                    | State.Base -> 0
                    | State.Mining -> 1
-                   | State.Placing -> 1 in
+                   | State.Placing -> 1
+                   | State.Interacting -> 1 in
 
   ANSITerminal.set_cursor 1 ((State.get_chunk_size_y current_chunk)+3+adjustment);
   ANSITerminal.erase ANSITerminal.Eol;

@@ -1,4 +1,5 @@
 open Colors
+open Items
 
 type attack = {
   damage : int;
@@ -10,7 +11,8 @@ type entity = {
   character : char;
   color : ANSITerminal.style;
   health : int;
-  attack : attack option
+  attack : attack option;
+  loot : (Items.item * int) list option
 }
 
 let pig = {
@@ -18,5 +20,6 @@ let pig = {
   character = "P";
   color = Colors.pink;
   health = 10;
-  attack = None
+  attack = None;
+  loot = [(Items.pork_chop, 2)]
 }

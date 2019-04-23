@@ -11,7 +11,9 @@ type block = {
   name : string;
   max_items : int;
   sets : (Items.item * int) list;
-  preferred_tools : Items.item list
+  preferred_tools : Items.item list;
+  action : block -> (Items.item * int) list -> int ->
+           (block * ((Items.item * int) list))
 }
 
 (** A grass block. *)
@@ -26,6 +28,10 @@ val wood_plank : block
 val stone : block
 (** A cobblestone block. *)
 val cobblestone : block
+(** An open door block. *)
+val open_door : block
+(** A closed door block. *)
+val closed_door : block
 
 (** Get the color of [b]. *)
 val get_block_color : block -> ANSITerminal.style
@@ -37,6 +43,9 @@ val get_block_character : block -> char
 val get_block_ground : block -> bool
 (** Get the styles of [b]. *)
 val get_block_styles : block -> ANSITerminal.style list
+(** Get the action of [b] *)
+val get_block_action : block -> (block -> (Items.item * int) list -> int ->
+                                          (block * ((Items.item * int) list)))
 
 (** Return [b] with [i] added to its sets. *)
 val add_item_to_block : Items.item -> block -> block

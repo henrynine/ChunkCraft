@@ -2,7 +2,7 @@ open ANSITerminal
 open Blocks
 open Items
 
-type mode = Base | Mining | Placing
+type mode = Base | Mining | Placing | Interacting
 
 (** A chunk is a sub-section of a map. One block represents a position within
     the chunk. [coords] is the coordinates of the chunk within the map. *)
@@ -168,6 +168,9 @@ val set_to_placing_mode : map -> map
 (** Set the map to base mode. *)
 val set_to_base_mode : map -> map
 
+(** Set the map to interacting mode. *)
+val set_to_interacting_mode : map -> map
+
 (** Check if the player in [map] has enough items in their inventory to craft
     [recipe]. *)
 val player_has_enough_items : map -> (Items.item * int) list -> bool
@@ -177,3 +180,5 @@ val player_has_enough_items : map -> (Items.item * int) list -> bool
 val sets_needed_to_craft : map -> (Items.item * int) list -> (Items.item * int) list
 
 val update_non_player_actions : map -> map
+
+val interact : map -> char -> map

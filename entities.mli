@@ -10,7 +10,8 @@ type entity = {
   character : char;
   color : ANSITerminal.style;
   health : int;
-  attack : attack option
+  attack : attack option;
+  loot : (Items.item * int) list option
 }
 
 val pig : entity
