@@ -41,6 +41,18 @@ val pork_chop : item
 val cooked_pork_chop : item
 (** The item for a furnace. *)
 val furnace : item
+(** The item for iron ore. *)
+val iron_ore : item
+(** The item for iron. *)
+val iron : item
+(** The item for an iron shovel. *)
+val iron_pick : item
+(** The item for an iron shovel. *)
+val iron_shovel : item
+(** The item for an iron sword. *)
+val iron_sword : item
+(** The item for an iron axe. *)
+val iron_axe : item
 
 (** A list of all items. *)
 val all_items : item list

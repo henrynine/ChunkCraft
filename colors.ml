@@ -8,3 +8,6 @@ let on_gray = ANSITerminal.on_cyan
 
 let pink = ANSITerminal.magenta
 let on_pink = ANSITerminal.on_magenta
+
+let orange = ANSITerminal.red
+let on_orange = ANSITerminal.on_red

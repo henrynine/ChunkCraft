@@ -8,3 +8,6 @@ val on_gray : ANSITerminal.style
 
 val pink : ANSITerminal.style
 val on_pink : ANSITerminal.style
+
+val orange : ANSITerminal.style
+val on_orange : ANSITerminal.style

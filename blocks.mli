@@ -37,6 +37,8 @@ val closed_door : block
 val chest : block
 (** A furnace block. *)
 val furnace : block
+(** An iron ore block. *)
+val iron_ore : block
 
 (** Get the color of [b]. *)
 val get_block_color : block -> ANSITerminal.style

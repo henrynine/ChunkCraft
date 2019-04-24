@@ -557,11 +557,13 @@ let generate_map i default_block =
     let chunk_blocks = get_blocks chunk in
     let new_blocks = List.mapi (fun y row -> List.mapi (fun x block ->
         let dist_from_center = int_of_float(dist (fst initial_pond_coords, snd initial_pond_coords) (x,y)) in
+        let spawn_number = (Random.int 20) in
+        let block_to_place = if spawn_number = 0 then Blocks.iron_ore else Blocks.stone in
         if dist_from_center < 2
-            then Blocks.stone
+            then block_to_place
             else if dist_from_center < 3
               then if (Random.int 11) < 4
-                then Blocks.stone
+                then block_to_place
                 else block
               else block
         ) row ) chunk_blocks in

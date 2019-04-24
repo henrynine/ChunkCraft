@@ -9,6 +9,7 @@ let blocks_to_items = [
   (Blocks.open_door, (Items.door, 1));
   (Blocks.closed_door, (Items.door, 1));
   (Blocks.furnace, (Items.furnace, 1));
+  (Blocks.iron_ore, (Items.iron_ore, 1));
 ]
 
 let items_to_blocks = [

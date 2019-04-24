@@ -143,6 +143,54 @@ let furnace : item = {
   damage = 1;
 }
 
+let iron_ore : item = {
+  name = "iron ore";
+  stackable = true;
+  recipe = None;
+  preferred_multiplier = 1;
+  damage = 1
+}
+
+let iron : item = {
+  name = "iron";
+  stackable = true;
+  recipe = None;
+  preferred_multiplier = 1;
+  damage = 1;
+}
+
+let iron_pick : item = {
+  name = "iron pick";
+  stackable = false;
+  recipe = Some ([(iron, 3); (stick, 2)], 1);
+  preferred_multiplier = 3;
+  damage = 3;
+}
+
+let iron_shovel : item = {
+  name = "wood shovel";
+  stackable = false;
+  recipe = Some ([(iron, 1); (stick, 2)], 1);
+  preferred_multiplier = 3;
+  damage = 3;
+}
+
+let iron_sword : item = {
+  name = "iron sword";
+  stackable = false;
+  recipe = Some ([(iron, 2); (stick, 1)], 1);
+  preferred_multiplier = 3;
+  damage = 5;
+}
+
+let iron_axe : item = {
+  name = "iron axe";
+  stackable = false;
+  recipe = Some ([(iron, 3); (stick, 2)], 1);
+  preferred_multiplier = 3;
+  damage = 5;
+}
+
 let all_items = [
   log;
   wood_plank;
@@ -160,7 +208,13 @@ let all_items = [
   door;
   pork_chop;
   cooked_pork_chop;
-  furnace
+  furnace;
+  iron;
+  iron_ore;
+  iron_pick;
+  iron_shovel;
+  iron_sword;
+  iron_axe;
 ]
 
 let get_item_name i = i.name

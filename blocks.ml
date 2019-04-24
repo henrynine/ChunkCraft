@@ -39,7 +39,7 @@ let tree : block = {
   name = "tree";
   max_items = 0;
   sets = [];
-  preferred_tools = [Items.wood_axe; Items.stone_axe];
+  preferred_tools = [Items.wood_axe; Items.stone_axe; Items.iron_axe];
   action = (fun b i m -> (b, i));
   update = None
 }
@@ -81,7 +81,7 @@ let stone : block = {
   name = "stone";
   max_items = 0;
   sets = [];
-  preferred_tools = [Items.wood_pick; Items.stone_pick];
+  preferred_tools = [Items.wood_pick; Items.stone_pick; Items.iron_pick];
   action = (fun b i m -> (b, i));
   update = None
 }
@@ -151,6 +151,20 @@ let chest : block = {
   max_items = 15;
   sets = [];
   preferred_tools = [];
+  action = (fun b i m -> (b, i));
+  update = None
+}
+
+let iron_ore : block = {
+  character = '#';
+  color = Colors.orange;
+  background_color = Colors.on_gray;
+  styles = [];
+  ground = false;
+  name = "iron ore";
+  max_items = 0;
+  sets = [];
+  preferred_tools = [Items.stone_pick; Items.iron_pick];
   action = (fun b i m -> (b, i));
   update = None
 }
@@ -254,7 +268,8 @@ let remove_furnace_output b set_list max_size =
     | None -> (b, set_list)
 
 let furnace_conversions = [
-  (Items.pork_chop, Items.cooked_pork_chop)
+  (Items.pork_chop, Items.cooked_pork_chop);
+  (Items.iron_ore, Items.iron)
 ]
 
 (* Remove item from fuel and input if there is one and both and convert using
@@ -450,11 +465,11 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
               let index_pressed = (Char.code (!inp)) - 97 in
               if (index_pressed < List.length set_list) then
                   let (item, count) = List.nth set_list index_pressed in
-                  if (Items.get_item_name item) <> "pork chop" then
+                  if (Items.get_item_name item) <> "pork chop" && (Items.get_item_name item) <> "iron ore" then
                     begin
                       ANSITerminal.set_cursor 1 1;
                       ANSITerminal.erase ANSITerminal.Screen;
-                      print_endline "You can only use pork chops as input.";
+                      print_endline "You can only use pork chops or iron ore as input.";
                       press_n_to_continue ();
                       show_furnace_interface furnace set_list max_size
                     end
