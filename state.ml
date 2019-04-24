@@ -609,18 +609,20 @@ let generate_map i default_block =
     repeat place_random_pig chunk total_pigs in
 
   let all_cluster_functions_but_pond =
-    [create_forest; create_boulder; create_pigs] in
+    [create_forest; create_boulder] in
 
   let populate_chunk c =
     let num_clusters = (Random.int 5) + 5 in
     let num_ponds = (Random.int 3) + 1 in
+    let num_pigs = (Random.int 4) in
     let create_cluster cluster_generation_function c' =
       let x' = (Random.int (get_chunk_size_x c - 7)) + 4 in
       let y' = (Random.int (get_chunk_size_y c - 7)) + 4 in
       cluster_generation_function x' y' c' in
     let create_random_cluster c' n =
       create_cluster (List.hd (QCheck.Gen.(generate1 (shuffle_l all_cluster_functions_but_pond)))) c' in
-    let pondless_chunk = repeat create_random_cluster c num_clusters in
+    let pondless_pigless_chunk = repeat create_random_cluster c num_clusters in
+    let pondless_chunk = repeat (fun c' n -> create_cluster create_pigs c') pondless_pigless_chunk num_pigs in
     repeat (fun c' n -> create_cluster create_pond c') pondless_chunk num_ponds in
 
   let chunk_row y = repeat (fun a n -> ({(populate_chunk blank_chunk) with coords = (n - 1), y})::a) [] map_width in
