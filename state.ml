@@ -399,7 +399,13 @@ let mine map direction : map =
               else count
             end
             in
+          let player_tool_can_mine_iron =
+            match player_tool with
+            | None -> false
+            | Some (i, c) -> (Items.get_item_name i = "iron pick") || (Items.get_item_name i = "stone pick") in
+          let name_of_block_to_mine = Blocks.get_block_name block_to_mine in
           let new_player = add_to_inventory_multiple item new_count map.player in
+          if (name_of_block_to_mine = "iron ore") && not(player_tool_can_mine_iron) then map else
           {map with player = new_player; mode = Base;
             chunks = replace_chunk_in_chunks map (replace_block_in_chunk map map.default_block
               new_chunk_x new_chunk_y new_coords_x new_coords_y)
