@@ -2,6 +2,8 @@ open ANSITerminal
 open Blocks
 open Items
 open Converter
+open Random
+open QCheck
 
 (* Types *)
 
@@ -63,6 +65,9 @@ let get_blocks c = c.blocks
 let get_block_in_chunk chunk block_x block_y =
   List.nth (List.nth (get_blocks chunk) block_y) block_x
 
+let get_chunk_in_map map chunk_x chunk_y =
+  List.nth (List.nth (get_chunks map) chunk_y) chunk_x
+
 let get_player_color m = m.player.color
 
 let get_player_character m = m.player.character
@@ -111,6 +116,9 @@ let inventory_is_full_map m = inventory_is_full m.player
 let replace_block_in_chunk m nb c_x c_y x y =
   let chunk = List.nth (List.nth m.chunks c_y) c_x in
   {chunk with blocks = List.mapi (fun i row -> if i = y then (List.mapi (fun i' b -> if i' = x then nb else b) row) else row) chunk.blocks}
+
+let replace_block_in_chunk_no_map new_block x y chunk =
+  {chunk with blocks = List.mapi (fun i row -> if i = y then (List.mapi (fun i' b -> if i' = x then new_block else b) row) else row) chunk.blocks}
 
 (* return m.chunks with the chunk at x, y replaced with new_chunk *)
 let replace_chunk_in_chunks m new_chunk x y =
@@ -399,3 +407,109 @@ let player_has_enough_items map recipe =
 (*  TODO update entities *)
 let update_non_player_actions map =
   map
+
+let generate_map i =
+  Random.init i;
+  let rec repeat f a n = if n = 0 then a else repeat f (f a n) (n-1) in
+  let add_grass_to_list a n = Blocks.grass::a in
+  let chunk_height, chunk_width = (24, 38) in
+  let map_height, map_width = (30, 30) in
+  let grass_row = repeat add_grass_to_list [] chunk_width in
+  let add_grass_row_to_list a n = grass_row::a in
+  let blank_chunk = {
+    blocks = repeat add_grass_row_to_list [] chunk_height;
+    coords = (0,0)
+  } in
+
+
+  let dist (x_1, y_1) (x_2, y_2) =
+    Pervasives.sqrt (((float_of_int x_2 -. float_of_int x_1) ** 2.) +.
+    ((float_of_int y_2 -. float_of_int y_1) ** 2.)) in
+
+  let create_pond x y chunk =
+    let initial_pond_coords = (Random.int chunk_width) , (Random.int chunk_height) in
+    let chunk_blocks = get_blocks chunk in
+    let new_blocks = List.mapi (fun y row -> List.mapi (fun x block ->
+        let dist_from_center = int_of_float(dist (fst initial_pond_coords, snd initial_pond_coords) (x,y)) in
+        if dist_from_center < 2
+            then Blocks.water
+            else if dist_from_center < 3
+              then if (Random.int 11) < 6
+                then Blocks.water
+                else block
+              else block
+        ) row ) chunk_blocks in
+    {chunk with blocks = new_blocks} in
+
+    let create_boulder x y chunk =
+      let initial_pond_coords = (Random.int chunk_width) , (Random.int chunk_height) in
+      let chunk_blocks = get_blocks chunk in
+      let new_blocks = List.mapi (fun y row -> List.mapi (fun x block ->
+          let dist_from_center = int_of_float(dist (fst initial_pond_coords, snd initial_pond_coords) (x,y)) in
+          if dist_from_center < 2
+              then Blocks.stone
+              else if dist_from_center < 3
+                then if (Random.int 11) < 4
+                  then Blocks.stone
+                  else block
+                else block
+          ) row ) chunk_blocks in
+      {chunk with blocks = new_blocks} in
+
+  (* let create_boulder x y chunk =
+    let total_size = (Random.int 4) + 4 in *)
+
+  let create_forest x y chunk =
+    let total_trees = (Random.int 5) + 8 in
+    let place_tree x' y' c' =
+      if x' < 0 || x' > get_chunk_size_x chunk
+         || y' < 0 || y' > get_chunk_size_y chunk then c'
+      else replace_block_in_chunk_no_map Blocks.tree x' y' c' in
+    let place_random_tree c' n =
+      let x_adjust = (Random.int 9) - 4 in
+      let y_adjust = (Random.int 9) - 4 in
+      place_tree (x + x_adjust) (y + y_adjust) c' in
+    repeat place_random_tree chunk total_trees in
+
+  let all_cluster_functions_but_pond = [create_forest; create_boulder] in
+
+  let populate_chunk c =
+    let num_clusters = (Random.int 4) + 4 in
+    let num_ponds = (Random.int 3) + 1 in
+    let create_cluster cluster_generation_function c' =
+      let x' = (Random.int (get_chunk_size_x c - 7)) + 4 in
+      let y' = (Random.int (get_chunk_size_y c - 7)) + 4 in
+      cluster_generation_function x' y' c' in
+    let create_random_cluster c' n =
+      create_cluster (List.hd (QCheck.Gen.(generate1 (shuffle_l all_cluster_functions_but_pond)))) c' in
+    let pondless_chunk = repeat create_random_cluster c num_clusters in
+    repeat (fun c' n -> create_cluster create_pond c') pondless_chunk num_ponds in
+
+  let chunk_row y = repeat (fun a n -> ({(populate_chunk blank_chunk) with coords = (n - 1), y})::a) [] map_width in
+
+  let find_clear_coords chunk =
+    let x' = ref (Random.int ((get_chunk_size_x chunk) - 7) + 4) in
+    let y' = ref (Random.int ((get_chunk_size_y chunk) - 7) + 4) in
+    while (Blocks.get_block_name (get_block_in_chunk chunk (!x') (!y')) <> "grass") do
+      x' := (Random.int ((get_chunk_size_x chunk) - 7) + 4);
+      y' := (Random.int ((get_chunk_size_x chunk) - 7) + 4)
+    done;
+    (!x'), (!y') in
+
+  let populated_map = {
+    chunks = repeat (fun a n -> (chunk_row (n-1))::a) [] map_height;
+    player = {
+      color = ANSITerminal.black;
+      coords = 0,0;
+      chunk_coords = map_width / 2, map_height / 2;
+      character = 'i';
+      inv = {
+        sets = [];
+        max_size = inventory_max_size};
+      equipped_item = None;
+    };
+    mode = Base;
+    default_block = Blocks.grass;
+  } in
+  {populated_map with player = {populated_map.player with
+    coords = find_clear_coords (get_chunk_in_map populated_map (map_width / 2) (map_height / 2))}}

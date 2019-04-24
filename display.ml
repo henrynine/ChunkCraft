@@ -8,6 +8,18 @@ let press_n_to_continue () =
   print_endline "Press n to continue.";
   while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done
 
+let print_splash_screen () =
+  ANSITerminal.set_cursor 1 1;
+  ANSITerminal.(print_string [] "
+ ______     __  __     __  __     __   __     __  __        ______     ______     ______     ______   ______
+/\\  ___\\   /\\ \\_\\ \\   /\\ \\/\\ \\   /\\ \"-.\\ \\   /\\ \\/ /       /\\  ___\\   /\\  == \\   /\\  __ \\   /\\  ___\\ /\\__  _\\
+\\ \\ \\____  \\ \\  __ \\  \\ \\ \\_\\ \\  \\ \\ \\-.  \\  \\ \\  _\"-.     \\ \\ \\____  \\ \\  __<   \\ \\  __ \\  \\ \\  __\\ \\/_/\\ \\/
+ \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\\"\\_\\  \\ \\_\\ \\_\\     \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \\ \\_\\      \\ \\_\\
+  \\/_____\\/   \\/_/\\/_/   \\/_____/   \\/_/ \\/_/   \\/_/\\/_/      \\/_____/   \\/_/ /_/   \\/_/\\/_/   \\/_/       \\/_/
+
+");
+  press_n_to_continue ()
+
 let print_current_chunk map =
   (* put the cursor in the upper left corner *)
   ANSITerminal.set_cursor 1 1;

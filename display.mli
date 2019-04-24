@@ -9,3 +9,5 @@ val show_inventory : State.map -> map
 
 (** Open the crafting interface for [map]. *)
 val show_crafting_interface : State.map -> State.map
+
+val print_splash_screen: unit -> unit

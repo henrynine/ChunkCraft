@@ -39,6 +39,8 @@ val get_block_color : block -> ANSITerminal.style
 val get_block_background_color : block -> ANSITerminal.style
 (** Get the character of [b]. *)
 val get_block_character : block -> char
+(** Get the name of [b]. *)
+val get_block_name : block -> string
 (** Get the ground attribute of [b]. *)
 val get_block_ground : block -> bool
 (** Get the styles of [b]. *)

@@ -151,6 +151,10 @@ let _ =
     with c_icanon = false};
   (* Clear the screen *)
   ANSITerminal.erase ANSITerminal.Screen;
+  Display.print_splash_screen ();
+  (* Randomly generate the map *)
+  Random.self_init ();
+  let map = State.generate_map (Random.int 1000000) in
   (* Resize the terminal to fit the chunk size *)
   ANSITerminal.resize (State.get_chunk_width map) (State.get_chunk_height map + 3);
   (* Print out the starting chunk *)
@@ -176,6 +180,13 @@ let _ =
       Display.print_current_chunk new_map;
       main_loop new_map in
 
+  (* ANSITerminal.set_cursor 1 1;
+  print_endline "Please enter the seed you would like to use, or press enter to\
+                 generate one randomly.";
+  let seed_string = input_line Pervasives.stdin;
+  let seed = if seed_string = "" then (* randomly generate *) else int_of_string seed_string in
+  (* generate map from seed *) *)
+
   let timer : Unix.interval_timer = Unix.ITIMER_REAL in
   let initial_status : Unix.interval_timer_status =
     {
@@ -184,26 +195,3 @@ let _ =
     } in
   let start = Unix.setitimer timer initial_status in
   main_loop map
-
-(* let og_main_loop =
-  (* Set stdin to not wait for a newline to read input *)
-  Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin)
-    with c_icanon = false};
-  (* Clear the screen *)
-  ANSITerminal.erase ANSITerminal.Screen;
-  (* Resize the terminal to fit the chunk size *)
-  ANSITerminal.resize (State.get_chunk_width map) (State.get_chunk_height map + 3);
-  (* Print out the starting chunk *)
-  Display.print_current_chunk map;
-  let rec main_loop map =
-    let c = input_char Pervasives.stdin in
-    try
-      let map = Control.handle_command map c in
-      Display.print_current_chunk map;
-      main_loop map
-    with Failure("Unknown command") ->
-      (* Display.print_current_chunk map; *)
-      Display.print_current_chunk map;
-      print_endline "Unknown command";
-      main_loop map in
-  main_loop map *)

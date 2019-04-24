@@ -182,3 +182,5 @@ val sets_needed_to_craft : map -> (Items.item * int) list -> (Items.item * int) 
 val update_non_player_actions : map -> map
 
 val interact : map -> char -> map
+
+val generate_map : int -> map

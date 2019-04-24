@@ -131,9 +131,23 @@ let open_door : block = {
   action = (fun b i m -> (closed_door, i))
 }
 
+let chest : block = {
+  character = 'C';
+  color = ANSITerminal.black;
+  background_color = Colors.on_brown;
+  styles = [];
+  ground = false;
+  name = "chest";
+  max_items = 0;
+  sets = [];
+  preferred_tools = [];
+  action = (fun b i m -> (b, i))
+}
+
 let get_block_color b = b.color
 let get_block_background_color b = b.background_color
 let get_block_character b = if List.length b.sets = 0 then b.character else '*'
+let get_block_name b = b.name
 let get_block_ground b = b.ground
 let get_block_styles b = b.styles
 let get_preferred_tools b = b.preferred_tools
