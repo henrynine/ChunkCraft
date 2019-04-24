@@ -13,7 +13,8 @@ type block = {
   sets : (Items.item * int) list;
   preferred_tools : Items.item list;
   action : block -> (Items.item * int) list -> int ->
-           (block * ((Items.item * int) list))
+           (block * ((Items.item * int) list));
+  update : (block -> block) option
 }
 
 (** A grass block. *)
@@ -52,6 +53,8 @@ val get_block_styles : block -> ANSITerminal.style list
 (** Get the action of [b] *)
 val get_block_action : block -> (block -> (Items.item * int) list -> int ->
                                           (block * ((Items.item * int) list)))
+(** Get the update of [b]. *)
+val get_block_update : block -> (block -> block) option
 
 (** Return [b] with [i] added to its sets. *)
 val add_item_to_block : Items.item -> block -> block

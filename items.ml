@@ -127,6 +127,14 @@ let pork_chop : item = {
   damage = 1;
 }
 
+let cooked_pork_chop : item = {
+  name = "cooked pork chop";
+  stackable = true;
+  recipe = None;
+  preferred_multiplier = 1;
+  damage = 1;
+}
+
 let furnace : item = {
   name = "furnace";
   stackable = true;
@@ -151,6 +159,7 @@ let all_items = [
   cobblestone;
   door;
   pork_chop;
+  cooked_pork_chop;
   furnace
 ]
 

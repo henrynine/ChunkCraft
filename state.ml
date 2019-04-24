@@ -494,10 +494,22 @@ let update_non_player_actions map =
                 |> Blocks.get_block_ground))
        || has_entity_at_coords chunk new_x new_y then chunk
     else replace_entity chunk x y new_entity new_x new_y in
-  let update_chunk chunk =
-    List.fold_left (fun a (e, (x, y)) -> update_entity (e, (x, y)) a) chunk chunk.entities
-    in
-  {map with chunks = List.map (fun r -> List.map (fun c -> update_chunk c) r) map.chunks}
+
+  let update_block block =
+    match (Blocks.get_block_update block) with
+    | None -> block
+    | Some f -> (f block) in
+
+  let update_entities_chunk chunk =
+    List.fold_left (fun a (e, (x, y)) -> update_entity (e, (x, y)) a) chunk
+      chunk.entities in
+
+  let update_blocks_chunk chunk =
+    {chunk with blocks =
+      List.map (fun r -> List.map (update_block) r) chunk.blocks} in
+
+  {map with chunks = List.map (fun r -> List.map
+       (fun c -> update_entities_chunk c |> update_blocks_chunk) r) map.chunks}
 
 
 let generate_map i default_block =
@@ -505,7 +517,7 @@ let generate_map i default_block =
   let rec repeat f a n = if n = 0 then a else repeat f (f a n) (n-1) in
   let add_grass_to_list a n = Blocks.grass::a in
   let chunk_height, chunk_width = (24, 38) in
-  let map_height, map_width = (30, 30) in
+  let map_height, map_width = (20, 20) in
   let grass_row = repeat add_grass_to_list [] chunk_width in
   let add_grass_row_to_list a n = grass_row::a in
   let blank_chunk = {
@@ -520,7 +532,7 @@ let generate_map i default_block =
     ((float_of_int y_2 -. float_of_int y_1) ** 2.)) in
 
   let create_pond x y chunk =
-    (* how does this never go out of chunk bounds? clusters are only spawned
+    (* how does this never go out of chunk bounds? a: clusters are only spawned
        at least four blocks away from chunk edge, and this never goes past
        that*)
     let initial_pond_coords = (Random.int chunk_width) , (Random.int chunk_height) in
@@ -537,23 +549,23 @@ let generate_map i default_block =
         ) row ) chunk_blocks in
     {chunk with blocks = new_blocks} in
 
-    let create_boulder x y chunk =
-      (* how does this never go out of chunk bounds? clusters are only spawned
-         at least four blocks away from chunk edge, and this never goes past
-         that*)
-      let initial_pond_coords = (Random.int chunk_width) , (Random.int chunk_height) in
-      let chunk_blocks = get_blocks chunk in
-      let new_blocks = List.mapi (fun y row -> List.mapi (fun x block ->
-          let dist_from_center = int_of_float(dist (fst initial_pond_coords, snd initial_pond_coords) (x,y)) in
-          if dist_from_center < 2
-              then Blocks.stone
-              else if dist_from_center < 3
-                then if (Random.int 11) < 4
-                  then Blocks.stone
-                  else block
+  let create_boulder x y chunk =
+    (* how does this never go out of chunk bounds? a: clusters are only spawned
+        at least four blocks away from chunk edge, and this never goes past
+        that*)
+    let initial_pond_coords = (Random.int chunk_width) , (Random.int chunk_height) in
+    let chunk_blocks = get_blocks chunk in
+    let new_blocks = List.mapi (fun y row -> List.mapi (fun x block ->
+        let dist_from_center = int_of_float(dist (fst initial_pond_coords, snd initial_pond_coords) (x,y)) in
+        if dist_from_center < 2
+            then Blocks.stone
+            else if dist_from_center < 3
+              then if (Random.int 11) < 4
+                then Blocks.stone
                 else block
-          ) row ) chunk_blocks in
-      {chunk with blocks = new_blocks} in
+              else block
+        ) row ) chunk_blocks in
+    {chunk with blocks = new_blocks} in
 
   (* let create_boulder x y chunk =
     let total_size = (Random.int 4) + 4 in *)
@@ -619,7 +631,7 @@ let generate_map i default_block =
       chunk_coords = map_width / 2, map_height / 2;
       character = 'i';
       inv = {
-        sets = [(Items.furnace, 1)];
+        sets = [];
         max_size = inventory_max_size};
       equipped_item = None;
     };

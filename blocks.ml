@@ -12,7 +12,8 @@ type block = {
   sets : (Items.item * int) list;
   preferred_tools : Items.item list;
   action : block -> (Items.item * int) list -> int ->
-           (block * ((Items.item * int) list))
+           (block * ((Items.item * int) list));
+  update : (block -> block) option
 }
 
 let grass : block = {
@@ -25,7 +26,8 @@ let grass : block = {
   max_items = max_int;
   sets = [];
   preferred_tools = [];
-  action = (fun b i m -> (b, i))
+  action = (fun b i m -> (b, i));
+  update = None
 }
 
 let tree : block = {
@@ -38,7 +40,8 @@ let tree : block = {
   max_items = 0;
   sets = [];
   preferred_tools = [Items.wood_axe; Items.stone_axe];
-  action = (fun b i m -> (b, i))
+  action = (fun b i m -> (b, i));
+  update = None
 }
 
 let water : block = {
@@ -51,7 +54,8 @@ let water : block = {
   max_items = 0;
   sets = [];
   preferred_tools = [];
-  action = (fun b i m -> (b, i))
+  action = (fun b i m -> (b, i));
+  update = None
 }
 
 let wood_plank : block = {
@@ -64,7 +68,8 @@ let wood_plank : block = {
   max_items = 0;
   sets = [];
   preferred_tools = [];
-  action = (fun b i m -> (b, i))
+  action = (fun b i m -> (b, i));
+  update = None
 }
 
 let stone : block = {
@@ -77,7 +82,8 @@ let stone : block = {
   max_items = 0;
   sets = [];
   preferred_tools = [Items.wood_pick; Items.stone_pick];
-  action = (fun b i m -> (b, i))
+  action = (fun b i m -> (b, i));
+  update = None
 }
 
 let cobblestone : block = {
@@ -90,7 +96,8 @@ let cobblestone : block = {
   max_items = 0;
   sets = [];
   preferred_tools = [];
-  action = (fun b i m -> (b, i))
+  action = (fun b i m -> (b, i));
+  update = None
 }
 
 let rec closed_door : block = {
@@ -114,8 +121,10 @@ let rec closed_door : block = {
     max_items = 0;
     sets = [];
     preferred_tools = [];
-    action = (fun b i m -> (closed_door, i))
-  }, i))
+    action = (fun b i m -> (closed_door, i));
+    update = None
+  }, i));
+  update = None
 }
 
 let open_door : block = {
@@ -128,7 +137,8 @@ let open_door : block = {
   max_items = 0;
   sets = [];
   preferred_tools = [];
-  action = (fun b i m -> (closed_door, i))
+  action = (fun b i m -> (closed_door, i));
+  update = None
 }
 
 let chest : block = {
@@ -141,7 +151,8 @@ let chest : block = {
   max_items = 15;
   sets = [];
   preferred_tools = [];
-  action = (fun b i m -> (b, i))
+  action = (fun b i m -> (b, i));
+  update = None
 }
 
 let get_block_color b = b.color
@@ -152,6 +163,7 @@ let get_block_ground b = b.ground
 let get_block_styles b = b.styles
 let get_preferred_tools b = b.preferred_tools
 let get_block_action b = b.action
+let get_block_update b = b.update
 
 let confirm_furnace b =
   if b.name <> "furnace" then failwith "Not a furnace" else ()
@@ -241,6 +253,43 @@ let remove_furnace_output b set_list max_size =
           in (new_furnace, new_set_list)
     | None -> (b, set_list)
 
+let furnace_conversions = [
+  (Items.pork_chop, Items.cooked_pork_chop)
+]
+
+(* Remove item from fuel and input if there is one and both and convert using
+   table above to put in output *)
+let update_furnace furnace =
+  let input_item = get_furnace_input furnace in
+  let current_output_item = (match get_furnace_output furnace with | None -> None | Some (i, c) -> Some i) in
+  match input_item with
+  | None -> furnace
+  | Some (item, count) ->
+    begin
+      print_endline (Items.get_item_name item);
+      let converted_item_opt = List.assoc_opt item furnace_conversions in
+      let converted_item =
+        (match converted_item_opt with
+        | None -> failwith "no conversion for that item"
+        | Some i -> i) in
+      if (Items.item_in_set_list Items.log furnace.sets) &&
+          (match current_output_item with | None -> true | Some i -> (Items.get_item_name i) = (Items.get_item_name converted_item)) then
+      begin
+        (* Smelt the item *)
+        (*  og input is (item, count) *)
+        let old_input = (item, count) in
+        let old_fuel = List.nth furnace.sets 0 in
+        let old_output = List.nth furnace.sets 2 in
+        (*  It is guaranteed at this point that old output is either (_, 0) or (converted_item, x)*)
+        let new_set_list = ((fst old_fuel), (snd old_fuel - 1))::(item, count - 1)::[((converted_item), (snd old_output) + 1)] in
+        {furnace with sets = new_set_list}
+      end
+      else furnace
+    end
+
+
+
+
 (* Display functions – have to go here since they work closely with blocks *)
 
 let press_n_to_continue () =
@@ -324,9 +373,18 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
                 let index_pressed = (Char.code (!inp)) - 97 in
                 if (index_pressed < List.length set_list) then
                     let (item, count) = List.nth set_list index_pressed in
-                    let new_furnace = add_furnace_fuel furnace (item, count) in
-                    let new_set_list = Items.remove_from_set_list_multiple item count set_list in
-                    (new_furnace, new_set_list)
+                    if (Items.get_item_name item) <> "log" then
+                      begin
+                        ANSITerminal.set_cursor 1 1;
+                        ANSITerminal.erase ANSITerminal.Screen;
+                        print_endline "You can only use logs as fuel.";
+                        press_n_to_continue ();
+                        show_furnace_interface furnace set_list max_size
+                      end
+                    else
+                      let new_furnace = add_furnace_fuel furnace (item, count) in
+                      let new_set_list = Items.remove_from_set_list_multiple item count set_list in
+                      (new_furnace, new_set_list)
                 else
                   begin
                     ANSITerminal.erase ANSITerminal.Screen;
@@ -392,9 +450,18 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
               let index_pressed = (Char.code (!inp)) - 97 in
               if (index_pressed < List.length set_list) then
                   let (item, count) = List.nth set_list index_pressed in
-                  let new_furnace = add_furnace_input furnace (item, count) in
-                  let new_set_list = Items.remove_from_set_list_multiple item count set_list in
-                  (new_furnace, new_set_list)
+                  if (Items.get_item_name item) <> "pork chop" then
+                    begin
+                      ANSITerminal.set_cursor 1 1;
+                      ANSITerminal.erase ANSITerminal.Screen;
+                      print_endline "You can only use pork chops as input.";
+                      press_n_to_continue ();
+                      show_furnace_interface furnace set_list max_size
+                    end
+                  else
+                    let new_furnace = add_furnace_input furnace (item, count) in
+                    let new_set_list = Items.remove_from_set_list_multiple item count set_list in
+                    (new_furnace, new_set_list)
               else
                 begin
                   ANSITerminal.erase ANSITerminal.Screen;
@@ -456,7 +523,8 @@ let furnace : block = {
   max_items = 3;
   sets = [(Items.stick, 0); (Items.stick, 0); (Items.stick, 0)];
   preferred_tools = [];
-  action = show_furnace_interface
+  action = show_furnace_interface;
+  update = Some update_furnace
 }
 
 
