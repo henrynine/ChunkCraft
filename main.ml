@@ -156,6 +156,7 @@ let _ =
     with c_icanon = false};
   (* Clear the screen *)
   ANSITerminal.erase ANSITerminal.Screen;
+  ANSITerminal.resize 110 24;
   Display.print_splash_screen ();
   (* Randomly generate the map *)
   Random.self_init ();
