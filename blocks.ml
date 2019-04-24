@@ -290,18 +290,23 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
     done;
     if (!inp) = 'f' then
       begin
-        ANSITerminal.erase ANSITerminal.Screen;
         ANSITerminal.set_cursor 1 1;
+        ANSITerminal.erase ANSITerminal.Screen;
         (match current_fuel with
         | None -> print_endline "Current fuel: none"
         | Some (i, c) -> print_endline ("Current fuel: " ^ (Items.get_item_name i) ^ " x" ^ (string_of_int c)));
         print_endline "Press a to add fuel and r to remove the current fuel.";
+        ANSITerminal.move_bol();
+        ANSITerminal.erase ANSITerminal.Eol;
         while ((!inp) <> 'a' && (!inp) <> 'r') do
           print_endline ((!inp) |> Char.escaped);
+          ANSITerminal.move_cursor 0 (-1);
           ANSITerminal.move_bol();
           ANSITerminal.erase ANSITerminal.Eol;
           inp := (input_char Pervasives.stdin)
         done;
+        ANSITerminal.set_cursor 1 1;
+        ANSITerminal.erase ANSITerminal.Screen;
         if ((!inp) = 'a') then
           try
             print_inv set_list;
@@ -314,6 +319,8 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
               begin
                 print_endline "Press the letter next to the item you want to put in as fuel.";
                 inp := (input_char Pervasives.stdin);
+                ANSITerminal.move_bol ();
+                ANSITerminal.erase ANSITerminal.Eol;
                 let index_pressed = (Char.code (!inp)) - 97 in
                 if (index_pressed < List.length set_list) then
                     let (item, count) = List.nth set_list index_pressed in
@@ -358,12 +365,17 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
       | None -> print_endline "Current input: none"
       | Some (i, c) -> print_endline ("Current input: " ^ (Items.get_item_name i) ^ " x" ^ (string_of_int c)));
       print_endline "Press a to add input and r to remove the current input.";
+      ANSITerminal.move_bol();
+      ANSITerminal.erase ANSITerminal.Eol;
       while ((!inp) <> 'a' && (!inp) <> 'r') do
         print_endline ((!inp) |> Char.escaped);
+        ANSITerminal.move_cursor 0 (-1);
         ANSITerminal.move_bol();
         ANSITerminal.erase ANSITerminal.Eol;
         inp := (input_char Pervasives.stdin)
       done;
+      ANSITerminal.set_cursor 1 1;
+      ANSITerminal.erase ANSITerminal.Screen;
       if (!inp) = 'a' then
         begin
         try

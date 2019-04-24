@@ -118,6 +118,7 @@ let rec show_inventory map =
       needed for reading mutable variables *)
   while ((!c) <> 'b' && (!c) <> 'd' && (!c) <> 'e' && (!c) <> 'u') do
     print_endline ((!c) |> Char.escaped);
+    ANSITerminal.move_cursor 0 (-1);
     ANSITerminal.move_bol();
     ANSITerminal.erase ANSITerminal.Eol;
     c := (input_char Pervasives.stdin)
