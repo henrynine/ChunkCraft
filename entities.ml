@@ -12,14 +12,22 @@ type entity = {
   color : ANSITerminal.style;
   health : int;
   attack : attack option;
-  loot : (Items.item * int) list option
+  loot : unit -> (Items.item * int)
 }
 
 let pig = {
   name = "pig";
-  character = "P";
+  character = 'P';
   color = Colors.pink;
   health = 10;
   attack = None;
-  loot = [(Items.pork_chop, 2)]
+  loot = fun () -> Items.pork_chop, 2
 }
+
+let get_color e = e.color
+
+let get_character e = e.character
+
+let get_health e = e.health
+
+let get_loot e = e.loot ()

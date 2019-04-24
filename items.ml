@@ -3,7 +3,8 @@ type item = {
   stackable : bool;
   (* item list is what's needed to craft, int is how many you get *)
   recipe : ((item * int) list * int) option;
-  preferred_multiplier : int
+  preferred_multiplier : int;
+  damage : int
 }
 
 let log : item = {
@@ -11,6 +12,7 @@ let log : item = {
   stackable = true;
   recipe = None;
   preferred_multiplier = 1;
+  damage = 1;
 }
 
 let wood_plank : item = {
@@ -18,6 +20,7 @@ let wood_plank : item = {
   stackable = true;
   recipe = Some ([(log, 1)], 4);
   preferred_multiplier = 1;
+  damage = 1;
 }
 
 let stick : item = {
@@ -25,6 +28,7 @@ let stick : item = {
   stackable = true;
   recipe = Some ([(wood_plank, 2)], 4);
   preferred_multiplier = 1;
+  damage = 1;
 }
 
 let wood_pick : item = {
@@ -32,6 +36,7 @@ let wood_pick : item = {
   stackable = false;
   recipe = Some ([(wood_plank, 3); (stick, 2)], 1);
   preferred_multiplier = 2;
+  damage = 1;
 }
 
 let wood_shovel : item = {
@@ -39,6 +44,7 @@ let wood_shovel : item = {
   stackable = false;
   recipe = Some ([(wood_plank, 1); (stick, 2)], 1);
   preferred_multiplier = 2;
+  damage = 1;
 }
 
 let wood_sword : item = {
@@ -46,6 +52,7 @@ let wood_sword : item = {
   stackable = false;
   recipe = Some ([(wood_plank, 2); (stick, 1)], 1);
   preferred_multiplier = 2;
+  damage = 2;
 }
 
 let wood_axe : item = {
@@ -53,6 +60,7 @@ let wood_axe : item = {
   stackable = false;
   recipe = Some ([(wood_plank, 3); (stick, 2)], 1);
   preferred_multiplier = 2;
+  damage = 2;
 }
 
 let stone : item = {
@@ -60,6 +68,7 @@ let stone : item = {
   stackable = true;
   recipe = None;
   preferred_multiplier = 1;
+  damage = 1;
 }
 
 let cobblestone : item = {
@@ -67,6 +76,7 @@ let cobblestone : item = {
   stackable = true;
   recipe = None;
   preferred_multiplier = 1;
+  damage = 1;
 }
 
 let stone_pick : item = {
@@ -74,6 +84,7 @@ let stone_pick : item = {
   stackable = false;
   recipe = Some ([(cobblestone, 3); (stick, 2)], 1);
   preferred_multiplier = 3;
+  damage = 2;
 }
 
 let stone_shovel : item = {
@@ -81,6 +92,7 @@ let stone_shovel : item = {
   stackable = false;
   recipe = Some ([(cobblestone, 1); (stick, 2)], 1);
   preferred_multiplier = 3;
+  damage = 2;
 }
 
 let stone_sword : item = {
@@ -88,6 +100,7 @@ let stone_sword : item = {
   stackable = false;
   recipe = Some ([(cobblestone, 2); (stick, 1)], 1);
   preferred_multiplier = 3;
+  damage = 3;
 }
 
 let stone_axe : item = {
@@ -95,6 +108,7 @@ let stone_axe : item = {
   stackable = false;
   recipe = Some ([(cobblestone, 3); (stick, 2)], 1);
   preferred_multiplier = 3;
+  damage = 3;
 }
 
 let door : item = {
@@ -102,6 +116,15 @@ let door : item = {
   stackable = true;
   recipe = Some ([(wood_plank, 2)], 1);
   preferred_multiplier = 1;
+  damage = 1;
+}
+
+let pork_chop : item = {
+  name = "pork chop";
+  stackable = true;
+  recipe = None;
+  preferred_multiplier = 1;
+  damage = 1;
 }
 
 let all_items = [
@@ -118,7 +141,8 @@ let all_items = [
   stone_sword;
   stone_axe;
   cobblestone;
-  door
+  door;
+  pork_chop;
 ]
 
 let get_item_name i = i.name
@@ -126,6 +150,8 @@ let get_item_name i = i.name
 let get_item_stackable i = i.stackable
 
 let get_preferred_multiplier i = i.preferred_multiplier
+
+let get_damage i = i.damage
 
 let get_full_recipe i =
   match i.recipe with

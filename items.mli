@@ -3,7 +3,8 @@ type item = {
   stackable : bool;
   (* item list is what's needed to craft, int is how many you get *)
   recipe : ((item * int) list * int) option;
-  preferred_multiplier : int
+  preferred_multiplier : int;
+  damage : int
 }
 
 (** The item for a log. *)
@@ -34,6 +35,8 @@ val stone_axe : item
 val cobblestone : item
 (** The item for a door. *)
 val door : item
+(** The item for a pork chop. *)
+val pork_chop : item
 
 (** A list of all items. *)
 val all_items : item list
@@ -43,6 +46,9 @@ val get_item_name : item -> string
 
 (** Check if [i] is stackable. *)
 val get_item_stackable : item -> bool
+
+(** Get the damage of [i]. *)
+val get_damage : item -> int
 
 (** Get the preferred multiplier for [i]. *)
 val get_preferred_multiplier : item -> int

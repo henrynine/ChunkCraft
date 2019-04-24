@@ -1,6 +1,7 @@
 open ANSITerminal
 open Blocks
 open Items
+open Entities
 
 type mode = Base | Mining | Placing | Interacting
 
@@ -8,7 +9,8 @@ type mode = Base | Mining | Placing | Interacting
     the chunk. [coords] is the coordinates of the chunk within the map. *)
 type chunk = {
   blocks : Blocks.block list list;
-  coords : int * int
+  coords : int * int;
+  entities : (Entities.entity * (int * int)) list
 }
 
 (** An inventory contains sets of items, which contain an item and a count. *)
@@ -62,6 +64,9 @@ val get_player_color : map -> ANSITerminal.style
 (** Get the character used to represent the player in [m]. *)
 val get_player_character : map -> char
 
+(** Get the default block of [m]. *)
+val get_default_block : map -> Blocks.block
+
 (** Move the player within [m]. [c] of 'w' corresponds to up, 'a' to left,
    's' to down, 'd' to right.*)
 val move_player : map -> char -> map
@@ -95,6 +100,9 @@ val get_inventory_sets : inventory -> (Items.item * int) list
 
 (** Get the current mode of the map. *)
 val get_map_mode : map -> mode
+
+(** Get the entities of a chunk. *)
+val get_entities : chunk -> ((Entities.entity * (int * int)) list)
 
 (** Check if the inventory of [p] is full. *)
 val inventory_is_full : player -> bool
@@ -183,4 +191,6 @@ val update_non_player_actions : map -> map
 
 val interact : map -> char -> map
 
-val generate_map : int -> map
+val generate_map : int -> Blocks.block -> map
+
+val remove_and_loot_dead_entities : map -> chunk -> map

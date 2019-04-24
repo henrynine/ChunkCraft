@@ -43,22 +43,20 @@ let print_current_chunk map =
                                print_endline "")
                     (State.get_blocks current_chunk);
                     (* Print equipped item *)
-                    begin
+
                     ANSITerminal.erase ANSITerminal.Eol;
                     match State.equipped_item map with
                     | None -> print_endline "No item equipped."
                     | Some (i, c) -> print_endline ("Equipped: "
                      ^ (Items.get_item_name i) ^ " ("
-                     ^ (string_of_int c) ^ ")")
-                    end;
-                    begin
+                     ^ (string_of_int c) ^ ")");
                     ANSITerminal.erase ANSITerminal.Eol;
                     match State.get_map_mode map with
                     | State.Base -> ()
                     | State.Mining -> print_endline "In mining mode."
                     | State.Placing -> print_endline "In placing mode."
                     | State.Interacting -> print_endline "In interacting mode."
-                    end in
+                    in
   let print_player =
     (* ANSITerminal is 1-indexed *)
     ANSITerminal.set_cursor (player_x + 1) (player_y + 1);
@@ -66,8 +64,16 @@ let print_current_chunk map =
                   (ANSITerminal.Bold::[State.get_player_color map;
                    Blocks.get_block_background_color current_block])
                   (Char.escaped (State.get_player_character map))) in
+  let print_entities =
+    List.iter (fun (e, coords) ->
+                (* ANSITerminal is 1-indexed *)
+                ANSITerminal.set_cursor ((fst coords)+1) ((snd coords) + 1);
+                ANSITerminal.(print_string
+                 ((Entities.get_color e)::[State.get_default_block map |> Blocks.get_block_background_color])
+                 (Char.escaped (Entities.get_character e)))) (State.get_entities current_chunk) in
   print_chunk;
   print_player;
+  print_entities;
 
   let adjustment = match State.get_map_mode map with
                    | State.Base -> 0

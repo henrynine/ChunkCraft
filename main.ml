@@ -50,6 +50,7 @@ let map : State.map = {
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     ];
     coords = 0, 0;
+    entities = [];
   };
   {
     blocks = [
@@ -79,6 +80,7 @@ let map : State.map = {
   [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
   ];
   coords = 1,0;
+  entities = [];
   }
   ];
   [{
@@ -109,6 +111,7 @@ let map : State.map = {
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     ];
     coords = 0,1;
+    entities = [];
   };
   {
     blocks = [
@@ -138,6 +141,7 @@ let map : State.map = {
     [Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass; Blocks.grass;];
     ];
     coords = 1,1;
+    entities = [];
   }
   ]];
   player = player;
@@ -154,7 +158,7 @@ let _ =
   Display.print_splash_screen ();
   (* Randomly generate the map *)
   Random.self_init ();
-  let map = State.generate_map (Random.int 1000000) in
+  let map = State.generate_map (Random.int 1000000) Blocks.grass in
   (* Resize the terminal to fit the chunk size *)
   ANSITerminal.resize (State.get_chunk_width map) (State.get_chunk_height map + 3);
   (* Print out the starting chunk *)

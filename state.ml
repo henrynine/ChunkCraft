@@ -4,6 +4,7 @@ open Items
 open Converter
 open Random
 open QCheck
+open Entities
 
 (* Types *)
 
@@ -11,7 +12,8 @@ type mode = Base | Mining | Placing | Interacting
 
 type chunk = {
   blocks : Blocks.block list list;
-  coords : int * int
+  coords : int * int;
+  entities: ((Entities.entity * (int * int)) list)
 }
 
 type inventory = {
@@ -68,6 +70,8 @@ let get_block_in_chunk chunk block_x block_y =
 let get_chunk_in_map map chunk_x chunk_y =
   List.nth (List.nth (get_chunks map) chunk_y) chunk_x
 
+let get_default_block m = m.default_block
+
 let get_player_color m = m.player.color
 
 let get_player_character m = m.player.character
@@ -112,6 +116,8 @@ let inventory_is_full p = (get_inventory_size p.inv) = (get_inventory_max_size p
 
 let inventory_is_full_map m = inventory_is_full m.player
 
+let get_entities c = c.entities
+
 (* return the chunk in m at c_x c_y with nb at x y in that chunk*)
 let replace_block_in_chunk m nb c_x c_y x y =
   let chunk = List.nth (List.nth m.chunks c_y) c_x in
@@ -127,6 +133,28 @@ let replace_chunk_in_chunks m new_chunk x y =
 (* Assumes all chunks are the same height *)
 let get_chunk_height m = get_chunk_size_y (m.chunks |> List.hd |> List.hd)
 let get_chunk_width m = get_chunk_size_x (m.chunks |> List.hd |> List.hd)
+
+let has_entity_at_coords chunk x y =
+  ((List.filter (fun (_, (x',y')) -> x' = x && y' = y) chunk.entities)
+   |> List.length) > 0
+
+let replace_entity chunk x y new_entity =
+  if has_entity_at_coords chunk x y then
+    {chunk with entities =
+      List.map (fun (e, (x', y')) -> if x' = x && y' = y then
+        (new_entity, (x', y'))
+      else (e, (x', y'))) chunk.entities}
+  else
+    {chunk with entities = (new_entity, (x, y))::chunk.entities}
+
+let entity_at chunk x y =
+  if (not (has_entity_at_coords chunk x y)) then
+    failwith "No entity at this location"
+  else
+    List.filter (fun (e, (x', y')) -> x = x' && y = y') chunk.entities
+    |> List.hd
+    |> fst
+
 
 (* End Helpers *)
 
@@ -208,6 +236,25 @@ let decrement_equipped_item player =
       else
         ({player with equipped_item = Some (i, c-1)}, true)
 
+let get_equipped_item_damage m =
+  match m.player.equipped_item with
+  | None -> 1
+  | Some (i, c) -> Items.get_damage i
+
+(* return the map with player changed and chunk changed*)
+let remove_and_loot_dead_entities map chunk =
+  (* TODO this could fail if it overfills the player's inventory – this might affect other functions too *)
+  let new_player, new_chunk =
+    (* Filter chunk for entities with health < 0 and fold to get a list of coords of dead entities and a list of player loot *)
+    List.filter (fun (e, (x, y)) -> Entities.get_health e <= 0) chunk.entities
+    (* Fold on entities with acc of (player, chunk) to return (player with items added, chunk with entities removed) *)
+    |> List.fold_left (fun (p, c) (e, (x, y)) ->
+          (let i, c' = Entities.get_loot e in
+          (add_to_inventory_multiple i c' p,
+          {c with entities = List.filter (fun (_, (x', y')) -> not ((x' = x) && (y' = y))) c.entities}))) (map.player, chunk)
+  in {map with player = new_player;
+          chunks = replace_chunk_in_chunks map new_chunk (fst chunk.coords) (snd chunk.coords)}
+
 let get_new_coords m c =
   let (player_x, player_y) = m.player.coords in
   let (player_chunk_x, player_chunk_y) = m.player.chunk_coords in
@@ -256,7 +303,8 @@ let move_player m c : map =
   let new_chunk = List.nth (List.nth m.chunks new_chunk_y) new_chunk_x in
   let next_block = get_block_in_chunk new_chunk final_coords_x final_coords_y
     in
-  if Blocks.get_block_ground next_block then
+  (* TODO can currently attack entities across chunks – bad idea *)
+  if (Blocks.get_block_ground next_block && (not (has_entity_at_coords new_chunk final_coords_x final_coords_y)))then
     if Blocks.count_sets_in_block next_block > 0 then
       (* Item is ground and contains an item/items to be picked up *)
       (* Pick up all the items *)
@@ -278,6 +326,23 @@ let move_player m c : map =
     else {m with player = {m.player with coords =
       (final_coords_x, final_coords_y); chunk_coords =
         (new_chunk_x, new_chunk_y)}; mode = Base}
+  else if (has_entity_at_coords new_chunk final_coords_x final_coords_y) then
+    begin
+    (* DEBUG *)
+    (* ANSITerminal.erase ANSITerminal.Screen;
+    ANSITerminal.set_cursor 1 1;
+    print_endline "moved onto entity";
+    while (input_char Pervasives.stdin <> 'n') do 1+1 done; *)
+    (* END DEBUG *)
+    (* Do combat between entity and player *)
+    (* TODO for now we only have pigs, but later, this should check for an
+       attack in the entity and go at the player *)
+    let current_chunk = get_current_chunk m in
+    let current_entity = entity_at current_chunk final_coords_x final_coords_y in
+    let new_chunk = replace_entity current_chunk final_coords_x final_coords_y {current_entity with health = current_entity.health - (get_equipped_item_damage m)} in
+    (* map with final chunk replacing current chunk, player with any items added and later maybe health decreased *)
+    remove_and_loot_dead_entities m new_chunk
+    end
   else m
 
 let drop_item item count map : map =
@@ -408,7 +473,7 @@ let player_has_enough_items map recipe =
 let update_non_player_actions map =
   map
 
-let generate_map i =
+let generate_map i default_block =
   Random.init i;
   let rec repeat f a n = if n = 0 then a else repeat f (f a n) (n-1) in
   let add_grass_to_list a n = Blocks.grass::a in
@@ -418,7 +483,8 @@ let generate_map i =
   let add_grass_row_to_list a n = grass_row::a in
   let blank_chunk = {
     blocks = repeat add_grass_row_to_list [] chunk_height;
-    coords = (0,0)
+    coords = (0,0);
+    entities = [];
   } in
 
 
@@ -427,6 +493,9 @@ let generate_map i =
     ((float_of_int y_2 -. float_of_int y_1) ** 2.)) in
 
   let create_pond x y chunk =
+    (* how does this never go out of chunk bounds? clusters are only spawned
+       at least four blocks away from chunk edge, and this never goes past
+       that*)
     let initial_pond_coords = (Random.int chunk_width) , (Random.int chunk_height) in
     let chunk_blocks = get_blocks chunk in
     let new_blocks = List.mapi (fun y row -> List.mapi (fun x block ->
@@ -442,6 +511,9 @@ let generate_map i =
     {chunk with blocks = new_blocks} in
 
     let create_boulder x y chunk =
+      (* how does this never go out of chunk bounds? clusters are only spawned
+         at least four blocks away from chunk edge, and this never goes past
+         that*)
       let initial_pond_coords = (Random.int chunk_width) , (Random.int chunk_height) in
       let chunk_blocks = get_blocks chunk in
       let new_blocks = List.mapi (fun y row -> List.mapi (fun x block ->
@@ -471,10 +543,26 @@ let generate_map i =
       place_tree (x + x_adjust) (y + y_adjust) c' in
     repeat place_random_tree chunk total_trees in
 
-  let all_cluster_functions_but_pond = [create_forest; create_boulder] in
+  let create_pigs x y chunk =
+    let total_pigs = (Random.int 2) + 2 in
+    let place_pig x' y' c' =
+      if x' < 0 || x' > get_chunk_size_x chunk
+         || y' < 0 || y' > get_chunk_size_y chunk then c'
+      else
+       let e_chunk = replace_entity c' x' y' Entities.pig in
+       replace_block_in_chunk_no_map default_block x' y' e_chunk
+      in
+    let place_random_pig c' n =
+      let x_adjust = (Random.int 9) - 4 in
+      let y_adjust = (Random.int 9) - 4 in
+      place_pig (x + x_adjust) (y + y_adjust) c' in
+    repeat place_random_pig chunk total_pigs in
+
+  let all_cluster_functions_but_pond =
+    [create_forest; create_boulder; create_pigs] in
 
   let populate_chunk c =
-    let num_clusters = (Random.int 4) + 4 in
+    let num_clusters = (Random.int 5) + 5 in
     let num_ponds = (Random.int 3) + 1 in
     let create_cluster cluster_generation_function c' =
       let x' = (Random.int (get_chunk_size_x c - 7)) + 4 in
@@ -509,7 +597,7 @@ let generate_map i =
       equipped_item = None;
     };
     mode = Base;
-    default_block = Blocks.grass;
+    default_block = default_block;
   } in
   {populated_map with player = {populated_map.player with
     coords = find_clear_coords (get_chunk_in_map populated_map (map_width / 2) (map_height / 2))}}
