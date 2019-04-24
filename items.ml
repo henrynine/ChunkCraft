@@ -127,6 +127,14 @@ let pork_chop : item = {
   damage = 1;
 }
 
+let furnace : item = {
+  name = "furnace";
+  stackable = true;
+  recipe = Some ([(cobblestone, 8)], 1);
+  preferred_multiplier = 1;
+  damage = 1;
+}
+
 let all_items = [
   log;
   wood_plank;
@@ -143,6 +151,7 @@ let all_items = [
   cobblestone;
   door;
   pork_chop;
+  furnace
 ]
 
 let get_item_name i = i.name

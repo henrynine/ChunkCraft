@@ -146,7 +146,8 @@ let map : State.map = {
   ]];
   player = player;
   mode = State.Base;
-  default_block = Blocks.grass
+  default_block = Blocks.grass;
+  game_is_paused = ref (false)
 }
 
 let _ =
@@ -165,14 +166,13 @@ let _ =
   Display.print_current_chunk map;
   let rec main_loop map =
     try
-      let game_is_paused = ref (false) in
       (* Set what to do when the timer goes off*)
       ignore (Sys.signal
         Sys.sigalrm
-        (Sys.Signal_handle (fun _ -> if (!game_is_paused) then () else raise(Update (State.update_non_player_actions map)))));
+        (Sys.Signal_handle (fun _ -> if (State.is_paused map) then () else raise(Update (State.update_non_player_actions map)))));
       let c = input_char Pervasives.stdin in
       try
-        let map = Control.handle_command map c game_is_paused in
+        let map = Control.handle_command map c in
         Display.print_current_chunk map;
         main_loop map
       with Failure("Unknown command") ->

@@ -34,7 +34,8 @@ type map = {
   chunks : chunk list list;
   player : player;
   mode : mode;
-  default_block : Blocks.block
+  default_block : Blocks.block;
+  game_is_paused : bool ref
 }
 
 (* End Types *)
@@ -101,6 +102,12 @@ let set_to_base_mode map =
 
 let set_to_interacting_mode map =
   {map with mode = Interacting}
+
+let is_paused map = !(map.game_is_paused)
+
+let pause map = map.game_is_paused := true
+
+let unpause map = map.game_is_paused := false
 
 let count_of_item_in_inv i p =
   let i' = List.find_opt (fun (i', c) -> Items.get_item_name i = Items.get_item_name i') p.inv.sets in
@@ -437,6 +444,7 @@ let place map direction : map =
     end
 
 let interact map direction : map =
+  pause map;
   let ((chunk_x, chunk_y), (new_coords_x, new_coords_y)) =
     get_new_coords map direction in
   let current_chunk = get_current_chunk map in
@@ -446,14 +454,15 @@ let interact map direction : map =
   else
   let new_block, new_inv_sets = (Blocks.get_block_action block_to_interact_with)
       block_to_interact_with (map.player.inv.sets) (map.player.inv.max_size) in
-  {map with player =
+  let res = {map with player =
     {map.player with inv = {map.player.inv with sets = new_inv_sets}};
     mode = Base;
     chunks = replace_chunk_in_chunks map
       (replace_block_in_chunk map new_block chunk_x chunk_y
           new_coords_x new_coords_y)
-      chunk_x chunk_y}
-
+      chunk_x chunk_y} in
+  unpause map;
+  res
 
 let sets_needed_to_craft map recipe =
   (* Get the raw list of items in the recipe and how many more are
@@ -473,6 +482,7 @@ let player_has_enough_items map recipe =
 let update_non_player_actions map =
   (* Go through map – if hit an entity, update it *)
   (* Later update to at least include furnaces, maybe be more elegant *)
+
   let update_entity (entity, coords) chunk =
     let x, y = coords in
     let (new_entity, (new_x, new_y)) = ((Entities.get_update entity) (entity, coords)) in
@@ -609,12 +619,13 @@ let generate_map i default_block =
       chunk_coords = map_width / 2, map_height / 2;
       character = 'i';
       inv = {
-        sets = [];
+        sets = [(Items.furnace, 1)];
         max_size = inventory_max_size};
       equipped_item = None;
     };
     mode = Base;
     default_block = default_block;
+    game_is_paused = ref (false);
   } in
   {populated_map with player = {populated_map.player with
     coords = find_clear_coords (get_chunk_in_map populated_map (map_width / 2) (map_height / 2))}}

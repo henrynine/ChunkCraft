@@ -138,7 +138,7 @@ let chest : block = {
   styles = [];
   ground = false;
   name = "chest";
-  max_items = 0;
+  max_items = 15;
   sets = [];
   preferred_tools = [];
   action = (fun b i m -> (b, i))
@@ -146,12 +146,307 @@ let chest : block = {
 
 let get_block_color b = b.color
 let get_block_background_color b = b.background_color
-let get_block_character b = if List.length b.sets = 0 then b.character else '*'
+let get_block_character b = if List.length b.sets = 0 || (not b.ground) then b.character else '*'
 let get_block_name b = b.name
 let get_block_ground b = b.ground
 let get_block_styles b = b.styles
 let get_preferred_tools b = b.preferred_tools
 let get_block_action b = b.action
+
+let confirm_furnace b =
+  if b.name <> "furnace" then failwith "Not a furnace" else ()
+
+(* TODO abstract out and combine these families of functions *)
+
+let get_furnace_fuel b =
+  confirm_furnace b;
+  let potential_fuel = List.nth b.sets 0 in
+  if snd potential_fuel <= 0 then None else Some potential_fuel
+
+(* Add (item, count) to furnace fuel slot. If that items is already in the fuel
+   slot, add on, else, if it is empty, add it, else, something else is already
+   there, so fail. *)
+let add_furnace_fuel b (item, count) =
+  confirm_furnace b;
+  let current_fuel = get_furnace_fuel b in
+  match current_fuel with
+  | Some (i, c) ->
+      if Items.get_item_name i = Items.get_item_name item then
+      {b with sets = Items.add_to_set_list_multiple item count b.sets}
+      else failwith "Furnace already has a different fuel"
+  | None -> {b with sets = (item, count)::(List.tl b.sets)}
+
+(* Remove the fuel from b and put it in set_list if that doesn't make
+   the list of set_list exceed max. Then return the new furnace and the new
+   set list. *)
+let remove_furnace_fuel b set_list max_size =
+  confirm_furnace b;
+  let current_fuel = get_furnace_fuel b in
+  match current_fuel with
+  | Some (i, c) ->
+      let new_set_list = Items.add_to_set_list_multiple i c set_list in
+      if List.length new_set_list > max_size then failwith "Set list is full"
+      else
+        let new_furnace = {b with sets = (Items.stick, 0)::(List.tl b.sets)} in
+        (new_furnace, new_set_list)
+  | None -> (b, set_list)
+
+
+let get_furnace_input b =
+  confirm_furnace b;
+  let potential_input = List.nth b.sets 1 in
+  if snd potential_input <= 0 then None else Some potential_input
+
+let add_furnace_input b (item, count) =
+  confirm_furnace b;
+  let current_input = get_furnace_input b in
+  match current_input with
+  | Some (i, c) ->
+      if Items.get_item_name i = Items.get_item_name item then
+      {b with sets = Items.add_to_set_list_multiple item count b.sets}
+      else failwith "Furnace already has a different input"
+  | None ->
+    {b with sets = (List.hd b.sets)::(item, count)::(List.tl b.sets |> List.tl)}
+
+let remove_furnace_input b set_list max_size =
+  confirm_furnace b;
+  let current_input = get_furnace_input b in
+  match current_input with
+  | Some (i, c) ->
+      let new_set_list = Items.add_to_set_list_multiple i c set_list in
+      if List.length new_set_list > max_size then failwith "Set list is full"
+      else
+        let new_furnace =
+          {b with sets =
+            (List.hd b.sets)::(Items.stick, 0)::(List.tl b.sets |> List.tl)} in
+        (new_furnace, new_set_list)
+  | None -> (b, set_list)
+
+let get_furnace_output b =
+  confirm_furnace b;
+  let potential_output = List.nth b.sets 2 in
+  if snd potential_output <= 0 then None else Some potential_output
+
+let remove_furnace_output b set_list max_size =
+  confirm_furnace b;
+  let current_output = get_furnace_output b in
+  match current_output with
+    | Some (i, c) ->
+        let new_set_list = Items.add_to_set_list_multiple i c set_list in
+        if List.length new_set_list > max_size then failwith "Set list is full"
+        else
+          let new_furnace =
+            {b with sets =
+              (List.hd b.sets)::(List.tl b.sets |> List.hd)::[(Items.stick, 0)]}
+          in (new_furnace, new_set_list)
+    | None -> (b, set_list)
+
+(* Display functions – have to go here since they work closely with blocks *)
+
+let press_n_to_continue () =
+  print_endline "Press n to continue.";
+  while (let c = input_char Pervasives.stdin in c <> 'n') do 1+1 done
+
+let rec print_inv inventory_list =
+  if List.length inventory_list = 0 then
+    print_endline "Your inventory is empty."
+  else
+    List.iteri (fun i (item, count) -> print_endline
+      (((Char.escaped (Char.chr (97 + i))) ^ " - ") ^
+      (Items.get_item_name item) ^ ": " ^ (string_of_int count))) inventory_list
+
+let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item * int) list)) =
+  (* Save current terminal size *)
+  let original_width, original_height = ANSITerminal.size () in
+  (* Resize terminal *)
+  ANSITerminal.resize 80 24;
+  ANSITerminal.erase ANSITerminal.Screen;
+  ANSITerminal.set_cursor 1 1;
+  let res : (block * ((Items.item * int) list)) = (
+    (* Print current fuel, input, output *)
+    (* TODO potential syntax confusion here I don't think so but maybe *)
+    let current_fuel = get_furnace_fuel furnace in
+    (match current_fuel with
+    | None -> print_endline "Current fuel: none"
+    | Some (i, c) -> print_endline ("Current fuel: " ^ (Items.get_item_name i) ^ " x" ^ (string_of_int c)));
+    let current_input = get_furnace_input furnace in
+    (match current_input with
+    | None -> print_endline "Current input: none"
+    | Some (i, c) -> print_endline ("Current input: " ^ (Items.get_item_name i) ^ " x" ^ (string_of_int c)));
+    let current_output = get_furnace_output furnace in
+    (match current_output with
+    | None -> print_endline "Current output: none"
+    | Some (i, c) -> print_endline ("Current output: " ^ (Items.get_item_name i) ^ " x" ^ (string_of_int c)));
+    print_endline "Press f to add or remove fuel, i to add or remove input, and o to collect \
+                   \noutput. Press b to exit.";
+    let inp = ref (input_char Pervasives.stdin) in
+    (* NOTE: !c means the dereference of c;
+        needed for reading mutable variables *)
+    while ((!inp) <> 'f' && (!inp) <> 'i' && (!inp) <> 'o' && (!inp) <> 'b') do
+      print_endline ((!inp) |> Char.escaped);
+      ANSITerminal.move_bol();
+      ANSITerminal.erase ANSITerminal.Eol;
+      inp := (input_char Pervasives.stdin)
+    done;
+    if (!inp) = 'f' then
+      begin
+        ANSITerminal.erase ANSITerminal.Screen;
+        ANSITerminal.set_cursor 1 1;
+        (match current_fuel with
+        | None -> print_endline "Current fuel: none"
+        | Some (i, c) -> print_endline ("Current fuel: " ^ (Items.get_item_name i) ^ " x" ^ (string_of_int c)));
+        print_endline "Press a to add fuel and r to remove the current fuel.";
+        while ((!inp) <> 'a' && (!inp) <> 'r') do
+          print_endline ((!inp) |> Char.escaped);
+          ANSITerminal.move_bol();
+          ANSITerminal.erase ANSITerminal.Eol;
+          inp := (input_char Pervasives.stdin)
+        done;
+        if ((!inp) = 'a') then
+          try
+            print_inv set_list;
+            if List.length set_list = 0 then
+              begin
+                press_n_to_continue();
+                show_furnace_interface furnace set_list max_size
+              end
+            else
+              begin
+                print_endline "Press the letter next to the item you want to put in as fuel.";
+                inp := (input_char Pervasives.stdin);
+                let index_pressed = (Char.code (!inp)) - 97 in
+                if (index_pressed < List.length set_list) then
+                    let (item, count) = List.nth set_list index_pressed in
+                    let new_furnace = add_furnace_fuel furnace (item, count) in
+                    let new_set_list = Items.remove_from_set_list_multiple item count set_list in
+                    (new_furnace, new_set_list)
+                else
+                  begin
+                    ANSITerminal.erase ANSITerminal.Screen;
+                    ANSITerminal.set_cursor 1 1;
+                    print_endline "Please enter a valid letter.";
+                    press_n_to_continue ();
+                    show_furnace_interface furnace set_list max_size
+                  end
+              end
+          with Failure("Furnace already has a different fuel") ->
+            begin
+              print_endline "The furnace already has a different fuel in it.";
+              press_n_to_continue();
+              show_furnace_interface furnace set_list max_size
+            end
+        else
+          (* remove furnace fuel *)
+          begin
+            try
+              remove_furnace_fuel furnace set_list max_size
+            with Failure("Set list is full") ->
+              begin
+                ANSITerminal.erase ANSITerminal.Screen;
+                ANSITerminal.set_cursor 1 1;
+                print_endline "You have no room in your inventory.";
+                press_n_to_continue ();
+                show_furnace_interface furnace set_list max_size
+              end
+          end
+      end
+    else if (!inp) = 'i' then
+    begin
+      ANSITerminal.erase ANSITerminal.Screen;
+      ANSITerminal.set_cursor 1 1;
+      (match current_input with
+      | None -> print_endline "Current input: none"
+      | Some (i, c) -> print_endline ("Current input: " ^ (Items.get_item_name i) ^ " x" ^ (string_of_int c)));
+      print_endline "Press a to add input and r to remove the current input.";
+      while ((!inp) <> 'a' && (!inp) <> 'r') do
+        print_endline ((!inp) |> Char.escaped);
+        ANSITerminal.move_bol();
+        ANSITerminal.erase ANSITerminal.Eol;
+        inp := (input_char Pervasives.stdin)
+      done;
+      if (!inp) = 'a' then
+        begin
+        try
+          print_inv set_list;
+          if List.length set_list = 0 then
+            begin
+              press_n_to_continue();
+              show_furnace_interface furnace set_list max_size
+            end
+          else
+            begin
+              print_endline "Press the letter next to the item you want to put in as input.";
+              inp := (input_char Pervasives.stdin);
+              let index_pressed = (Char.code (!inp)) - 97 in
+              if (index_pressed < List.length set_list) then
+                  let (item, count) = List.nth set_list index_pressed in
+                  let new_furnace = add_furnace_input furnace (item, count) in
+                  let new_set_list = Items.remove_from_set_list_multiple item count set_list in
+                  (new_furnace, new_set_list)
+              else
+                begin
+                  ANSITerminal.erase ANSITerminal.Screen;
+                  ANSITerminal.set_cursor 1 1;
+                  print_endline "Please enter a valid letter.";
+                  press_n_to_continue ();
+                  show_furnace_interface furnace set_list max_size
+                end
+            end
+        with Failure("Furnace already has a different input") ->
+          begin
+            print_endline "The furnace already has a different input in it.";
+            press_n_to_continue();
+            show_furnace_interface furnace set_list max_size
+          end
+        end
+      else
+        (* remove furnace input *)
+        try
+          remove_furnace_input furnace set_list max_size
+        with Failure("Set list is full") ->
+          begin
+            ANSITerminal.erase ANSITerminal.Screen;
+            ANSITerminal.set_cursor 1 1;
+            print_endline "You have no room in your inventory.";
+            press_n_to_continue ();
+            show_furnace_interface furnace set_list max_size
+          end
+    end
+    else if (!inp) = 'o' then
+      try
+        remove_furnace_output furnace set_list max_size
+      with Failure("Set list is full") ->
+        begin
+          ANSITerminal.erase ANSITerminal.Screen;
+          ANSITerminal.set_cursor 1 1;
+          print_endline "You have no room in your inventory.";
+          press_n_to_continue ();
+          show_furnace_interface furnace set_list max_size
+        end
+    else
+      (* exit *)
+      (furnace, set_list)
+  ) in
+  ANSITerminal.resize original_width original_height;
+  ANSITerminal.erase ANSITerminal.Screen;
+  res
+
+
+(* End display functions) *)
+
+let furnace : block = {
+  character = 'F';
+  color = ANSITerminal.black;
+  background_color = Colors.on_gray;
+  styles = [];
+  ground = false;
+  name = "furnace";
+  max_items = 3;
+  sets = [(Items.stick, 0); (Items.stick, 0); (Items.stick, 0)];
+  preferred_tools = [];
+  action = show_furnace_interface
+}
+
 
 let add_item_to_block i b : block =
   if (List.length b.sets) >= b.max_items then failwith "Block is full"

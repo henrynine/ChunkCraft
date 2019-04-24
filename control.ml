@@ -2,7 +2,7 @@ open State
 open Display
 open ANSITerminal
 
-let handle_command map command game_is_paused =
+let handle_command map command =
   match command with
   | 'w' | 'a' | 's' | 'd' ->
     begin
@@ -13,18 +13,18 @@ let handle_command map command game_is_paused =
     | State.Interacting -> State.interact map command
     end
   | 'i' ->
-    game_is_paused := true;
+    State.pause map;
     let res = Display.show_inventory map in
-    game_is_paused := false;
+    State.unpause map;
     res;
   | 'm' ->
     State.set_to_mining_mode map
   | 'p' ->
     State.set_to_placing_mode map
   | 'c' ->
-    game_is_paused := true;
+    State.pause map;
     let res = Display.show_crafting_interface map in
-    game_is_paused := false;
+    State.unpause map;
     res;
   | 'e' ->
     State.set_to_interacting_mode map

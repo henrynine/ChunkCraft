@@ -36,7 +36,8 @@ type map = {
   chunks : chunk list list;
   player : player;
   mode : mode;
-  default_block : Blocks.block
+  default_block : Blocks.block;
+  game_is_paused : bool ref
 }
 
 (** The maximum inventory size. *)
@@ -194,3 +195,9 @@ val interact : map -> char -> map
 val generate_map : int -> Blocks.block -> map
 
 val remove_and_loot_dead_entities : map -> chunk -> map
+
+val is_paused : map -> bool
+
+val pause : map -> unit
+
+val unpause : map -> unit

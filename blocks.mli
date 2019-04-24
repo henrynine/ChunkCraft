@@ -32,6 +32,10 @@ val cobblestone : block
 val open_door : block
 (** A closed door block. *)
 val closed_door : block
+(** A chest block. *)
+val chest : block
+(** A furnace block. *)
+val furnace : block
 
 (** Get the color of [b]. *)
 val get_block_color : block -> ANSITerminal.style

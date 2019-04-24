@@ -37,6 +37,8 @@ val cobblestone : item
 val door : item
 (** The item for a pork chop. *)
 val pork_chop : item
+(** The item for a furnace. *)
+val furnace : item
 
 (** A list of all items. *)
 val all_items : item list
