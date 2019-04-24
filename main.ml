@@ -195,8 +195,8 @@ let _ =
   let timer : Unix.interval_timer = Unix.ITIMER_REAL in
   let initial_status : Unix.interval_timer_status =
     {
-      it_interval = 2.;
-      it_value = 2.;
+      it_interval = 0.5;
+      it_value = 0.5;
     } in
   let start = Unix.setitimer timer initial_status in
   main_loop map

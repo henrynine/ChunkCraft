@@ -595,12 +595,12 @@ let generate_map i default_block =
     let total_pigs = (Random.int 2) + 2 in
     let place_pig x' y' c' =
       if x' < 0 || x' >= get_chunk_size_x c'
-         || y' < 0 || y' >= get_chunk_size_y c' then c'
+         || y' < 0 || y' >= get_chunk_size_y c'
+        || not (Blocks.get_block_ground (get_block_in_chunk chunk x' y'))
+         then c'
       else
-       if not (Blocks.get_block_ground (get_block_in_chunk chunk x' y')) then
-         let e_chunk = replace_entity c' x' y' Entities.pig x' y' in
-         replace_block_in_chunk_no_map default_block x' y' e_chunk
-       else c'
+        let e_chunk = replace_entity c' x' y' Entities.pig x' y' in
+        replace_block_in_chunk_no_map default_block x' y' e_chunk
       in
     let place_random_pig c' n =
       let x_adjust = (Random.int 9) - 4 in
