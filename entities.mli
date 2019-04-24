@@ -12,7 +12,8 @@ type entity = {
   color : ANSITerminal.style;
   health : int;
   attack : attack option;
-  loot : unit -> (Items.item * int)
+  loot : unit -> (Items.item * int);
+  update : (entity * (int * int)) -> (entity * (int * int))
 }
 
 val pig : entity
@@ -24,3 +25,5 @@ val get_character : entity -> char
 val get_health : entity -> int
 
 val get_loot : entity -> (Items.item * int)
+
+val get_update: entity -> (entity * (int * int)) -> (entity * (int * int))

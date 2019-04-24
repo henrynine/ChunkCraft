@@ -138,11 +138,11 @@ let has_entity_at_coords chunk x y =
   ((List.filter (fun (_, (x',y')) -> x' = x && y' = y) chunk.entities)
    |> List.length) > 0
 
-let replace_entity chunk x y new_entity =
+let replace_entity chunk x y new_entity new_x new_y =
   if has_entity_at_coords chunk x y then
     {chunk with entities =
       List.map (fun (e, (x', y')) -> if x' = x && y' = y then
-        (new_entity, (x', y'))
+        (new_entity, (new_x, new_y))
       else (e, (x', y'))) chunk.entities}
   else
     {chunk with entities = (new_entity, (x, y))::chunk.entities}
@@ -339,7 +339,7 @@ let move_player m c : map =
        attack in the entity and go at the player *)
     let current_chunk = get_current_chunk m in
     let current_entity = entity_at current_chunk final_coords_x final_coords_y in
-    let new_chunk = replace_entity current_chunk final_coords_x final_coords_y {current_entity with health = current_entity.health - (get_equipped_item_damage m)} in
+    let new_chunk = replace_entity current_chunk final_coords_x final_coords_y {current_entity with health = current_entity.health - (get_equipped_item_damage m)} final_coords_x final_coords_y in
     (* map with final chunk replacing current chunk, player with any items added and later maybe health decreased *)
     remove_and_loot_dead_entities m new_chunk
     end
@@ -471,7 +471,24 @@ let player_has_enough_items map recipe =
 
 (*  TODO update entities *)
 let update_non_player_actions map =
-  map
+  (* Go through map – if hit an entity, update it *)
+  (* Later update to at least include furnaces, maybe be more elegant *)
+  let update_entity (entity, coords) chunk =
+    let x, y = coords in
+    let (new_entity, (new_x, new_y)) = ((Entities.get_update entity) (entity, coords)) in
+    (* TODO simplify update since max x y checking is no longer the responsibility of updating entity *)
+    (* if (new_x, new_y isn't ground or is the player's location then no go otherwise good) *)
+    if (new_x <= 0 || new_x >= get_chunk_size_x chunk || new_y <= 0 || new_y >= get_chunk_size_y chunk)
+       || ((new_x, new_y) = map.player.coords && chunk.coords = (get_current_chunk map).coords)
+       || (not (get_block_in_chunk chunk new_x new_y
+                |> Blocks.get_block_ground))
+       || has_entity_at_coords chunk new_x new_y then chunk
+    else replace_entity chunk x y new_entity new_x new_y in
+  let update_chunk chunk =
+    List.fold_left (fun a (e, (x, y)) -> update_entity (e, (x, y)) a) chunk chunk.entities
+    in
+  {map with chunks = List.map (fun r -> List.map (fun c -> update_chunk c) r) map.chunks}
+
 
 let generate_map i default_block =
   Random.init i;
@@ -549,7 +566,7 @@ let generate_map i default_block =
       if x' < 0 || x' > get_chunk_size_x chunk
          || y' < 0 || y' > get_chunk_size_y chunk then c'
       else
-       let e_chunk = replace_entity c' x' y' Entities.pig in
+       let e_chunk = replace_entity c' x' y' Entities.pig x' y' in
        replace_block_in_chunk_no_map default_block x' y' e_chunk
       in
     let place_random_pig c' n =
