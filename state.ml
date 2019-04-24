@@ -430,6 +430,7 @@ let place map direction : map =
           | None -> true
           | Some _ -> false
           end)
+      || has_entity_at_coords current_chunk new_coords_x new_coords_y
       ) then move_player map direction
   else
   (* TODO remove this redundancy *)
@@ -593,11 +594,13 @@ let generate_map i default_block =
   let create_pigs x y chunk =
     let total_pigs = (Random.int 2) + 2 in
     let place_pig x' y' c' =
-      if x' < 0 || x' > get_chunk_size_x chunk
-         || y' < 0 || y' > get_chunk_size_y chunk then c'
+      if x' < 0 || x' >= get_chunk_size_x c'
+         || y' < 0 || y' >= get_chunk_size_y c' then c'
       else
-       let e_chunk = replace_entity c' x' y' Entities.pig x' y' in
-       replace_block_in_chunk_no_map default_block x' y' e_chunk
+       if not (Blocks.get_block_ground (get_block_in_chunk chunk x' y')) then
+         let e_chunk = replace_entity c' x' y' Entities.pig x' y' in
+         replace_block_in_chunk_no_map default_block x' y' e_chunk
+       else c'
       in
     let place_random_pig c' n =
       let x_adjust = (Random.int 9) - 4 in
