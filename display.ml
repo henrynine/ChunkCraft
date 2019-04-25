@@ -252,7 +252,6 @@ let rec show_crafting_interface map =
         | None -> false
         | Some (recipe, _) -> State.player_has_enough_items map recipe)
       Items.all_items in
-  (* TODO print a different message if it's empty – also apply to general inventory, dropping, equipping, anything else? *)
   if List.length craftable_items = 0 then
     print_endline "You can't craft anything with your current inventory."
   else

@@ -250,7 +250,6 @@ let get_equipped_item_damage m =
 
 (* return the map with player changed and chunk changed*)
 let remove_and_loot_dead_entities map chunk =
-  (* TODO this could fail if it overfills the player's inventory – this might affect other functions too *)
   let new_player, new_chunk =
     (* Filter chunk for entities with health < 0 and fold to get a list of coords of dead entities and a list of player loot *)
     List.filter (fun (e, (x, y)) -> Entities.get_health e <= 0) chunk.entities
@@ -310,7 +309,6 @@ let move_player m c : map =
   let new_chunk = List.nth (List.nth m.chunks new_chunk_y) new_chunk_x in
   let next_block = get_block_in_chunk new_chunk final_coords_x final_coords_y
     in
-  (* TODO can currently attack entities across chunks – bad idea *)
   if (Blocks.get_block_ground next_block && (not (has_entity_at_coords new_chunk final_coords_x final_coords_y)))then
     if Blocks.count_sets_in_block next_block > 0 then
       (* Item is ground and contains an item/items to be picked up *)
@@ -342,8 +340,6 @@ let move_player m c : map =
     while (input_char Pervasives.stdin <> 'n') do 1+1 done; *)
     (* END DEBUG *)
     (* Do combat between entity and player *)
-    (* TODO for now we only have pigs, but later, this should check for an
-       attack in the entity and go at the player *)
     let current_chunk = get_current_chunk m in
     let current_entity = entity_at current_chunk final_coords_x final_coords_y in
     let new_chunk = replace_entity current_chunk final_coords_x final_coords_y {current_entity with health = current_entity.health - (get_equipped_item_damage m)} final_coords_x final_coords_y in
@@ -382,7 +378,7 @@ let mine map direction : map =
           | Some tool -> List.mem tool preferred_tools
       end
     in
-    if (get_block_ground block_to_mine || (match Converter.block_to_item block_to_mine with | None -> true | Some _ -> false))
+    if (get_block_ground block_to_mine || (match Converter.block_to_item block_to_mine with | None -> true | Some _ -> false) || inventory_is_full_map map)
       then move_player map direction
       else
         begin
@@ -433,10 +429,6 @@ let place map direction : map =
       || has_entity_at_coords current_chunk new_coords_x new_coords_y
       ) then move_player map direction
   else
-  (* TODO remove this redundancy *)
-  if (is_different_chunk map chunk_x chunk_y)
-    then map
-    else
     begin
       let placed_block =
         match (Converter.item_to_block (match map.player.equipped_item with
@@ -485,7 +477,6 @@ let sets_needed_to_craft map recipe =
 let player_has_enough_items map recipe =
   List.length (sets_needed_to_craft map recipe) = 0
 
-(*  TODO update entities *)
 let update_non_player_actions map =
   (* Go through map – if hit an entity, update it *)
   (* Later update to at least include furnaces, maybe be more elegant *)
@@ -493,8 +484,6 @@ let update_non_player_actions map =
   let update_entity (entity, coords) chunk =
     let x, y = coords in
     let (new_entity, (new_x, new_y)) = ((Entities.get_update entity) (entity, coords)) in
-    (* TODO simplify update since max x y checking is no longer the responsibility of updating entity *)
-    (* if (new_x, new_y isn't ground or is the player's location then no go otherwise good) *)
     if (new_x <= 0 || new_x >= get_chunk_size_x chunk || new_y <= 0 || new_y >= get_chunk_size_y chunk)
        || ((new_x, new_y) = map.player.coords && chunk.coords = (get_current_chunk map).coords)
        || (not (get_block_in_chunk chunk new_x new_y

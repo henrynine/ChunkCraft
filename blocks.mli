@@ -77,4 +77,5 @@ val sets_in_block : block -> (Items.item * int) list
   removed and how many copies were removed. *)
 val take_first_item : block -> (block * Items.item * int)
 
+(** Get the list of preferred tools for mining [b]. *)
 val get_preferred_tools : block -> Items.item list

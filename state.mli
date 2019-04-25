@@ -188,16 +188,26 @@ val player_has_enough_items : map -> (Items.item * int) list -> bool
     [map] needs to craft [recipe]. *)
 val sets_needed_to_craft : map -> (Items.item * int) list -> (Items.item * int) list
 
+(** Update all entities and blocks in [m]. *)
 val update_non_player_actions : map -> map
 
+(** Carry out an interaction with the block in [direction] from the player's
+    current location in [map]. *)
 val interact : map -> char -> map
 
+(** Generate a random map using [i] as the seed and [default_block] as the
+    default block. *)
 val generate_map : int -> Blocks.block -> map
 
+(** Return [map] with all dead entities in [chunk] removed and their loot given
+    to the player. *)
 val remove_and_loot_dead_entities : map -> chunk -> map
 
+(** Check if [map] is paused. *)
 val is_paused : map -> bool
 
+(** Pause [map]. *)
 val pause : map -> unit
 
+(** Unpause [map]. *)
 val unpause : map -> unit

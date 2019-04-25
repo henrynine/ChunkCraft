@@ -163,7 +163,7 @@ let iron_pick : item = {
   name = "iron pick";
   stackable = false;
   recipe = Some ([(iron, 3); (stick, 2)], 1);
-  preferred_multiplier = 3;
+  preferred_multiplier = 4;
   damage = 3;
 }
 
@@ -171,7 +171,7 @@ let iron_shovel : item = {
   name = "wood shovel";
   stackable = false;
   recipe = Some ([(iron, 1); (stick, 2)], 1);
-  preferred_multiplier = 3;
+  preferred_multiplier = 4;
   damage = 3;
 }
 
@@ -179,7 +179,7 @@ let iron_sword : item = {
   name = "iron sword";
   stackable = false;
   recipe = Some ([(iron, 2); (stick, 1)], 1);
-  preferred_multiplier = 3;
+  preferred_multiplier = 4;
   damage = 5;
 }
 
@@ -187,7 +187,7 @@ let iron_axe : item = {
   name = "iron axe";
   stackable = false;
   recipe = Some ([(iron, 3); (stick, 2)], 1);
-  preferred_multiplier = 3;
+  preferred_multiplier = 4;
   damage = 5;
 }
 
