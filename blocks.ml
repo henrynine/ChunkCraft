@@ -182,8 +182,6 @@ let get_block_update b = b.update
 let confirm_furnace b =
   if b.name <> "furnace" then failwith "Not a furnace" else ()
 
-(* TODO abstract out and combine these families of functions *)
-
 let get_furnace_fuel b =
   confirm_furnace b;
   let potential_fuel = List.nth b.sets 0 in
@@ -328,7 +326,6 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
   ANSITerminal.set_cursor 1 1;
   let res : (block * ((Items.item * int) list)) = (
     (* Print current fuel, input, output *)
-    (* TODO potential syntax confusion here I don't think so but maybe *)
     let current_fuel = get_furnace_fuel furnace in
     (match current_fuel with
     | None -> print_endline "Current fuel: none"
