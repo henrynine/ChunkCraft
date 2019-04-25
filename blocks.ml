@@ -383,7 +383,7 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
                 ANSITerminal.move_bol ();
                 ANSITerminal.erase ANSITerminal.Eol;
                 let index_pressed = (Char.code (!inp)) - 97 in
-                if (index_pressed < List.length set_list) then
+                if (index_pressed < List.length set_list && index_pressed >= 97) then
                     let (item, count) = List.nth set_list index_pressed in
                     if (Items.get_item_name item) <> "log" then
                       begin
@@ -460,7 +460,7 @@ let rec show_furnace_interface furnace set_list max_size : (block * ((Items.item
               print_endline "Press the letter next to the item you want to put in as input.";
               inp := (input_char Pervasives.stdin);
               let index_pressed = (Char.code (!inp)) - 97 in
-              if (index_pressed < List.length set_list) then
+              if (index_pressed < List.length set_list && index_pressed >= 97) then
                   let (item, count) = List.nth set_list index_pressed in
                   if (Items.get_item_name item) <> "pork chop" && (Items.get_item_name item) <> "iron ore" then
                     begin
