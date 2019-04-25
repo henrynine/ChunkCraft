@@ -230,7 +230,8 @@ let rec show_crafting_interface map =
   let res = (ANSITerminal.erase ANSITerminal.Screen;
   ANSITerminal.set_cursor 1 1;
   print_inv false ((State.get_player_inventory map) |> State.get_inventory_sets);
-  print_endline "Enter what you want to craft. Enter all to see all the items you can craft with your current items b to exit: ";
+  print_endline "Enter what you want to craft. Enter all to see all the items you can craft\n\
+                 with your current items or enter b to exit: ";
   (* Turn wait for endline to get input back on *)
   Unix.tcsetattr Unix.stdin Unix.TCSAFLUSH {(Unix.tcgetattr Unix.stdin) with
                                                             c_icanon = true};
