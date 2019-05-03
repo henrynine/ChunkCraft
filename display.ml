@@ -157,7 +157,7 @@ let rec show_inventory map =
         print_endline "Enter the letter next to the items you want to equip.";
         c := (input_char Pervasives.stdin);
         let index_pressed = (Char.code (!c)) - 97 in
-        if (index_pressed < List.length inventory_list && index_pressed >= 97) then
+        if (index_pressed < List.length inventory_list && index_pressed >= 0) then
           begin
             let (item, count) = List.nth inventory_list index_pressed in
             {map with player = State.equip_item item count map}
@@ -193,7 +193,7 @@ let rec show_inventory map =
         print_endline "Enter the letter next to the items you want to drop.";
         c := (input_char Pervasives.stdin);
         let index_pressed = (Char.code (!c)) - 97 in
-        if (index_pressed < List.length inventory_list && index_pressed >= 97)
+        if (index_pressed < List.length inventory_list && index_pressed >= 0)
           then
             begin
               let (item, count) = List.nth inventory_list index_pressed in
