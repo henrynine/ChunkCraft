@@ -1,0 +1,19 @@
+* get inventory manipulation and ui code out of blocks
+* don't ever do manual inventory manipulation, also fix to respect cap
+* make list of playtests and unit tests to run before and after
+* add documentation to all record definitions and functions in *.mli
+* consider set list question again but even though this is clunk it
+  probably does make the most sense
+* should add to set list take a max? should set lists themselves have 
+  a max?
+* probably remove commented out code
+
+* candidate files:
+  * blocks.ml
+  * display.ml
+
+* next features to add:
+  * health
+  * eating
+  * hostile entities
+  * underground section for mining?
