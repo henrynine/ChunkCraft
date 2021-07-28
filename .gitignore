@@ -4,3 +4,4 @@ bisect*
 report/*
 *.byte
 .DS_Store
+final/*
