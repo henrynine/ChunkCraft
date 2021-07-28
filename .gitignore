@@ -5,3 +5,4 @@ report/*
 *.byte
 .DS_Store
 final/*
+authors*
