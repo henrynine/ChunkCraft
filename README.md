@@ -26,11 +26,29 @@ ChunkCraft is a Minecraft-inspired 2D game that runs in a terminal emulator. Pla
 * e to enter interactive mode (for doors and furnaces)
 * p to enter placement mode (whatever block you have equipped will be placed)
 
+## Installation
+
+1. Install OCaml and OPAM: https://ocaml.org/docs/install.html
+2. Install the required packages using OPAM: 
+
+`opam install utop ansiterminal ocamlbuild ounit qcheck yojson bisect`
+
+3. Run `make play` from the ChunkCraft directory. The compiler will raise some alerts for features that were deprecated after ChunkCraft was written.
+
 **Colors**
 
 For optimal graphics, make the following color display changes in your terminal emulator's settings:
 
-* yellow -> brown
-* cyan -> gray
-* magenta -> pink
-* red -> burnt orange
+* macOS:
+  * red -> burnt orange
+  * yellow -> brown
+  * magenta -> pink
+  * cyan -> gray
+
+* Ubuntu:
+  * palette entry 1 -> burnt orange
+  * palette entry 3 -> brown
+  * palette entry 5 -> pink
+  * palette entry 6 -> gray
+  
+  
