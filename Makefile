@@ -1,5 +1,6 @@
 # Acknowledgement: this Makefile is heavily based on the provided Makefile for
-#                  A2
+#                  A2 from CS 3110 at Cornell: 
+#                  https://www.cs.cornell.edu/courses/cs3110/2019sp/
 MODULES=blocks colors control converter display entities items main state
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES:=.ml)
