@@ -2,6 +2,8 @@
 
 ChunkCraft is a Minecraft-inspired 2D game that runs in a terminal emulator. Players can explore, build, craft, and hunt.
 
+Created by [Henry Middleton](github.com/henrynine), [Julian Londono](github.com/julian-londono), and [CJ Schmidt](github.com/conzwrath).
+
 **Exploring near spawn**
 
 <img src="https://github.com/henrynine/ChunkCraft/blob/master/gifs/wander.gif" width="300"/>
